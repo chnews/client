@@ -1,0 +1,76 @@
+
+/* // Style App.js wrapper */
+.App {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Tab Container */
+.Tabs {
+  width: 100%;
+  height: auto;
+  min-height: 400px;
+  padding-left: 0;
+  padding-right: 0;
+  background: #ffffff;
+  color: #212729;
+  border: 1px solid black;
+  @media (max-width: 769px) {
+    padding: 2rem 0;
+  }
+
+}
+
+/* Tab Navigation */
+ul.nav {
+  width: 100%;
+  margin: 0 auto 2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #304747;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+}
+ul.nav li {
+  width: 100%;
+  /* margin-left: -32px; */
+  padding: 6px;
+  list-style: none;
+  text-align: center;
+  font-weight: 600;
+  color: #000000;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+ul.nav li:nth-child(2) {
+  border-radius: 0;
+}
+ul.nav li:hover {
+  background: rgba(185, 189, 188, 0.15);
+}
+ul.nav li.active {
+  background: #2980B9;
+  color: #ffffff;
+}
+
+ul.nav li.inactive {
+    background: #feffff;
+    color: #000000;
+  }
+
+/* First and Second Tab Styles */
+.FirstTab p,
+.SecondTab p {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: start;
+  margin: 2%;
+}

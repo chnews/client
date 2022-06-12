@@ -9,12 +9,8 @@ import renderHTML from 'react-render-html';
 import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
 import Postsidebar from '../../components/Postsidebar';
-import BelowPostAds from '../../components/frontend/BelowPostAds';
 import axios from 'axios';
-import HomeSmallFirstAds from '../../components/frontend/HomeSmallFirstAds';
 import SingleSmallAds from '../../components/frontend/BelowPostAds';
-import Allnav from '../../components/Allnav';
-import Footer from '../../components/Footer';
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -147,7 +143,7 @@ const SingleBlog = ({ blog, query }) => {
                                             </div> */}
                                         </div>
 
-                                        <div className='col-lg-4 text-start'>
+                                        <div className='col-lg-4'>
                                        <Postsidebar/>
                                         </div>
                                     </div>

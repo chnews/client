@@ -14,6 +14,8 @@ import Layout from '../components/Layout';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import '../styles/globals.css'
+import React from "react";
+import Popp from '../components/popp'
 
 
 class MyApp extends App {
@@ -23,6 +25,7 @@ class MyApp extends App {
   
       return (
           <>
+            <Popp/>
             <Allnav/>
             <Layout2>
                 <Component {...pageProps}></Component>
