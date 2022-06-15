@@ -25,7 +25,6 @@ const HomePage = () => {
 
     
   const [america, setAmerica] = useState([]);
-  const [last, setLastNews] = useState([]);
   const [muktomot, setMuktomot] = useState([]);
   const [sports, setSports] = useState([]);
   const [politics, setPolitics] = useState([]);
@@ -45,96 +44,187 @@ const HomePage = () => {
   const [gallery, setGallery] = useState([]);
   const [video, setVideo] = useState([]);
 
-   
  
   //America data
   useEffect(() => {
-    fetch(`${API}/onlycat?cat=6220fc0a36c00b3d8bf08af5`).then((res)=>{return res.json()}).then((data)=>{setAmerica(data)})}, []);
+    fetch(`${API}/test?cat=6220fc0a36c00b3d8bf08af5&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setAmerica(data)})}, []);
   
   // Politics data
   useEffect(() => {
-      fetch(`${API}/onlycat?cat=6220fbda36c00b3d8bf08ae9`).then((res)=>{return res.json()}).then((data)=>{setPolitics(data)})}, []); 
+      fetch(`${API}/test?cat=6220fbda36c00b3d8bf08ae9&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setPolitics(data)})}, []); 
   
-  //sports news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6220fc3f36c00b3d8bf08b11`).then((res)=>{return res.json()}).then((data)=>{setSports(data)})}, []);
+  // //sports news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6220fc3f36c00b3d8bf08b11&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setSports(data)})}, []);
       
-  //bangladesh news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6220fc2036c00b3d8bf08b05`).then((res)=>{return res.json()}).then((data)=>{setBangladesh(data)})}, []);
+  // //bangladesh news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6220fc2036c00b3d8bf08b05&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setBangladesh(data)})}, []);
   
-  //economy news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6220fc3936c00b3d8bf08b0d`).then((res)=>{return res.json()}).then((data)=>{setEconomy(data)})}, []);
+  // //economy news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6220fc3936c00b3d8bf08b0d&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setEconomy(data)})}, []);
       
 
-  //world news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6220fc2836c00b3d8bf08b09`).then((res)=>{return res.json()}).then((data)=>{setWorldNews(data)})}, []);
+  // //world news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6220fc2836c00b3d8bf08b09&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setWorldNews(data)})}, []);
       
 
-  //muktomot news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232b65a66acd2c41a454ae0`).then((res)=>{return res.json()}).then((data)=>{setMuktomot(data)})}, []);
+  // //muktomot news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232b65a66acd2c41a454ae0&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setMuktomot(data)})}, []);
       
 
-  //special news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232c15e66acd2c41a454beb`).then((res)=>{return res.json()}).then((data)=>{setSpecial(data)})}, []);
+  // //special news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232c15e66acd2c41a454beb&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setSpecial(data)})}, []);
       
 
-  //technology news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f00466acd2c41a455087`).then((res)=>{return res.json()}).then((data)=>{setTechnology(data)})}, []);
+  // //technology news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f00466acd2c41a455087&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setTechnology(data)})}, []);
       
 
-  //education news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232efc666acd2c41a455077`).then((res)=>{return res.json()}).then((data)=>{setEducation(data)})}, []);
+  // //education news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232efc666acd2c41a455077&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setEducation(data)})}, []);
       
 
-  //health news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232efd066acd2c41a45507b`).then((res)=>{return res.json()}).then((data)=>{setHealth(data)})}, []);
+  // //health news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232efd066acd2c41a45507b&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setHealth(data)})}, []);
       
 
-  //lifestyle news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232efd866acd2c41a45507f`).then((res)=>{return res.json()}).then((data)=>{setLifestyley(data)})}, []);
+  // //lifestyle news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232efd866acd2c41a45507f&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setLifestyley(data)})}, []);
       
 
-  //art and literature news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232eff766acd2c41a455083`).then((res)=>{return res.json()}).then((data)=>{setArtlit(data)})}, []);
+  // //art and literature news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232eff766acd2c41a455083&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setArtlit(data)})}, []);
       
 
-  //religion news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`).then((res)=>{return res.json()}).then((data)=>{setReligion(data)})}, []); 
+  // //religion news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f01266acd2c41a45508b&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setReligion(data)})}, []); 
       
 
-  //travel news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f01c66acd2c41a45508f`).then((res)=>{return res.json()}).then((data)=>{setTravel(data)})}, []); 
+  // //travel news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f01c66acd2c41a45508f&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setTravel(data)})}, []); 
     
 
-  //recipe news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`).then((res)=>{return res.json()}).then((data)=>{setReciepe(data)})}, []);
+  // //recipe news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f01266acd2c41a45508b&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setReciepe(data)})}, []);
     
 
-  //entertainment news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f05866acd2c41a45509f`).then((res)=>{return res.json()}).then((data)=>{setEntertainment(data)})}, []); 
+  // //entertainment news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f05866acd2c41a45509f&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setEntertainment(data)})}, []); 
     
-  //gallery news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f04b66acd2c41a45509b`).then((res)=>{return res.json()}).then((data)=>{setGallery(data)})}, []); 
+  // //gallery news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f04b66acd2c41a45509b&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setGallery(data)})}, []); 
     
 
-  //videos news
-  useEffect(() => {
-    fetch(`${API}/onlycat?cat=6232f03e66acd2c41a455097`).then((res)=>{return res.json()}).then((data)=>{setVideo(data)})}, []); 
+  // //videos news
+  // useEffect(() => {
+  //   fetch(`${API}/test?cat=6232f03e66acd2c41a455097&name=createdAt&sort=-1&limit=8&skip=0`).then((res)=>{return res.json()}).then((data)=>{setVideo(data)})}, []); 
+    
+   
+  //  **********************************************************
+ 
+  // //America data
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6220fc0a36c00b3d8bf08af5`).then((res)=>{return res.json()}).then((data)=>{setAmerica(data)})}, []);
+  
+  // // Politics data
+  // useEffect(() => {
+  //     fetch(`${API}/onlycat?cat=6220fbda36c00b3d8bf08ae9`).then((res)=>{return res.json()}).then((data)=>{setPolitics(data)})}, []); 
+  
+  // //sports news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6220fc3f36c00b3d8bf08b11`).then((res)=>{return res.json()}).then((data)=>{setSports(data)})}, []);
+      
+  // //bangladesh news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6220fc2036c00b3d8bf08b05`).then((res)=>{return res.json()}).then((data)=>{setBangladesh(data)})}, []);
+  
+  // //economy news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6220fc3936c00b3d8bf08b0d`).then((res)=>{return res.json()}).then((data)=>{setEconomy(data)})}, []);
+      
+
+  // //world news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6220fc2836c00b3d8bf08b09`).then((res)=>{return res.json()}).then((data)=>{setWorldNews(data)})}, []);
+      
+
+  // //muktomot news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232b65a66acd2c41a454ae0`).then((res)=>{return res.json()}).then((data)=>{setMuktomot(data)})}, []);
+      
+
+  // //special news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232c15e66acd2c41a454beb`).then((res)=>{return res.json()}).then((data)=>{setSpecial(data)})}, []);
+      
+
+  // //technology news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f00466acd2c41a455087`).then((res)=>{return res.json()}).then((data)=>{setTechnology(data)})}, []);
+      
+
+  // //education news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232efc666acd2c41a455077`).then((res)=>{return res.json()}).then((data)=>{setEducation(data)})}, []);
+      
+
+  // //health news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232efd066acd2c41a45507b`).then((res)=>{return res.json()}).then((data)=>{setHealth(data)})}, []);
+      
+
+  // //lifestyle news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232efd866acd2c41a45507f`).then((res)=>{return res.json()}).then((data)=>{setLifestyley(data)})}, []);
+      
+
+  // //art and literature news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232eff766acd2c41a455083`).then((res)=>{return res.json()}).then((data)=>{setArtlit(data)})}, []);
+      
+
+  // //religion news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`).then((res)=>{return res.json()}).then((data)=>{setReligion(data)})}, []); 
+      
+
+  // //travel news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f01c66acd2c41a45508f`).then((res)=>{return res.json()}).then((data)=>{setTravel(data)})}, []); 
+    
+
+  // //recipe news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`).then((res)=>{return res.json()}).then((data)=>{setReciepe(data)})}, []);
+    
+
+  // //entertainment news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f05866acd2c41a45509f`).then((res)=>{return res.json()}).then((data)=>{setEntertainment(data)})}, []); 
+    
+  // //gallery news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f04b66acd2c41a45509b`).then((res)=>{return res.json()}).then((data)=>{setGallery(data)})}, []); 
+    
+
+  // //videos news
+  // useEffect(() => {
+  //   fetch(`${API}/onlycat?cat=6232f03e66acd2c41a455097`).then((res)=>{return res.json()}).then((data)=>{setVideo(data)})}, []); 
     
    
       
@@ -903,157 +993,7 @@ const HomePage = () => {
 {/************************************************* online vote system news section start here **********************************/}
   
 
-{/************************************************* photo gallery section start here **********************************/}
-  
-          
-<div className='row'>
 
-<div className='col-lg-8'>
-
-  
-
-<div className='row'>
-<div className='col-12'>
-<div className='row mt-4'>
-      <div className='col-md-12'>
-        <p className={styles.america}>ছবিঘর </p>
-        <div className={styles.hr}></div>
-      </div>
-    </div>
-  <div id="carouselExampleDark" className="carousel slide" data-bs-ride="carousel">
-<div className="carousel-indicators">
-  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-</div>
-<div className="carousel-inner">
-  <div className="carousel-item active" data-bs-interval="false">
-  <img 
-      src={`${API}/blog/photo/${gallery[0]?.slug}`} 
-      className="d-block w-100 p-2" 
-      alt="..."
-      style={{
-        height: '75vh',
-      }}
-    />
-    <div className="carousel-caption d-none d-md-block">
-    <Link href={`/blogs/${gallery[0]?.slug}`}>
-      <a>
-      <h5>{gallery[0]?.title}</h5>
-      </a>
-      </Link>
-      {/* <p>Some representative placeholder content for the first slide.</p> */}
-    </div>
-  </div>
-  <div className="carousel-item" data-bs-interval="false">
-    <img 
-      src={`${API}/blog/photo/${gallery[1]?.slug}`}  
-      className="d-block w-100 p-2" 
-      alt="..."
-      style={{
-        height: '75vh',
-      }}
-    />
-    <div className="carousel-caption d-none d-md-block">
-    <Link href={`/blogs/${gallery[1]?.slug}`}>
-      <a>
-      <h5>{gallery[1]?.title}</h5>
-      </a>
-      </Link>
-      {/* <p>Some representative placeholder content for the second slide.</p> */}
-    </div>
-  </div>
-  <div className="carousel-item " data-bs-interval="false">
-  <img 
-      src={`${API}/blog/photo/${gallery[2]?.slug}`} 
-      className="d-block w-100 p-2" 
-      alt="..."
-      style={{
-        height: '75vh',
-      }}
-    />
-    
-    <div className="carousel-caption d-none d-md-block">
-    <Link href={`/blogs/${gallery[2]?.slug}`}>
-      <a>
-      <h5>{gallery[2]?.title}</h5>
-      </a>
-      </Link>
-      {/* <p>Some representative placeholder content for the third slide.</p> */}
-    </div>
-  </div>
-</div>
-<button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span className="visually-hidden">Previous</span>
-</button>
-<button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-  <span className="carousel-control-next-icon" aria-hidden="true"></span>
-  <span className="visually-hidden">Next</span>
-</button>
-</div>
-</div>
-<div className='col-12' style={{marginLeft: '3px'}}>
-
-  {gallery && gallery?.slice(3, 10).map((data) =>
-
-<Link href={`/blogs/${data?.slug}`}>
-       <a>
-        <Image 
-          src={`${API}/blog/photo/${data?.slug}`} 
-          className='p-1'
-          width = '124'
-          height="80"
-        />
-       </a>
-    </Link>
-  )}
-
-</div>
-</div>
-</div>
-
-
-{/************************************************* videos news section start here **********************************/}
-
-
-                  <div className='col-lg-4'>
-                  <div className='row mt-4'>
-                      <div className='col-md-12'>
-                      
-                        <p className={styles.america}>ভিডিও নিউজ </p>
-                        <div className={styles.hr}></div>
-                      </div>
-                    </div>
-                  <div className={styles.kheladula}>
-
-                    {video && video?.slice(0, 5).map((data) =>
-                    <>
-                      <div className='col-12 row'>
-                          <div className='col-4'>
-                            {/* <img src='img3.jpg' /> */}
-                            <Image src={`${API}/blog/photo/${data?.slug}`} height='500' width='1000' className='border'/>
-                          </div>
-                          <div className='col-8 p-2'>
-                          <Link href={`/blogs/${data?.slug}`}>
-                            <a>
-                            <p className='px-2'>{data?.title}</p>
-                            </a>
-                          </Link>
-                              </div>
-                      </div>
-                      <hr/>
-                    </>
-                    )}
-                      
-                   
-                     
-                   
-                        
-                    </div>
-                  </div>
-
-                  </div>
                   
             
         </div>
