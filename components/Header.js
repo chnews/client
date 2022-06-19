@@ -1,13 +1,14 @@
 import React from 'react'
-import { APP_NAME } from '../config';
+import { useState } from 'react';
+import { APP_NAME, API } from '../config';
 import { Navbar, NavbarBrand, NavbarToggler, Nav, NavLink, NavItem, Collapse, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap'; 
 import Link from 'next/link';
 import Router from 'next/router';
 import {signout, isAuth} from '../actions/auth'
-
-
-
-
+import Sidebar from './Sidebar';
+import { ProSidebar, SidebarHeader, SidebarFooter, SidebarContent, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import styles from 'react-pro-sidebar/dist/css/styles.css';
+import { Dropdown, NavDropdown } from 'react-bootstrap';
 
 
 const Header = () => {
@@ -20,101 +21,9 @@ const Header = () => {
 
   return (
     <>
-    {/* <div>
-  <Navbar
-    color="light"
-    expand="md"
-    light
-  >
-    <Link href="/">
-        <NavbarBrand style={{cursor:'pointer'}}>
-            <a>{APP_NAME}</a>
-        </NavbarBrand>
-    </Link>
-    <NavbarToggler />
-    <Collapse navbar>
-      <Nav
-        className="me-auto"
-        navbar
-      >
-        
-        <UncontrolledDropdown
-          inNavbar
-          nav
-        >
-          <DropdownToggle
-            caret
-            nav
-          >
-            Options
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              Option 1
-            </DropdownItem>
-            <DropdownItem>
-              Option 2
-            </DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>
-              Reset
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </Nav>
-      {!isAuth() && (
-      <Link href="/signin">
-          <NavLink style={{cursor:'pointer'}}>
-               Sign in
-            </NavLink>
-      </Link>
-      )}
-      {!isAuth() && (
-      <Link href="/signup">
-          <NavLink style={{cursor:'pointer'}}>
-               Sign up
-            </NavLink>
-      </Link>
-      )}
-        {isAuth() && (
-        <Link href="/signin">
-            <NavLink style={{cursor:'pointer'}} onClick={() => signout(() => Router.push('/signin'))}>
-                 Sign out
-            </NavLink>
-        </Link>
-        )}
-
-        {isAuth() && isAuth().role === 0 && (
-          <Link href="/user">
-            <NavLink style={{cursor:'pointer'}}>
-                 {`${isAuth().name}'s Dashboard`}
-            </NavLink>
-          </Link>
-        )}
-
-        {isAuth() && isAuth().role === 1 && (
-          <Link href="/admin">
-            <NavLink style={{cursor:'pointer'}}>
-                 {`${isAuth().name}'s Dashboard`}
-            </NavLink>
-          </Link>
-        )}
-      
-    </Collapse>
-  </Navbar>
-</div> */}
 
 
-
-
-
-
-
-{/* ********************************************************************* */}
-
-
- 
-    {/*NAVBAR*/}
+ {/*NAVBAR*/}
     {/*===================================================*/}
     <div className ='mb-5' >
     <header id="navbar" style={{position: "fixed"}}>
@@ -137,138 +46,83 @@ const Header = () => {
               <a className="navbar-brand">
                 <div className="brand-title">
                   <span className="brand-text text-white">Chlaman News</span>
+                 
                 </div>
               </a>
             </Link>
           )}
+
+
         </div>
-        {/*================================*/}
-        {/*End brand logo & name*/}
-        {/*Navbar Dropdown*/}
-        {/*================================*/}
+       
         <div className="navbar-content">
+          
           <ul className="nav navbar-top-links">
-            {/*Navigation toogle button*/}
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-            <li className="tgl-menu-btn">
-              <a className="mainnav-toggle" href="#">
-                <i className="demo-pli-list-view" />
-              </a>
-            </li>
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-            {/*End Navigation toogle button*/}
-            {/*Search*/}
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             <li>
-              <div className="custom-search-form">
-                <label
-                  className="btn btn-trans"
-                  htmlFor="search-input"
-                  data-toggle="collapse"
-                  data-target="#nav-searchbox"
-                >
-                  <i className="demo-pli-magnifi-glass" />
-                </label>
-                <form>
-                  <div className="search-container collapse" id="nav-searchbox">
-                    <input
-                      id="search-input"
-                      type="text"
-                      className="form-control"
-                      placeholder="Type for search..."
-                    />
-                  </div>
-                </form>
-              </div>
+              <h5 className='text-white' style={{marginTop: "22px"}}>
+              {`${isAuth()?.username}`}
+              </h5>
             </li>
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-            {/*End Search*/}
-          </ul>
-          <ul className="nav navbar-top-links">
            
             
-            {/*User dropdown*/}
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
+           
             <li id="dropdown-user" className="dropdown">
-              <a
-                href="#"
-                data-toggle="dropdown"
-                className="dropdown-toggle text-right"
-              >
                 <span className="ic-user pull-right">
-                  {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                  {/*You can use an image instead of an icon.*/}
-                  {/*<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">*/}
-                  {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                  <i className="demo-pli-male" />
+                
+              <UncontrolledDropdown>
+               
+           <DropdownToggle
+             nav
+           >
+            <img
+               src={`${API}/user/photo/${isAuth()?.username}`}
+               className="img img-fluid rounded-circle mb-3"
+               style={{ maxHeight: '30px', maxWidth: '100%' }}
+               alt="profile image"
+           />
+           </DropdownToggle>
+           <DropdownMenu right>
+           <Link href="/user/update">
+                   Profile
+             </Link>
+           </DropdownMenu>
+         </UncontrolledDropdown>
                 </span>
-                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                {/*You can also display a user name in the navbar.*/}
-                {/*<div class="username hidden-xs">Aaron Chavez</div>*/}
-                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-              </a>
-              <div className="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
-                <ul className="head-list">
-                  <li>
-                  {isAuth() && isAuth().role === 1 && (
-                    <Link href="/admin">
-                    <a href="#">
-                      <i className="demo-pli-male icon-lg icon-fw" /> Dashboard
-                    </a>
-                    </Link>
-                    )}
-                  </li>
+              
 
-                  <li>
-                  {isAuth() && isAuth().role === 0 && (
-                    <Link href="/user">
-                    <a href="#">
-                      <i className="demo-pli-male icon-lg icon-fw" /> Dashboard
-                    </a>
-                    </Link>
-                    )}
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i className="demo-pli-male icon-lg icon-fw" /> Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i className="demo-pli-gear icon-lg icon-fw" /> Settings
-                    </a>
-                  </li>
-                  
-                  <li>
-                  {/* {isAuth() && (
-                  <Link href="/signin">
-                      <NavLink style={{cursor:'pointer'}} onClick={() => signout(() => Router.push('/signin'))}>
-                          Sign out
-                      </NavLink>
-                  </Link>
-                  )}
-                   */}
-                  {isAuth() && (
-                  <Link href="/signin">
-                    <a onClick={() => signout(() => Router.push('/signin'))}>
-                      <i className="demo-pli-unlock icon-lg icon-fw" /> Logout
-                    </a>
-                    </Link>
-                  )}
-                  </li>
-                </ul>
-              </div>
+              
             </li>
-            {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-            {/*End user dropdown*/}
+
+            <li>
+            {/* <Dropdown>
+        <Dropdown.Toggle>
+          <img
+              src={`${API}/user/photo/${isAuth()?.username}`}
+              className="img img-fluid rounded-circle mb-3"
+              style={{ maxHeight: '30px', maxWidth: '100%' }}
+              alt="profile image"
+          />
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown> */}
+
+
+            </li>
+
+         
             
           </ul>
         </div>
       </div>
+         
+      
     </header>
     </div>
-
 
 
 </>

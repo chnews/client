@@ -14,8 +14,10 @@ import Layout from '../components/Layout';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import '../styles/globals.css'
-import React from "react";
-import Popp from '../components/popp'
+import Sidebar from '../components/Sidebar'
+// import '../assets/css/nifty.min.css'
+// import '../assets/css/bootstrap.min.css'
+// import '../assets/css/demo/nifty-demo-icons.min.css'
 
 
 class MyApp extends App {
@@ -23,10 +25,99 @@ class MyApp extends App {
 
       const { Component, pageProps, router } = this.props
   
+      if (router.pathname.startsWith(['/admin'])) {
+        return (
+            <>
+           
+             <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-12 col-lg-12">
+                  <Header/>
+                </div>
+                <div className="col-md-2 col-lg-2">
+                  <Sidebar/>
+                </div>
+
+                <div className="col-md-10 col-lg-10 mt-4">
+                <Layout>
+                  <Component {...pageProps}></Component>
+                </Layout>
+                </div>
+              </div>
+            </div>
+
+            
+          
+              
+          
+          </>
+        )
+      }else if(router.pathname.startsWith('/signin')){
+        return (
+            <>
+               
+                <Layout>
+                  <Component {...pageProps}></Component>
+                </Layout>
+             
+          
+          </>
+        )
+      } else if(router.pathname.startsWith('/signup')){
+        return (
+            <>
+                 <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-12 col-lg-12">
+                  <Header/>
+                </div>
+                <div className="col-md-2 col-lg-2">
+                  <Sidebar/>
+                </div>
+
+                <div className="col-md-10 col-lg-10 mt-4">
+                <Layout>
+                  <Component {...pageProps}></Component>
+                </Layout>
+                </div>
+              </div>
+            </div>
+
+            
+          
+          </>
+        )
+      } else if(router.pathname.startsWith('/user')){
+        return (
+          <>
+         
+         <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-12 col-lg-12">
+                  <Header/>
+                </div>
+                <div className="col-md-2 col-lg-2">
+                  <Sidebar/>
+                </div>
+
+                <div className="col-md-10 col-lg-10 mt-4">
+                <Layout>
+                  <Component {...pageProps}></Component>
+                </Layout>
+                </div>
+              </div>
+            </div>
+
+            
+          
+          
+        </>
+      )
+      } else {
+  
       return (
           <>
-            <Popp/>
-            <Allnav/>
+            <Allnav/> {/* all main page header added in this component */}
             <Layout2>
                 <Component {...pageProps}></Component>
             </Layout2>
@@ -35,7 +126,7 @@ class MyApp extends App {
       )
       }
     }
-
+  }
   
   export default MyApp
 
