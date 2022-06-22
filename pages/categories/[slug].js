@@ -38,25 +38,27 @@ const Category = ({ category, blogs, query }) => {
             {/* <Allnav/> */}
             <Layout>
                 <main>
-                    <div className="container-fluid text-center">
+                    <div className="container mt-4">
                         
-                        <header>
+                       
                         <div className='row'>
-                            <div className="col-md-8 row">
-                                <div className=''>
-                                <h6 className="display-4 font-weight-bold">{category.name}</h6>
+                            <div className="col-md-8 col-lg-8">
+                              
+                                <div className='mb-1' style={{borderLeft: '1px solid #000', borderBottom: '1px solid #000'}}>
+                                <h6 className="font-weight-bold" style={{fontSize: "22px", marginLeft: "5px"}}>{category.name}</h6>
                                 </div>
-                                <div className='col-lg-12'>
+                                
                                 {blogs.map((b, i) => (
                                     <div>
                                         <Card key={i} blog={b} />
                                     </div>
                                 ))}
-                                </div>
+                                
+                         
                             </div>
-                            <div className='col-lg-4'><Postsidebar/></div>
+                            <div className='col-lg-4 col-md-4'><Postsidebar/></div>
                             </div>
-                        </header>
+                      
                         
                     </div>
 					

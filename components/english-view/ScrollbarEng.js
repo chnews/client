@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 
 
-const Scrollbar = () => {
+const ScrollbarEng = () => {
     
     const [lastNews, setLastNews] = useState([]);
 
@@ -30,12 +30,17 @@ const Scrollbar = () => {
       <>
        <div style={{margin: "0px 12px 0px 12px"}}>
             <div className="row">
-                <div className="col-1 bg-dark">
-                    <h6 className="text-white fw-bold pt-2">শিরোনাম</h6>
+                
+                <div className="col-1 bg-dark px-2" >
+                    <div className="bg-dark py-1 " >
+                        <div className="text-white fw-bold" >Headlines</div>
+                    </div>
                 </div>
+            
 
                 <div className="col-11 bg-danger">
-                    <marquee className="text-white fw-bold pt-1">
+                    <div className="bg-danger py-1">
+                    <marquee className="text-white fw-bold ">
                     <Link href={`/blogs/${lastNews[0]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[0]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
@@ -56,10 +61,11 @@ const Scrollbar = () => {
                     </Link>
                        
                     </marquee>
+                    </div>
                 </div>
             </div>
+         
             </div>
-
 
 
         
@@ -67,4 +73,4 @@ const Scrollbar = () => {
   );
 };
 
-export default Scrollbar;
+export default ScrollbarEng;

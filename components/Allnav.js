@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Topnav from '../components/frontend/Topnav'
 import Logosec from '../components/frontend/Logosec'
 import Navbar from '../components/frontend/Navbar';
@@ -18,6 +18,10 @@ const Wrapper = styled.div`
 `
 
 const Allnav = () => {
+  // const [view, setView] = useState("not clicked");
+  // const allnavChange = () => {
+  //   setView("clicked");
+  // }
   return (
       <>    
     
@@ -25,10 +29,9 @@ const Allnav = () => {
          <div className='row'>
            <div className='col-12'>
             <div className={styles.main_menu_show}>
-              <Topnav/>
               <Logosec/>
               <Scrollbar/>
-              <Navbar/>
+              
             </div>
 
 

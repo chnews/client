@@ -72,17 +72,19 @@ const Search = () => {
        {message && <p className="pt-4 text-muted font-italic">{message}</p>}
        </div>
         <form onSubmit={searchSubmit}>
-            <div className="row">
-                <div className="col-md-8">
+            
+            <div className="row py-2">
+                <div className="col-11">
                     <input type="search" className="form-control" placeholder="Search blogs" onChange={handleChange} />
                 </div>
 
-                <div className="col-md-4">
+                <div className="col-1">
                     <button className="btn btn-block btn-outline-primary" type="submit">
                         Search
                     </button>
                 </div>
             </div>
+           
         </form>
        </>
     );
@@ -91,7 +93,7 @@ const Search = () => {
        <>
        
         <div className="container-fluid">
-            <div className="pt-3 pb-5">{searchForm()}</div>
+            <div className="">{searchForm()}</div>
             {searched && <div style={{ marginTop: '0', marginBottom: '0' }}>{searchedBlogs(results)}</div>}
         </div>
        

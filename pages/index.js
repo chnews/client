@@ -21,6 +21,7 @@ import AllnavEng from '../components/english-view/AllnavEng';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FrontTest from '../components/frontend/FrontTest';
 import America from '../components/AllFront/America';
+import Navbar from '../components/frontend/Navbar';
 
 
 const Nheading = styled.p`
@@ -50,6 +51,9 @@ const Index = ({  last,
   entertainment,
   gallery,
   video, router }) => {
+
+
+  
  
   
   const head = () => (
@@ -77,7 +81,7 @@ const Index = ({  last,
   );
 
 
- 
+
 
 
   
@@ -85,19 +89,19 @@ const Index = ({  last,
 
   return ( 
     <>
+    
+      
     {head()}
     <div className='container-fluid'>
-     
     
     <div className='row'>
         {last && last.slice(0, 3).map((data) => 
           <div className='col-md-4 text-center' key={data._id}>
             <div className='col-md-12 col-sm-12'>
-              <Image 
+              <img 
                 src = {`${API}/blog/photo/${data.slug}`} 
-                width = '100' 
-                height = '60' 
-                layout="responsive"
+                width = '100%' 
+                height = '220px' 
               />
             </div>
             <Link href={`/blogs/${data.slug}`}> 

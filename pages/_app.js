@@ -25,7 +25,7 @@ class MyApp extends App {
 
       const { Component, pageProps, router } = this.props
   
-      if (router.pathname.startsWith(['/admin'])) {
+      if (router.pathname.startsWith('/admin')) {
         return (
             <>
            
@@ -45,13 +45,9 @@ class MyApp extends App {
                 </div>
               </div>
             </div>
-
-            
-          
-              
           
           </>
-        )
+        );
       }else if(router.pathname.startsWith('/signin')){
         return (
             <>
@@ -117,16 +113,17 @@ class MyApp extends App {
   
       return (
           <>
-            <Allnav/> {/* all main page header added in this component */}
+          <div>
+          
             <Layout2>
                 <Component {...pageProps}></Component>
             </Layout2>
-            <Footer/>
+          </div>
         </>
       )
       }
     }
-  }
+  };
   
   export default MyApp
 

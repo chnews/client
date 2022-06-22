@@ -21,11 +21,11 @@ const Card = ({ blog }) => {
     return (
         <>
 
-                    <div className="container">
+                    <div className="container border border-secondary">
                         <div className='row'>
                             <div className='col-lg-12'>
                                 
-                                <div className="row border border-secondary mb-2">
+                                <div className="row mb-2">
                                     <div className='col-lg-4'>
                                     <img src={`${API}/blog/photo/${blog.slug}`} className='w-100 p-3' style={{height: "100%"}}/>
                                     </div>
