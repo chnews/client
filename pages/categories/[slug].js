@@ -44,7 +44,7 @@ const Category = ({ category, blogs, query }) => {
                         <div className='row'>
                             <div className="col-md-8 col-lg-8">
                               
-                                <div className='mb-1' style={{borderLeft: '1px solid #000', borderBottom: '1px solid #000'}}>
+                                <div className='mb-1' style={{borderLeft: '1px solid #000', borderBottom: '1px solid #000', borderRight: '1px solid #000'}}>
                                 <h6 className="font-weight-bold" style={{fontSize: "22px", marginLeft: "5px"}}>{category.name}</h6>
                                 </div>
                                 
