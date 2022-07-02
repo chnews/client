@@ -3,20 +3,21 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useState, useEffect } from 'react';
-import { singleBlog, listRelated } from '../../actions/blog';
+import { singleEblog, elistRelated } from '../../actions/eblog';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
-import SmallCard from '../../components/blog/SmallCard';
+import SmallCard from '../../components/english-view/SmallCard';
 import Postsidebar from '../../components/Postsidebar';
 import axios from 'axios';
 import SingleSmallAds from '../../components/frontend/BelowPostAds';
+import PostSidebar from '../../components/english-view/PostSidebar';
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
 
     const loadRelated = () => {
-        listRelated({ blog }).then(data => {
+        elistRelated({ blog }).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -116,7 +117,7 @@ const SingleBlog = ({ blog, query }) => {
 
                                             <div className="row mt-2">
                                                 <img
-                                                    src={`${API}/blog/photo/${blog.slug}`}
+                                                    src={`${API}/eblog/photo/${blog.slug}`}
                                                     alt={blog.title}
                                                     className="img img-fluid featured-image"
                                                     style={{
@@ -144,7 +145,7 @@ const SingleBlog = ({ blog, query }) => {
                                         </div>
 
                                         <div className='col-lg-4'>
-                                       <Postsidebar/>
+                                       <PostSidebar/>
                                         </div>
                                     </div>
 
@@ -172,7 +173,7 @@ const SingleBlog = ({ blog, query }) => {
 };
 
 SingleBlog.getInitialProps = ({ query }) => {
-    return singleBlog(query.slug).then(data => {
+    return singleEblog(query.slug).then(data => {
         if (data?.error) {
             console.log(data?.error);
         } else {

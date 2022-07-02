@@ -5,6 +5,8 @@ import sty from '../../styles/Search.module.css';
 import styled from 'styled-components';
 import Search from '../blog/Search';
 import { FaSearch, FaAlignRight } from 'react-icons/fa';
+import { englishVersion } from '../../service/actions/versionAction';
+import {useDispatch } from 'react-redux'
 
 
 // const Wrapper = styled.ul`
@@ -19,18 +21,26 @@ import { FaSearch, FaAlignRight } from 'react-icons/fa';
 
 const Navbar = (props) => {
 
-    const [show, setShow] = useState(false);
-    const showSearch = () => {
-        setShow(true);
-    }
+const [show, setShow] = useState(false);
+const showSearch = () => {
+    setShow(true);
+}
 
    
+const dispatch = useDispatch();
 
 const handleClick = () => {
     props.onNavButtonClick();
+    dispatch(englishVersion());
 }
 
 
+  
+   const handleBang = () => {
+      
+   }
+
+  
  
     // const showBlogCategories = blog =>
     //     blog.categories.map((c, i) => (
@@ -40,14 +50,14 @@ const handleClick = () => {
     //     ));
   return (
       <>
-      <div className='container bg-white' style={{position: "sticky", top: "0", zIndex: "999"}}>
+      <div className='container-fluid bg-white' style={{position: "sticky", top: "0", zIndex: "999"}}>
         <div className="row">
         <div className='col'>
         <ul className={styles.ul}>
        
        <div >
        <li className={styles.li}>
-           <a><Link className="active" href='/'><FaAlignRight size="25px"/></Link></a>
+           <a style={{cursor: "pointer"}}><Link className="active" href='/'><FaAlignRight size="25px"/></Link></a>
        </li>
        <li className={styles.li}>
            <a><Link className="active" href='/'>প্রচ্ছদ</Link></a>
@@ -86,11 +96,12 @@ const handleClick = () => {
 
        <ul style={{float: "right"}}>
            
-               <a onClick={ () => setShow(!show) }><FaSearch size="25px"/></a>
-           
-           
-               <button className={styles.button} onClick={handleClick}>English Version</button>
-           
+               <a style={{cursor: "pointer"}} onClick={ () => setShow(!show) }><FaSearch size="25px"/></a>
+               <Link href="/">
+               <button className={styles.button} onClick={handleClick}>
+                    English Version
+                </button>
+                </Link>
        </ul>
 
    </ul>

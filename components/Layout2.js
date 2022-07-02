@@ -6,6 +6,7 @@ import TopnavEng from './english-view/TopnavEng';
 import Topnav from './frontend/Topnav';
 import Footer from './Footer';
 import Navbar from './frontend/Navbar';
+import BanglaView from './AllViews/BanglaView';
 
 
 
@@ -23,7 +24,7 @@ const Layout2 = ({children}) => {
       <>
         
         <div className='container'>
-          <Topnav/>
+         
           <Allnav/>
           <Navbar onNavButtonClick={handleChangeVersion}/>
             {children}
@@ -40,7 +41,7 @@ const Layout2 = ({children}) => {
       <>
         
         <div className='container'>
-          <TopnavEng/>
+         
           <AllnavEng/>
           <NavbarEng onNavButtonClick={handleChangeVersion}/>
             {children}
@@ -53,7 +54,10 @@ const Layout2 = ({children}) => {
   return (
     
   <>
+  {/* <div className='container'>
+    {children} */}
     {view ? banglaVersion() : englishVersion()}
+    {/* </div> */}
   </>
   
   )

@@ -27,6 +27,7 @@ const AllnavEng = () => {
          <div className='row'>
            <div className='col-12'>
             <div className={styles.main_menu_show}>
+              <TopnavEng/>
               <Logosec/>
               <ScrollbarEng/>
             </div>

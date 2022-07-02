@@ -15,6 +15,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import '../styles/globals.css'
 import Sidebar from '../components/Sidebar'
+import { Provider } from 'react-redux'
+import { store } from '../store'
 // import '../assets/css/nifty.min.css'
 // import '../assets/css/bootstrap.min.css'
 // import '../assets/css/demo/nifty-demo-icons.min.css'
@@ -114,10 +116,11 @@ class MyApp extends App {
       return (
           <>
           <div>
-          
+          <Provider store={store}>
             <Layout2>
                 <Component {...pageProps}></Component>
             </Layout2>
+            </Provider>
           </div>
         </>
       )

@@ -16,7 +16,7 @@ const Sidebar = () => {
     // <>
     
    
-    //     <ProSidebar style={{position: "fixed"}}>
+    //     <ProSidebar style={{position: "fixed"}}>b
     //     <Menu iconShape={styles.square}>
     //     {isAuth() && isAuth().role === 0 && (
     //         <MenuItem>
@@ -209,6 +209,43 @@ const Sidebar = () => {
                             <Link href="/admin/page/about">
                                 About
                             </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link href="/admin/page/advertisement">
+                                Advertisement
+                            </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link href="/admin/page/editor">
+                                Editor
+                            </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link href="/admin/page/contact">
+                                Advertisement
+                            </Link>
+                        </MenuItem>
+                    </SubMenu>
+                    
+                  </li>
+
+                  <li>
+                    {/* categories and tags */}
+                    
+                    <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;English Version" className='mt-3'>
+                        <MenuItem className='border-top'>
+                        <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;English Version" className='mt-3'>
+                          <MenuItem className='border-top'>
+                              <Link href="/admin/crud/eblog/ecreate">
+                                  Add Post
+                              </Link>
+                          </MenuItem>
+                          <MenuItem>
+                              <Link href="/admin/page/advertisement">
+                                  All Post
+                              </Link>
+                          </MenuItem>
+                      </SubMenu>
                         </MenuItem>
                         <MenuItem>
                             <Link href="/admin/page/advertisement">

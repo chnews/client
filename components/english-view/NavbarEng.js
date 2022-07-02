@@ -5,6 +5,8 @@ import sty from '../../styles/Search.module.css';
 import styled from 'styled-components';
 import Search from '../blog/Search';
 import { FaSearch, FaAlignRight } from 'react-icons/fa';
+import { banglaVersion } from '../../service/actions/versionAction';
+import { useDispatch } from 'react-redux';
 
 
 // const Wrapper = styled.ul`
@@ -24,10 +26,11 @@ const NavbarEng = (props) => {
         setShow(true);
     }
 
-   
+const dispatch = useDispatch();
 
 const handleClick = () => {
     props.onNavButtonClick();
+    dispatch(banglaVersion());
 }
 
 
@@ -41,7 +44,7 @@ const handleClick = () => {
   return (
       <>
       
-    <div className='container'>
+      <div className='container-fluid bg-white' style={{position: "sticky", top: "0", zIndex: "999"}}>
         <div className="row">
             <div className='col'>
 
@@ -84,8 +87,10 @@ const handleClick = () => {
                     </div>
 
                     <ul style={{float: "right"}}>
-                        <a onClick={ () => setShow(!show) }><FaSearch size="25px"/></a>
+                        <a style={{cursor: "pointer"}} onClick={ () => setShow(!show) }><FaSearch size="25px"/></a>
+                        <Link href="/">
                         <button className={styles.button} onClick={handleClick}>বাংলা ভার্সন </button>
+                        </Link>
                     </ul>
                 </ul>
 
