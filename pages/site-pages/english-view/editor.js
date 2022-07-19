@@ -1,8 +1,6 @@
 import React from 'react'
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
+import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../../config';
 import { withRouter } from 'next/router';
-import Allnav from '../../components/Allnav';
-import Footer from '../../components/Footer';
 
 const editor = ({editor}) => {
   return (

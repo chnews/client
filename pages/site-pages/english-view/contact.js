@@ -1,9 +1,6 @@
 import React from 'react';
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
+import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../../config';
 import { withRouter } from 'next/router';
-import ContactForm from '../../components/form/ContactForm';
-import Allnav from '../../components/Allnav';
-import Footer from '../../components/Footer';
 
 const contact = ({contact}) => {
   return (
