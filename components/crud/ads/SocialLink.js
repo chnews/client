@@ -77,89 +77,71 @@ const SocialLink = () => {
      
 
     
+     <>
+            <div>
+                <>
+                    
+
+                    <div className="page-wrapper">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
+                                    <div className="card">
+                                    
+                                        <div className="card-body">
+                                        <p className="text-bold text-uppercase">
+                                          Social Links
+                                        </p>
+                                        <hr/>
+                                            <div className="form-group">
+                                                <label className="">Facebook</label>
+                                                <input type="text" className="form-control" name="facebook" value={facebook} onChange={handleFacebookChange}/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label className="">Twitter</label>
+                                                <input type="text" className="form-control" name="twitter" value={twitter} onChange={handleTwitterChange}/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label className="">YouTube</label>
+                                                <input type="text" className="form-control" name="youtube" value={youtube} onChange={handleYoutubeChange}/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label className="">Linkedin</label>
+                                                <input type="text" className="form-control" name="linkedin" value={linkedin} onChange={handleLinkedinChange}/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label className="">instagram</label>
+                                                <input type="text" className="form-control" name="instagram" value={instagram} onChange={handleInstagramChange}/>
+                                            </div>
+                                            
+
+                                                <div>
+                                                <button className="btn btn-primary" type='submit' onClick={socialApi}>Save</button>
+                                                </div>
 
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
+                                   
+                                </div>
 
-
-
-<div className='row'>
-    <div className='col-12 bg-light'>
-
-    
-    <div className="panel-body">
-   
-      <h3 className="text-main text-bold text-uppercase text-center">
-        Social Links
-      </h3>
-
-      <div className="form-group">
-        <label className=""><h5>Facebook</h5></label>
-        <input type="text" className="form-control" name="facebook" value={facebook} onChange={handleFacebookChange}/>
-    </div>
-
-    <div className="form-group">
-        <label className=""><h5>Twitter</h5></label>
-        <input type="text" className="form-control" name="twitter" value={twitter} onChange={handleTwitterChange}/>
-    </div>
-
-    <div className="form-group">
-        <label className=""><h5>YouTube</h5></label>
-        <input type="text" className="form-control" name="youtube" value={youtube} onChange={handleYoutubeChange}/>
-    </div>
-
-    <div className="form-group">
-        <label className=""><h5>Linkedin</h5></label>
-        <input type="text" className="form-control" name="linkedin" value={linkedin} onChange={handleLinkedinChange}/>
-    </div>
-
-    <div className="form-group">
-        <label className=""><h5>instagram</h5></label>
-        <input type="text" className="form-control" name="instagram" value={instagram} onChange={handleInstagramChange}/>
-    </div>
-    {/* <div className="form-group">
-        <label className=""><h5>URL</h5></label>
-        <input type="text" className="form-control"  />
-    </div> */}
-      <div className="dropzone-container mb-3">
-       
-          <div className="dz-default dz-message">
-            {/* <div className="dz-icon">
-              <i className="demo-pli-upload-to-cloud icon-5x" />
-            </div> */}
-            {/* <div>
-              <span className="dz-text">Drop files to upload</span>
-              <p className="text-sm text-muted">
-                or click to pick manually
-              </p>
-            </div> */}
-          </div>
-        
-
-          <div className="row">
-            <div className="col-sm-6 col-sm-offset-6 toolbar-right text-right">
-            <button className="btn btn-primary" type='submit' onClick={socialApi}>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </>
             </div>
-        </div>
-       
-      </div>
-      
-      <hr />
-    
-      
-    </div>
-  </div>
+        </>
 
- 
 
-   
 
-    <div>
-        
-         
-        
-    </div>
 
-</div>
+
 
 
 

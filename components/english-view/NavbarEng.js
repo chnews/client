@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import styles from '../../styles/Nav.module.css';
 import sty from '../../styles/Search.module.css';
 import styled from 'styled-components';
+import {API} from '../../config';
 import Search from '../blog/Search';
 import { FaSearch, FaAlignRight } from 'react-icons/fa';
 import { banglaVersion } from '../../service/actions/versionAction';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 
 // const Wrapper = styled.ul`
@@ -33,7 +35,13 @@ const handleClick = () => {
     dispatch(banglaVersion());
 }
 
-
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        axios.get(`${API}/eallcat`)
+        .then((res) => {setData(res.data)})
+        .catch((err) => {console.log(err)});
+    }, [])
  
     // const showBlogCategories = blog =>
     //     blog.categories.map((c, i) => (
@@ -58,32 +66,18 @@ const handleClick = () => {
                         </li>
 
                         <li className={styles.li}>
-                            <a><Link className="active" href='/categories/bangladesh'>Main News</Link></a>
+                            <a><Link className="active" href='/ecategories/bangladesh'>Main News</Link></a>
                         </li>
 
-                        <li className={styles.li}>
-                            <a><Link href='/categories/america'>America </Link></a>
-                        </li>
-                        
-                        <li className={styles.li}>
-                            <a><Link className="active" href='/categories/bangladesh'>Bangladesh </Link></a>
-                        </li>
-                        
-                        <li className={styles.li}>
-                            <a><Link className="active" href='/categories/world-news'>International</Link></a>
-                        </li>
+                        {data && data?.map((c, i) => 
+                            <li className={styles.li}>
+                                <Link key={i} href={`/ecategories/${c.slug}`}>
+                                <a>{c.name}</a>
+                                </Link>
+                            </li>
+                        )}
 
-                        <li className={styles.li}>
-                            <a><Link className="active" href='/categories/politics'>Politics</Link></a>
-                        </li>
-
-                        <li className={styles.li}>
-                            <a ><Link className="active" href='/categories/economy'>Economics</Link></a>
-                        </li>
-
-                        <li className={styles.li}>
-                            <a><Link className="active" href='/categories/sports'>Sports</Link></a>
-                        </li>
+                      
                     </div>
 
                     <ul style={{float: "right"}}>

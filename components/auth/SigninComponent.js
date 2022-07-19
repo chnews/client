@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link';
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import {authenticate, signin, isAuth} from '../../actions/auth'
@@ -128,9 +129,11 @@ const SigninComponent = () => {
         </form>
       </div>
       <div className="pad-all">
+      <Link href="/auth/password/forgot">
         <a href="#" className="btn-link mar-rgt">
           Forgot password ?
         </a>
+      </Link>
       </div>
     </div>
   </div>

@@ -249,6 +249,23 @@ const BlogUpdate = ({ router }) => {
     };
 
     return (
+       <>
+        <div className="container-fluid bg-white mt-3 pb-2">
+      <div className="row">
+        <div className="col-md-12 ">
+            <div className="page-breadcrumb">
+              <div className="row align-items-center">
+                <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h4 className="page-title">Update Blog</h4>
+                </div>
+              </div>
+              {/* /.col-lg-12 */}
+            </div>
+
+        </div>
+      </div>
+    </div>
+    
         <div className="container-fluid" style={{marginTop: "40px"}}>
             <div className="row">
                 <div className="col-md-8">
@@ -291,6 +308,7 @@ const BlogUpdate = ({ router }) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

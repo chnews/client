@@ -1,6 +1,6 @@
 import Layout from '../../../../components/Layout';
 import Admin from '../../../../components/auth/Admin';
-import StyleLinks from '../../../../components/StyleLinks';
+import StyleLinks from '../../../../components/english-view/StyleLinks';
 import EblogCreate from '../../../../components/english-view/crud/EblogCreate';
 
 const Eblog = () => {
@@ -13,18 +13,14 @@ const Eblog = () => {
 
         <Layout>
             <Admin>
-                <div className='container-fluid'>
-                    <div className='row mt-5'>
-                        <div className='col-12'>
-                            <EblogCreate />
-                        </div>
-                    </div>
-                </div>
                 
+                <EblogCreate />
+                <StyleLinks/>
+                     
             </Admin>
         </Layout>
 
-        <StyleLinks/>
+        
    
     
         </>

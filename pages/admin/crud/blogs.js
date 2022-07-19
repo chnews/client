@@ -15,24 +15,16 @@ const Blog = () => {
     return (
 
         <>
-     <Head>
-           
-        </Head>
-    
+     
       
         <Layout>
             <Admin>
-                <div className='container-fluid'>
-                    <div className='row'>
-
-                        <div className='col-12'>
-                            <BlogRead />
-                        </div>
-                    </div>
-                </div>
+                
+                 <BlogRead />
+                 <StyleLinks />
+                       
              </Admin>
         </Layout>
-<StyleLinks/>
        </>
     );
 };

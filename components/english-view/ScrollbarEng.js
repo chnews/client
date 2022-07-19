@@ -14,7 +14,7 @@ const ScrollbarEng = () => {
     const [lastNews, setLastNews] = useState([]);
 
     useEffect(() => {
-        fetch(`${API}/posts`)
+        fetch(`${API}/eposts`)
         .then((res)=>{
            return res.json()
         })

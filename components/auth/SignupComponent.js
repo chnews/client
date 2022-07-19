@@ -71,7 +71,7 @@ const SignupComponent = () => {
               <input type="text" name="email" value={email} placeholder='Email Address' onChange={handleChange('email')}></input>
               <input type="password" name="password" value={password} placeholder='Password' onChange={handleChange('password')}></input>
               <button>Submit</button>
-              <p>Already have an account? <Link href="/signin"><a className={Styles.anchor}>Sign In Here</a></Link></p>
+              {/* <p>Already have an account? <Link href="/signin"><a className={Styles.anchor}>Sign In Here</a></Link></p> */}
             </form>
           </div>
         </main>

@@ -14,7 +14,7 @@ export default function Document() {
       {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> */}
  
-
+ 
     
       </Head>
       <body>

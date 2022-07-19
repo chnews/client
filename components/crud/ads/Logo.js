@@ -34,102 +34,76 @@ const Logo = () => {
         
     }
 
- 
-
-
-  
-
-
-
-
-
 
   return (
     <>
-    
-        {/* <h1 className='mt-5'>Logo Upload</h1>
-        <input type="text" name="name" value={name} onChange={handleNameChange}/>
-        <input type="file" name="image" onChange={handleChange}/>
-        {/* <input type="submit" className='mt-5 float-end' onClick={logoApi}/> 
-        <button type="submit" className='mt-5 float-end' onClick={logoApi}>Logo Submit</button> */}
-     
+                    <div className="container-fluid bg-white pb-2">
+                        <div className="row">
+                            <div className="col-md-12 ">
+                                <div className="page-breadcrumb">
+                                    <div className="row align-items-center">
+                                        <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <h4 className="page-title">Setting</h4>
+                                        </div>
+                                    </div>
+                                    {/* /.col-lg-12 */}
+                                </div>
 
-    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="page-wrapper">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
+                                    <div className="card">
+                                        <div className="card-body">
+                                          <p className="text-bold text-uppercase">
+                                            Logo
+                                          </p>
+                                          <hr/>
+
+                                                <div className="form-group">
+                                                    <label className="">Logo Title</label>
+                                                    <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange}/>
+                                                </div>
+
+                                                <div className='row'>
+                                                    <div className='col-12'>
+                                                        <div className="mb-3">
+                                                            <label htmlFor="formFileSm" className="form-label">
+                                                               Logo Image
+                                                            </label>
+                                                            <input type="file"  name="image" onChange={handleChange} accept="image/*" className="form-control form-control-sm" id="formFileSm"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className='col-6'>
+                                                        {/* {image && <img src={image} style ={{width: '100px', height: '100px'}}/>} */}
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <button type="submit" className="btn btn-primary" onClick={logoApi}>
+                                                        Submit
+                                                    </button>
+                                                </div>
 
 
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
+                                    
+                                </div>
 
-
-
-<div className='row'>
-    <div className='col-12 bg-light'>
-
-    
-    <div className="">
-   
-      <h3 className="text-main text-bold text-uppercase text-center">
-        Logo
-      </h3>
-
-      <div className="form-group">
-        <label className=""><h5>Title</h5></label>
-        <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange}/>
-    </div>
-
-    {/* <div className="form-group">
-        <label className=""><h5>URL</h5></label>
-        <input type="text" className="form-control"  />
-    </div> */}
-      <div className="mb-3">
+                            </div>
+                        </div>
+                    </div>
+                </>
        
-          <div className="dz-default dz-message">
-            {/* <div className="dz-icon">
-              <i className="demo-pli-upload-to-cloud icon-5x" />
-            </div> */}
-            {/* <div>
-              <span className="dz-text">Drop files to upload</span>
-              <p className="text-sm text-muted">
-                or click to pick manually
-              </p>
-            </div> */}
-          </div>
-          <div className="fallback">
-          <small className="text-muted">Upload Logo Here</small>
-                <br />
-                <label className="btn btn-outline-info">
-                    Upload image
-                    <input type="file"  name="image" onChange={handleChange} accept="image/*" hidden/>
-                </label>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-6 col-sm-offset-6 toolbar-right text-right">
-            <button className="btn btn-primary" type='submit' onClick={logoApi}>Save</button>
-            </div>
-        </div>
-       
-      </div>
-      
-      <hr />
-    
-      
-    </div>
-  </div>
-
- 
-
-   
-
-    <div>
-        
-         
-        
-    </div>
-
-</div>
-
-
-
-</>
   )
 }
 

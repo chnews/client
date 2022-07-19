@@ -95,9 +95,9 @@ export const list = username => {
     let listBlogsEndpoint;
 
     if (username) {
-        listBlogsEndpoint = `${API}/${username}/blogs`;
+        listBlogsEndpoint = `${API}/${username}/eblogs`;
     } else {
-        listBlogsEndpoint = `${API}/blogs`;
+        listBlogsEndpoint = `${API}/eblogs`;
     }
 
     return fetch(`${listBlogsEndpoint}`, {
@@ -113,9 +113,9 @@ export const removeBlog = (slug, token) => {
     let deleteBlogEndpoint;
 
     if (isAuth() && isAuth().role === 1) {
-        deleteBlogEndpoint = `${API}/blog/${slug}`;
+        deleteBlogEndpoint = `${API}/eblog/${slug}`;
     } else if (isAuth() && isAuth().role === 0) {
-        deleteBlogEndpoint = `${API}/user/blog/${slug}`;
+        deleteBlogEndpoint = `${API}/user/eblog/${slug}`;
     }
 
     return fetch(`${deleteBlogEndpoint}`, {
@@ -137,9 +137,9 @@ export const updateBlog = (blog, token, slug) => {
     let updateBlogEndpoint;
 
     if (isAuth() && isAuth().role === 1) {
-        updateBlogEndpoint = `${API}/blog/${slug}`;
+        updateBlogEndpoint = `${API}/eblog/${slug}`;
     } else if (isAuth() && isAuth().role === 0) {
-        updateBlogEndpoint = `${API}/user/blog/${slug}`;
+        updateBlogEndpoint = `${API}/user/eblog/${slug}`;
     }
 
     return fetch(`${updateBlogEndpoint}`, {
@@ -161,7 +161,7 @@ export const listSearch = params => {
     console.log('search params', params);
     let query = queryString.stringify(params);
     console.log('query params', query);
-    return fetch(`${API}/blogs/search?${query}`, {
+    return fetch(`${API}/eblogs/search?${query}`, {
         method: 'GET'
     })
         .then(response => {

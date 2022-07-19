@@ -4,7 +4,7 @@ import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
 import { getCookie, isAuth } from '../../../actions/auth';
-import { getCategories } from '../../../actions/category';
+import { getCategories } from '../../../actions/ecategory';
 import { getTags } from '../../../actions/tag';
 import { createBlog } from '../../../actions/eblog';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -39,10 +39,13 @@ const CreateBlog = ({ router }) => {
         success: '',
         formData: '',
         title: '',
+        slug: '',
+        mtitle: '',
+        mdesc: '',
         hidePublishButton: false
     });
 
-    const { error, sizeError, success, formData, title, hidePublishButton } = values;
+    const { error, sizeError, success, formData, title, slug, mtitle, mdesc, hidePublishButton } = values;
     const token = getCookie('token');
 
     useEffect(() => {
@@ -78,7 +81,7 @@ const CreateBlog = ({ router }) => {
             if (data?.error) {
                setValues({ ...values, error: data.error });
             } else {
-                setValues({ ...values, title: '', error: '', success: `A new blog titled "${title}" is created` });
+                setValues({ ...values, title: '', slug: '', mtitle: '', mdesc: '', error: '', success: `A new blog titled "${title}" is created` });
                 setBody('');
                 initCategories('');
                 initTags('');
@@ -176,116 +179,155 @@ const CreateBlog = ({ router }) => {
     return (
         <>
  
-
-  
-    <form onSubmit={publishBlog}>
-  
-        <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-8'>
-                    {/* **************************body****************** */}
-                 
-
-              
-                <div className="form-group">
-                    <label className=""><h5>News Title</h5></label>
-                    <input type="text" className="form-control" value={title} onChange={handleChange('title')} />
+ <div className="container-fluid bg-white mt-3 pb-2">
+      <div className="row">
+        <div className="col-md-12 ">
+            <div className="page-breadcrumb">
+              <div className="row align-items-center">
+                <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h4 className="page-title">Add Blog</h4>
                 </div>
-
-                <div className="form-group">
-                    <h5 className='mt-4'>Full News</h5>
-                    <ReactQuill
-                        modules={QuillModules}
-                        formats={QuillFormats}
-                        value={body}
-                        placeholder=""
-                        onChange={handleBody}
-                        style={{height: '600px', background: 'white'}}
-
-                    />
-                    
-                </div>
-
-                    {/* ************************************************** */}
-                </div>
-
-
-
-                <div className='col-4'>
-                    {/* *************************************side bar*********** */}
-
-                 
-       
-       <div className="row">
-         <div className="col-sm-6 col-sm-offset-6 toolbar-right text-right">
-           {/* <button className="btn btn-default">Preview</button>
-           <button className="btn btn-default">Draft</button> */}
-           <button className="btn btn-primary" type='submit'>Save &amp; Publish</button>
-         </div>
-       </div>
-       {/*------------------------------*/}
-       <div className="fixed-fluid">
-         <div className="fixed-sm-300 pull-sm-right">
-           <div className="panel">
-             <div className="panel-body">
-               <p className="text-main text-bold text-uppercase">
-                 Featured Image
-               </p>
-              
-               {/*Dropzonejs*/}
-               {/*===================================================*/}
-               <div className="dropzone-container mb-3">
-                 <form id="demo-dropzone" action="#">
-                   <div className="dz-default dz-message">
-                     <div className="dz-icon">
-                       <i className="demo-pli-upload-to-cloud icon-5x" />
-                     </div>
-                     <div>
-                      {image && <img src={image} width="100%" height="150px"/>}
-                     </div>
-                   </div>
-                   <div className="fallback">
-                   {/* <small className="text-muted">Max size: 1mb</small> */}
-                         <br />
-                         <label className="btn btn-outline-info">
-                             Upload featured image
-                             <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
-                         </label>
-                   </div>
-                 </form>
-               </div>
-            
-
-               <div>
-                     <h5>Categories</h5>
-                     <hr />
-
-                     <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showCategories()}</ul>
-                 </div>
-               <div>
-                     <h5>Tags</h5>
-                     <hr />
-                     <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showTags()}</ul>
-                 </div>
-               <hr />
-               
-               
-             </div>
-           </div>
-         </div>
-         
-       </div>
-
-
-                    {/* ******************************************************** */}
-                </div>
+              </div>
+              {/* /.col-lg-12 */}
             </div>
+
         </div>
+      </div>
+    </div>
+
+    <>
+                   
+    <form onSubmit={publishBlog}>
+                    <div className="page-wrapper">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-8 col-xlg-7 col-md-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                           
+
+                                            <div className="form-group">
+                                                <label className=""><h5>News Title</h5></label>
+                                                <input type="text" className="form-control" value={title} onChange={handleChange('title')} />
+                                            </div>
+                                            
+                                            <div className="form-group">
+                                                <h5 className='mt-4'>Full News</h5>
+                                                <ReactQuill
+                                                    modules={QuillModules}
+                                                    formats={QuillFormats}
+                                                    value={body}
+                                                    placeholder=""
+                                                    onChange={handleBody}
+                                                    style={{height: '600px', background: 'white'}}
+
+                                                />
+                                                
+                                            </div>
+
+                                            <div style={{marginTop: "80px"}}>
+                                                <div className="form-group ">
+                                                    <label className="">Custom Link</label>
+                                                    <input type="text" className="form-control" value={slug} onChange={handleChange('slug')}/>
+                                                    <small className="text-muted">If you want to link to a custom URL, enter it here. Otherwise, leave this blank.</small>
+                                                </div>
+
+                                                <div className="form-group ">
+                                                    <label className="">Meta Title</label>
+                                                    <input type="text" className="form-control" value={mtitle} onChange={handleChange('mtitle')}/>
+                                                    <small className="text-muted">This is a meta title that will be used in search engine results. leave this blank for auto generate.</small>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label className="">Meta Description</label>
+                                                    <textarea type="text" className="form-control" value={mdesc} onChange={handleChange('mdesc')}/>
+                                                    <small className="text-muted">This is a meta description that will be used in search engine results. leave this blank for auto generate.</small>
+                                                </div>
+                                            </div>
+
+
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-4 col-xlg-3 col-md-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                        <div className="row">
+                                            <div className="col-sm-12 col-sm-offset-6 toolbar-right text-right">
+                                            {/* <button className="btn btn-default">Preview</button>
+                                            <button className="btn btn-default">Draft</button> */}
+                                            <button className="btn btn-primary" type='submit'>Save &amp; Publish</button>
+                                            </div>
+                                        </div>
+                                        <hr/>
+
+                                        <div className="fixed-fluid">
+                                            <div className="fixed-sm-300 pull-sm-right">
+                                            <div className="panel">
+                                                <div className="panel-body">
+                                                <p className="text-main text-center text-bold text-uppercase">
+                                                    Featured Image
+                                                </p>
+                                                
+                                                {/*Dropzonejs*/}
+                                                {/*===================================================*/}
+                                                <div className="dropzone-container mb-3">
+                                                    <form id="demo-dropzone" action="#">
+                                                    <div className="dz-default dz-message">
+                                                        <div className="dz-icon">
+                                                        <i className="demo-pli-upload-to-cloud icon-5x" />
+                                                        </div>
+                                                        <div>
+                                                        {image && <img src={image} width="100%" height="150px"/>}
+                                                        </div>
+                                                    </div>
+                                                    <div className="fallback text-center">
+                                                    {/* <small className="text-muted">Max size: 1mb</small> */}
+                                                            <br />
+                                                            <label className="btn btn-outline-info">
+                                                                Upload featured image
+                                                                <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
+                                                            </label>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                
+
+                                                <div>
+                                                        <h5>Categories</h5>
+                                                        <hr />
+
+                                                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showCategories()}</ul>
+                                                    </div>
+                                                <div>
+                                                        <h5>Tags</h5>
+                                                        <hr />
+                                                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showTags()}</ul>
+                                                    </div>
+                                                <hr />
+                                                
+                                                
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                        </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </>
     
-
- 
-    </form>
-
+              
+        
         </>
     );
 };

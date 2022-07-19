@@ -53,6 +53,21 @@ const Ads = () => {
 
   return (
     <>
+     <div className="container-fluid bg-white mt-3 pb-2">
+      <div className="row">
+        <div className="col-md-12 ">
+            <div className="page-breadcrumb">
+              <div className="row align-items-center">
+                <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h4 className="page-title">Ads</h4>
+                </div>
+              </div>
+              {/* /.col-lg-12 */}
+            </div>
+
+        </div>
+      </div>
+    </div>
     
         {/* <h1 className='mt-5'>file upload</h1>
         <input type="text" name="name" value={name} onChange={handleNameChange}/>

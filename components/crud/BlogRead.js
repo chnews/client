@@ -47,13 +47,13 @@ const BlogRead = ({ username }) => {
         if (isAuth() && isAuth().role === 0) {
             return (
                 <Link href={`/user/crud/${blog.slug}`}>
-                     <a href="#" className="btn btn-icon demo-pli-pen-5 icon-lg add-tooltip" data-original-title="Edit Post" data-container="body">Edit</a>
+                     <a href="#" className="btn btn-success btn-sm" data-original-title="Edit Post" data-container="body">Edit</a>
                 </Link>
             );
         } else if (isAuth() && isAuth().role === 1) {
             return (
                 <Link href={`/admin/crud/${blog.slug}`}>
-                     <a href="#" className="btn btn-icon demo-pli-pen-5 icon-lg add-tooltip" data-original-title="Edit Post" data-container="body">Edit</a>
+                     <a href="#" className="btn btn-success btn-sm" data-original-title="Edit Post" data-container="body">Edit</a>
                 </Link>
             );
         }
@@ -115,71 +115,80 @@ const BlogRead = ({ username }) => {
         <>
 
 
+<>
+                    <div className="container-fluid bg-white pb-2">
+                        <div className="row">
+                            <div className="col-md-12 ">
+                                <div className="page-breadcrumb">
+                                    <div className="row align-items-center">
+                                        <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <h4 className="page-title">All News</h4>
+                                        </div>
+                                    </div>
+                                    {/* /.col-lg-12 */}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="page-wrapper">
+                        <div className="container-fluid">
+                            <div className="row">
+                                
+                                <div className="col-lg-12 col-xlg-12 col-md-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <table className="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">SL</th>
+                                                        <th>Post Title</th>
+                                                        <th>Creation Date</th>
+                                                        <th>Categories</th>
+                                                        <th>Post by</th>
+                                                        <th>Status</th>
+                                                        <th class="text-center">Actions</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {blogs && blogs?.map((blog, i) =>
+                                                        <tr>
+                                                            <td scope="row">{i + 1}</td>
+                                                            <td>{blog.title}</td>
+                                                            <td>{moment(blog.updatedAt).fromNow()}</td>
+                                                            <td>{blog.categories.name}</td>
+                                                            <td>{blog.postedBy.name}</td>
+                                                            <td>{blog.postedBy.name}</td>
+                                                            <td>
+                                                                <div class="btn-groups">
+                                                                    {/* <a href="#" class="btn btn-icon demo-pli-gear icon-lg add-tooltip" data-original-title="Settings" data-container="body"></a>
+                                                                    <a href="#" class="btn btn-icon demo-pli-file-text-image icon-lg add-tooltip" data-original-title="View post" data-container="body"></a>
+                                                                    */}
+                                                                   {showUpdateButton(blog)}
+                                                                    <button onClick={() => deleteConfirm(blog.slug)} className="btn btn-danger btn-sm" data-original-title="Remove" data-container="body">Delete</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+
 
          
         
-        <div className='container-fluid mt-5'>
-                <div className='row'>
-                    
-                    <div className='col-12'>
-                    <h3 className='text-center'>Manage Your News Here</h3>
-                        <hr/>
-                        <div className='row'>
-                            <div className='col-2'><Link href="/admin/crud/blog"><a className='btn btn-sm btn-primary'>Add New</a></Link></div>
-                        </div>
-                        <div className="col-md-12">
-                            {message && <div className="alert alert-warning">{message}</div>}
-                           
-                            <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-vcenter">
-                                    <thead>
-                                        <tr>
-                                            <th>Post Title</th>
-                                            <th>Creation Date</th>
-                                            <th>Categories</th>
-                                            <th>Post by</th>
-                                            <th>Status</th>
-                                            <th class="text-center">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                           
-                                        {showAllBlogs()}
-
-                                    
-					                    </tbody>
-					                </table>
-					            </div>
-
-                                <div class="row">
-					                <div class="col-sm-5">
-					                    <div>Showing 1 to 10 of 57 entries</div>
-					                </div>
-					                <div class="col-sm-7 text-right">
-					                    <ul class="pagination">
-					                        <li class="disabled"><a href="#" class="demo-pli-arrow-left">Previous</a></li>
-					                        <li class="active"><a href="#">1</a></li>
-					                        <li><a href="#">2</a></li>
-					                        <li><a href="#">3</a></li>
-					                        <li><a href="#">4</a></li>
-					                        <li><span>...</span></li>
-					                        <li><a href="#">20</a></li>
-					                        <li><a href="#" class="demo-pli-arrow-right">Next</a></li>
-					                    </ul>
-					                </div>
-					            </div>
-					        </div>
-					       
-                            
-                        </div>
-
-
-                        
-                    </div>
-                 
-                </div>
-                </div>
+        
 
 
 

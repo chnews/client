@@ -13,7 +13,6 @@ const Homemiddlebigads = () => {
     const token = getCookie('token');
 
     const handleChange = (e) => {
-        console.log(e.target.files)
         setImage(e.target.files[0])
     }
 

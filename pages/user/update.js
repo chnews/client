@@ -10,7 +10,7 @@ const UserProfileUpdate = () => {
         <>
         <Layout>
             <Private>
-                <div className="container-fluid mt-5">
+                <div className="container-fluid">
                     <div className="row">
 
                         <div className="col-12">

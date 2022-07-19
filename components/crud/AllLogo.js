@@ -16,74 +16,14 @@ import SocialLink from './ads/SocialLink';
 
 const AllLogo = () => {
 
-    // const [image, setImage] = useState("");
-    // const [name, setName] = useState("");
-    // const [linkto, setLinkto] = useState("");
-    // const token = getCookie('token');
-
-    // const handleChange = (e) => {
-    //     console.log(e.target.files)
-    //     setImage(e.target.files[0])
-    // }
-
-    // const handleNameChange = (e) => {
-    //     setName(e.target.value)
-    //     console.log(e.target.value)
-    // }
-    
-
-    // const logoApi = () => {
-    //     const url = `${API}/logo`;
-    //     const formData = new FormData();
-    //     formData.append("logo", image)
-    //     formData.append('name', name)
-    //     axios.post(url, formData, { headers: {"Authorization" : `Bearer ${token}`} })
-    //     .then((res)=>{
-    //         console.log(res)
-    //     })
-    // }
-
- 
-
-
   
-
-
-
-
-
 
   return (
     <>
-    
-        {/* <h1 className='mt-5'>file upload</h1>
-        <input type="text" name="name" value={name} onChange={handleNameChange}/>
-        <input type="file" name="image" onChange={handleChange}/>
-        <input type="submit" className='mt-5 float-end' onClick={logoApi}/> */}
-     
-<div className='row mt-5'>
-  <div className='col-4'>
+  
     <Logo/>
-  </div>
-
-
-  <div className='col-4'>
     <Footerlogo/>
-  </div>
-
-  <div className='col-4'>
     <SocialLink/>
-  </div>
-
-  
-
-  
-
-  
-</div>
-
-
-
     
     </>
   )

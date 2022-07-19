@@ -31,7 +31,7 @@ class MyApp extends App {
         return (
             <>
            
-             <div className="container-fluid">
+          
               <div className="row">
                 <div className="col-md-12 col-lg-12">
                   <Header/>
@@ -46,7 +46,7 @@ class MyApp extends App {
                 </Layout>
                 </div>
               </div>
-            </div>
+          
           
           </>
         );
@@ -61,10 +61,21 @@ class MyApp extends App {
           
           </>
         )
+      }else if(router.pathname.startsWith('/auth')){
+        return (
+            <>
+               
+                <Layout>
+                  <Component {...pageProps}></Component>
+                </Layout>
+             
+          
+          </>
+        )
       } else if(router.pathname.startsWith('/signup')){
         return (
             <>
-                 <div className="container-fluid">
+                
               <div className="row">
                 <div className="col-md-12 col-lg-12">
                   <Header/>
@@ -79,7 +90,7 @@ class MyApp extends App {
                 </Layout>
                 </div>
               </div>
-            </div>
+          
 
             
           
@@ -89,7 +100,7 @@ class MyApp extends App {
         return (
           <>
          
-         <div className="container-fluid">
+        
               <div className="row">
                 <div className="col-md-12 col-lg-12">
                   <Header/>
@@ -104,7 +115,7 @@ class MyApp extends App {
                 </Layout>
                 </div>
               </div>
-            </div>
+           
 
             
           

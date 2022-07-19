@@ -1,17 +1,26 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { APP_NAME, API } from '../config';
-import { Navbar, NavbarBrand, NavbarToggler, Nav, NavLink, NavItem, Collapse, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap'; 
 import Link from 'next/link';
 import Router from 'next/router';
 import {signout, isAuth} from '../actions/auth'
-import Sidebar from './Sidebar';
-import { ProSidebar, SidebarHeader, SidebarFooter, SidebarContent, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import styles from 'react-pro-sidebar/dist/css/styles.css';
-import { Dropdown, NavDropdown } from 'react-bootstrap';
+import { Dropdown, NavDropdown, Container, Navbar, Nav } from 'react-bootstrap';
+import { ImHome3 } from 'react-icons/im';
+import { GoThreeBars } from 'react-icons/go';
 
 
-const Header = () => {
+const Header = (props) => {
+
+  const [time, setTime] = useState(true);
+  const [date, setDate] = useState(true);
+
+  useEffect(() => {
+    setTime(new Date().toLocaleTimeString("en-US"));
+    setDate(new Date().toLocaleDateString("en-US"));
+  }, []);
+
+
+ 
 
     // const [isOpen, setIsOpen] = useState(false);
 
@@ -21,108 +30,71 @@ const Header = () => {
 
   return (
     <>
-
-
- {/*NAVBAR*/}
-    {/*===================================================*/}
-    <div className ='mb-5' >
-    <header id="navbar" style={{position: "fixed"}}>
-      <div id="navbar-container" className="boxed">
-        {/*Brand logo & name*/}
-        {/*================================*/}
-        <div className="navbar-header">
-          {isAuth() && isAuth().role === 1 && (
-            <Link href="/admin">
-              <a className="navbar-brand">
-                <div className="brand-title">
-                  <span className="brand-text text-white">Chlaman News</span>
-                </div>
-              </a>
-            </Link>
-          )}
-
-          {isAuth() && isAuth().role === 0 && (
-            <Link href="/user">
-              <a className="navbar-brand">
-                <div className="brand-title">
-                  <span className="brand-text text-white">Chlaman News</span>
-                 
-                </div>
-              </a>
-            </Link>
-          )}
-
-
+    <header className=''>
+    <div className='container-fluid bg-dark text-white fixed-top' style={{height: "30px"}}>
+      <div className='row'>
+        <div className='col-9'>
+          <a style={{cursor: "pointer"}}> <GoThreeBars size="25px"/> </a>
+          <Link href="/admin">
+          <a style={{cursor: "pointer", color: 'white', fontSize: "15px", marginLeft: "5%"}}> <ImHome3/> Home</a>
+          </Link>
+          <span style={{marginLeft: "40px"}}>{time}</span>
+          <span style={{marginLeft: "40px"}}>{date}</span>
         </div>
        
-        <div className="navbar-content">
-          
-          <ul className="nav navbar-top-links">
-            <li>
-              <h5 className='text-white' style={{marginTop: "22px"}}>
-              {`${isAuth()?.username}`}
-              </h5>
-            </li>
-           
-            
-           
-            <li id="dropdown-user" className="dropdown">
-                <span className="ic-user pull-right">
-                
-              <UncontrolledDropdown>
-               
-           <DropdownToggle
-             nav
-           >
-            <img
-               src={`${API}/user/photo/${isAuth()?.username}`}
-               className="img img-fluid rounded-circle mb-3"
-               style={{ maxHeight: '30px', maxWidth: '100%' }}
-               alt="profile image"
-           />
-           </DropdownToggle>
-           <DropdownMenu right>
-           <Link href="/user/update">
-                   Profile
-             </Link>
-           </DropdownMenu>
-         </UncontrolledDropdown>
-                </span>
+        <div className='col-3'>
+        
+   
+          <span className='float-end'>
+          <Navbar collapseOnSelect variant="dark" style={{marginTop: "-13px", color: "#fff"}}>
+            <Container>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                <NavDropdown title={`${isAuth()?.username}`} id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                  <NavDropdown.Item>
+                  {isAuth() && (
+                  <a onClick={() => signout(() => Router.push('/signin'))}>
+                     Sign Out
+                  </a>
+                )}
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
               
-
-              
-            </li>
-
-            <li>
-            {/* <Dropdown>
-        <Dropdown.Toggle>
-          <img
+            </Navbar.Collapse>
+            </Container>
+          </Navbar>
+       
+        </span>
+        <span>
+        <img
               src={`${API}/user/photo/${isAuth()?.username}`}
-              className="img img-fluid rounded-circle mb-3"
-              style={{ maxHeight: '30px', maxWidth: '100%' }}
+              className="img img-fluid rounded-circle float-end mt-1"
+              style={{ maxHeight: '20px', maxWidth: '100%'}}
               alt="profile image"
           />
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown> */}
-
-
-            </li>
-
-         
-            
-          </ul>
+        </span>
+      
+        </div>
+        <div className='col-2'>
+        <span>
+       
+       </span>
         </div>
       </div>
-         
-      
-    </header>
     </div>
+
+
+
+
+    
+    </header>
+
+
+  
+ 
 
 
 </>

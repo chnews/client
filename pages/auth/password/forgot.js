@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import { forgotPassword } from '../../../actions/auth';
+import StyleLinks from '../../../components/StyleLinks';
 
 const ForgotPassword = () => {
     const [values, setValues] = useState({
@@ -50,6 +51,7 @@ const ForgotPassword = () => {
     );
 
     return (
+        <>
         <Layout>
             <div className="container">
                 <h2>Forgot password</h2>
@@ -59,6 +61,8 @@ const ForgotPassword = () => {
                 {showForm && passwordForgotForm()}
             </div>
         </Layout>
+        <StyleLinks/>
+        </>
     );
 };
 

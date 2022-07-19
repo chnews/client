@@ -23,7 +23,6 @@ const AdminIndex = () => {
         
       </Admin>
     </Layout>
-    <StyleLinks/>
     </>
 
   )

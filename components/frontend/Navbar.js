@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import styles from '../../styles/Nav.module.css';
 import sty from '../../styles/Search.module.css';
 import styled from 'styled-components';
+import {API} from '../../config';
 import Search from '../blog/Search';
 import { FaSearch, FaAlignRight } from 'react-icons/fa';
 import { englishVersion } from '../../service/actions/versionAction';
-import {useDispatch } from 'react-redux'
+import {useDispatch } from 'react-redux';
+import axios from 'axios';
 
 
 // const Wrapper = styled.ul`
@@ -35,12 +37,15 @@ const handleClick = () => {
 }
 
 
-  
-   const handleBang = () => {
-      
-   }
+const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        axios.get(`${API}/allcat`)
+        .then((res) => {setData(res.data)})
+        .catch((err) => {console.log(err)});
+    }, [])
 
-  
+
  
     // const showBlogCategories = blog =>
     //     blog.categories.map((c, i) => (
@@ -48,6 +53,7 @@ const handleClick = () => {
     //             <a className="btn btn-primary mr-1 ml-1 mt-3">{c.name}</a>
     //         </Link>
     //     ));
+
   return (
       <>
       <div className='container-fluid bg-white' style={{position: "sticky", top: "0", zIndex: "999"}}>
@@ -64,32 +70,18 @@ const handleClick = () => {
        </li>
 
        <li className={styles.li}>
+        
            <a><Link className="active" href='/categories/bangladesh'>প্রদান খবর </Link></a>
        </li>
-
-       <li className={styles.li}>
-           <a><Link href='/categories/america'>আমেরিকা </Link></a>
-       </li>
+        
+           {data && data?.map((c, i) => 
+                <li className={styles.li}>
+                    <Link key={i} href={`/categories/${c.slug}`}>
+                       <a>{c.name}</a>
+                    </Link>
+                </li>
+            )}
        
-       <li className={styles.li}>
-           <a><Link className="active" href='/categories/bangladesh'>বাংলাদেশ </Link></a>
-       </li>
-       
-       <li className={styles.li}>
-           <a><Link className="active" href='/categories/world-news'>বিশ্বজুড়ে </Link></a>
-       </li>
-
-       <li className={styles.li}>
-           <a><Link className="active" href='/categories/politics'>রাজনীতি </Link></a>
-       </li>
-
-       <li className={styles.li}>
-            <a ><Link className="active" href='/categories/economy'>অর্থনীতি </Link></a>
-       </li>
-
-       <li className={styles.li}>
-           <a><Link className="active" href='/categories/sports'>খেলা </Link></a>
-       </li>
        </div>
       
        

@@ -1,353 +1,110 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Link from 'next/link';
 import Router from 'next/router';
 import {signout, isAuth} from '../actions/auth'
 
+import { AiOutlineDashboard } from 'react-icons/ai';
+
 import { ProSidebar, SidebarHeader, SidebarFooter, SidebarContent, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import styles from 'react-pro-sidebar/dist/css/styles.css';
+import { GoDashboard } from 'react-icons/go';
+import { SiTextpattern } from 'react-icons/si';
+import { BiCategory } from 'react-icons/bi';
+import { BsFileEarmarkPostFill } from 'react-icons/bs';
+import { FiUsers, FiSettings } from 'react-icons/fi';
+import { FaUserShield } from 'react-icons/fa';
+import { GrGallery } from 'react-icons/gr';
+import { RiGalleryLine, RiAdvertisementLine } from 'react-icons/ri';
+import { MdOutlinePermMedia, MdOutlineCategory, MdOutlineContactPage } from 'react-icons/md';
 
 
 
 
 const Sidebar = () => {
 
-  return (
-  
-    // <>
-    
-   
-    //     <ProSidebar style={{position: "fixed"}}>b
-    //     <Menu iconShape={styles.square}>
-    //     {isAuth() && isAuth().role === 0 && (
-    //         <MenuItem>
-    //             <Link href="/user">
-    //                 Dashboard
-    //              </Link>
-    //         </MenuItem>
-    //     )}
-    //     {isAuth() && isAuth().role === 1 && (
-    //         <MenuItem>
-    //             <Link href="/admin">
-    //                 Dashboard
-    //              </Link>
-    //         </MenuItem>
-    //     )}
-    //         {/* posts menu */}
-    //         <SubMenu title="Posts">
-    //             <MenuItem>
-    //                 <Link href="/admin/crud/blog">
-    //                     Add New Post
-    //                 </Link>
-    //             </MenuItem>
-    //             <MenuItem>
-    //                 <Link href="/admin/crud/blogs">
-    //                     All Posts
-    //                 </Link>
-    //             </MenuItem>
-    //         </SubMenu>
 
 
-    //         {/* pages menu */}
-    //         <SubMenu title="Pages">
-    //             <MenuItem>
-    //                 <Link href="/admin/page/about">
-    //                     About
-    //                 </Link>
-    //             </MenuItem>
-
-    //             <MenuItem>
-    //                 <Link href="/admin/page/advertisement">
-    //                     Advertisement
-    //                 </Link>
-    //             </MenuItem>
-
-    //             <MenuItem>
-    //                 <Link href="/admin/page/editor">
-    //                     Editor
-    //                 </Link>
-    //             </MenuItem>
-
-    //             <MenuItem>
-    //                 <Link href="/admin/page/contact">
-    //                     Contact
-    //                 </Link>
-    //             </MenuItem>
-    //         </SubMenu>
-
-    //         {/* categories and tags */}
-    //         <MenuItem>
-    //             <Link href="/admin/crud/category-tag">
-    //                Categories and Pages
-    //             </Link>
-    //         </MenuItem>
 
 
-    //         {/* Ads Setting */}
-    //         <MenuItem>
-    //             <Link href="/admin/crud/ads">
-    //             Ads Setting
-    //             </Link>
-    //         </MenuItem>
-
-
-    //         {/* Site Setting */}
-    //         <MenuItem>
-    //             <Link href="/admin/crud/logo">
-    //             Site Setting
-    //             </Link>
-    //         </MenuItem>
-
-
-    //         {/* Profile Setting */}
-    //         <MenuItem>
-    //             <Link href="/user/update">
-    //                Profile Setting
-    //             </Link>
-    //         </MenuItem>
-
-
-    //     </Menu>
-    // </ProSidebar>
-  
-    // </>
-          
+  return (    
     <>
-    <div id="container" style={{marginLeft: '-17px', position: "fixed", top: "0"}} className="effect aside-float aside-bright mainnav-lg">
-    {/*NAVBAR*/}
-    {/*===================================================*/}
-    
-    {/*===================================================*/}
-    {/*END NAVBAR*/}
-   
-     
-      
-      {/*MAIN NAVIGATION*/}
-      {/*===================================================*/}
-      <nav id="mainnav-container">
-        <div id="mainnav">
-          {/*OPTIONAL : ADD YOUR LOGO TO THE NAVIGATION*/}
-          {/*It will only appear on small screen devices.*/}
-          {/*================================
-              <div class="mainnav-brand">
-                  <a href="index.html" class="brand">
-                      <img src="img/logo.png" alt="Nifty Logo" class="brand-icon">
-                      <span class="brand-text">Nifty</span>
-                  </a>
-                  <a href="#" class="mainnav-toggle"><i class="pci-cross pci-circle icon-lg"></i></a>
-              </div>
-              */}
-          {/*Menu*/}
-          {/*================================*/}
-          <div id="mainnav-menu-wrap">
-            <div className="nano">
-              <div className="nano-content">
-          
-               
-                <ul id="mainnav-menu" className="list-group">
-                
-                <li className="">
-                  {isAuth() && isAuth().role === 0 && (
-                    <Link href="/user">
-                    <a href="#">
-                      <i className="demo-pli-home" />
-                      <span className="menu-title">Dashboard</span>
-                      <i className="arrow" />
-                    </a>
-                    </Link>
-                    )}
-                    {/*Submenu*/}
-                  
-                  </li>
-                  
-                  <li className="">
-                  {isAuth() && isAuth().role === 1 && (
-                    <Link href="/admin">
-                    <a href="#">
-                      <i className="demo-pli-home" />
-                      <span className="menu-title">Dashboard</span>
-                      <i className="arrow" />
-                    </a>
-                    </Link>
-                    )}
-                    {/*Submenu*/}
-                  
-                  </li>
-
-                 
-                  {/*Menu list item*/}
-                  <li>
-                     {/* posts menu */}
-                    <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posts" className='mt-2'>
-                        <MenuItem className='border-top'>
-                            <Link href="/admin/crud/blog">
-                                Add New Post
-                            </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link href="/admin/crud/blogs">
-                                All Posts
-                            </Link>
-                        </MenuItem>
-                    </SubMenu>
-                   
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    <MenuItem className='mt-2'>
-                        <Link href="/admin/crud/category-tag">
-                        &nbsp;&nbsp;&nbsp;Categories and Tags
-                        </Link>
-                    </MenuItem>
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    
-                    <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pages" className='mt-3'>
-                        <MenuItem className='border-top'>
-                            <Link href="/admin/page/about">
-                                About
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/advertisement">
-                                Advertisement
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/editor">
-                                Editor
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/contact">
-                                Advertisement
-                            </Link>
-                        </MenuItem>
-                    </SubMenu>
-                    
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    
-                    <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;English Version" className='mt-3'>
-                        <MenuItem className='border-top'>
-                        <SubMenu title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;English Version" className='mt-3'>
-                          <MenuItem className='border-top'>
-                              <Link href="/admin/crud/eblog/ecreate">
-                                  Add Post
-                              </Link>
-                          </MenuItem>
-                          <MenuItem>
-                              <Link href="/admin/page/advertisement">
-                                  All Post
-                              </Link>
-                          </MenuItem>
-                      </SubMenu>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/advertisement">
-                                Advertisement
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/editor">
-                                Editor
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href="/admin/page/contact">
-                                Advertisement
-                            </Link>
-                        </MenuItem>
-                    </SubMenu>
-                    
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    <MenuItem className='mt-3'>
-                        <Link href="/admin/crud/logo">
-                        &nbsp;&nbsp;&nbsp;Site Settings
-                        </Link>
-                    </MenuItem>
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    <MenuItem>
-                        <Link href="/admin/crud/ads">
-                        &nbsp;&nbsp;&nbsp;Ads Setting
-                        </Link>
-                    </MenuItem>
-                  </li>
-
-                  <li>
-                    {/* categories and tags */}
-                    <MenuItem>
-                        <Link href="/user/update">
-                        &nbsp;&nbsp;&nbsp;Profile
-                        </Link>
-                    </MenuItem>
-                  </li>
-                  <li>
-                  <Link href="/signin">
-                  <p style={
-                    {
-                      position: "fixed", 
-                      bottom: "0", 
-                      maxWidth: "220px", 
-                      cursor: "pointer", 
-                      width: "100%", 
-                      backgroundColor: "#25476A"
-                      }
-                    }
-                  >
-                  {isAuth() && (
-                  
-                    <a 
-                      onClick={() => signout(() => Router.push('/signin'))}
-                      style={
-                        {
-                          color: "white", 
-                          textAlign: "center", 
-                          marginRight: "25px",
-                          fontWeight: "bold"
-                        }
-                      }
-                      className=""
-                    >
-                      <i className="demo-pli-unlock icon-lg icon-fw" /> Logout
-                    </a>
-                    
-                  )}
-                  </p>
-                  </Link>
-                  </li>
-                </ul>
-               
-
-                
-
-               
-              </div>
-            </div>
-          </div>
+   <div className="" style={{position: "fixed", top: "27px", height: "650px"}}>
+      <ProSidebar width="220px" breakPoint="xs">
+      <SidebarContent>
+        <Menu>
+          <MenuItem icon={<GoDashboard />}>
+            {isAuth() && isAuth().role === 0 && (
+              <Link href="/user">
+              <a href="#">
+                <i className="demo-pli-home" />
+                 <span className="menu-title"> Dashboard</span>
+                <i className="arrow" />
+              </a>
+              </Link>
+            )}
+            {isAuth() && isAuth().role === 1 && (
+              <Link href="/admin">
+              <a href="#">
+                <i className="demo-pli-home" />
+                <span className="menu-title">Dashboard</span>
+                <i className="arrow" />
+              </a>
+              </Link>
+            )}
+          </MenuItem>
          
-        </div>
-       
-      </nav>
-      {/*===================================================*/}
-      {/*END MAIN NAVIGATION*/}
+          <MenuItem icon={<BiCategory/>}><Link href="/admin/crud/category-tag">Category</Link></MenuItem>
+          <MenuItem icon={<BiCategory/>}><Link href="/admin/crud/tags">Tag</Link></MenuItem>
+            
 
-      
+         
+
+          <MenuItem icon={<MdOutlinePermMedia />}><Link href="#">Media</Link></MenuItem>
+          
+          <MenuItem icon={<RiGalleryLine />}><Link href="#">Gallery</Link></MenuItem>
+          
+          <SubMenu icon={<BsFileEarmarkPostFill />} title="Posts">
+            <MenuItem><Link href="/admin/crud/blog">Add Post </Link></MenuItem>
+            <MenuItem><Link href="/admin/crud/blogs">All Posts</Link></MenuItem>
+          </SubMenu>
+
+          <SubMenu icon={<MdOutlineContactPage />} title="Pages">
+            <MenuItem><Link href="/admin/page/about">About</Link></MenuItem>
+            <MenuItem><Link href="/admin/page/contact">Contact</Link></MenuItem>
+            <MenuItem><Link href="/admin/page/editor">Editor</Link></MenuItem>
+            <MenuItem><Link href="/admin/page/advertisement">Advertisement</Link></MenuItem>
+          </SubMenu>
+          
+          <MenuItem icon={<RiAdvertisementLine />}><Link href="/admin/crud/ads">Ads Setting</Link></MenuItem>
+          <MenuItem icon={<FaUserShield />}><Link href="/user/update">Profile</Link></MenuItem>
+          <MenuItem icon={<FiSettings />}><Link href="/admin/crud/logo">Setting</Link></MenuItem>
+         
+         
+         {/* English version menu */}
+          <SubMenu icon={<GrGallery />} title="English Version">
+            <SubMenu title="Posts">
+              <MenuItem><Link href="/admin/crud/eblog/ecreate">Add Post </Link></MenuItem>
+              <MenuItem><Link href="/admin/crud/eblog/eblogs">All Posts</Link></MenuItem>
+            </SubMenu>
+            <MenuItem><Link href="/admin/crud/eblog/ecategory">Category</Link></MenuItem>
+            <SubMenu title="Pages">
+              <MenuItem><Link href="/admin/page/about">About</Link></MenuItem>
+              <MenuItem><Link href="/admin/page/contact">Contact</Link></MenuItem>
+              <MenuItem><Link href="/admin/page/editor">Editor</Link></MenuItem>
+              <MenuItem><Link href="/admin/page/advertisement">Advertisement</Link></MenuItem>
+            </SubMenu>
+          </SubMenu>
+
+          <MenuItem icon={<FiUsers />}><Link href="/admin/users">Users</Link></MenuItem>
+
+        </Menu>
+      </SidebarContent>
+    </ProSidebar>
     </div>
 
-   
+   </>
 
-    </>
+   
   );
 }
 

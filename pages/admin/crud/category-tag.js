@@ -7,6 +7,7 @@ import Sidebar from '../../../components/Sidebar';
 import Head from 'next/head';
 import StyleLinks from '../../../components/StyleLinks';
 import Header from '../../../components/Header';
+import {API} from '../../../config';
 
 
 const CategoryTag = () => {
@@ -18,28 +19,25 @@ const CategoryTag = () => {
        
         <Layout>
             <Admin>
-                <div className="container-fluid">
-                    <div className='row'>
-                        <div className='col-md-12'>
-                        <div className="row">
-                        <div className="col-md-12 pt-5 pb-5">
-                            <h2>Manage Categories and Tags</h2>
-                        </div>
-                        <div className="col-md-6">
-                            <Category />
-                        </div>
-                        <div className="col-md-6">
-                            <Tag />
-                        </div>
-                    </div>
-                        </div>
-                    </div>
-                </div>
+                
+                <Category/>
+                <StyleLinks />
+                      
             </Admin>
         </Layout>
-        <StyleLinks/>
         </>
     );
 };
+
+
+// export const getServerSideProps = async () => {
+//     const allCat = await fetch(`${API}/categories`);
+//     const categories = await allCat.json();
+//     return {
+//         props: {
+//             categories
+//         }
+//     }
+// }
 
 export default CategoryTag;

@@ -11,19 +11,10 @@ const AdminIndex = () => {
 
     <Layout>
       <Admin>
-        <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-md-12'>
-                    <h1 className='text-center'>
-                      <Dashboard/>
-                    </h1>
-                </div>
-            </div>
-            </div>
-        
+        <Dashboard/>
+        <StyleLinks />
       </Admin>
     </Layout>
-    <StyleLinks/>
     </>
     
   )
