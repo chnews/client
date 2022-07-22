@@ -42,10 +42,13 @@ const CreateBlog = ({ router }) => {
         slug: '',
         mtitle: '',
         mdesc: '',
+        status: '',
+        featured: '',
+        scrol: '',
         hidePublishButton: false
     });
 
-    const { error, sizeError, success, formData, title, slug, mtitle, mdesc, hidePublishButton } = values;
+    const { error, sizeError, success, formData, title, slug, mtitle, mdesc, status, featured, scrol, hidePublishButton } = values;
     const token = getCookie('token');
 
     useEffect(() => {
@@ -81,7 +84,7 @@ const CreateBlog = ({ router }) => {
             if (data?.error) {
                setValues({ ...values, error: data.error });
             } else {
-                setValues({ ...values, title: '', slug: '', mtitle: '', mdesc: '', error: '', success: `A new blog titled "${title}" is created` });
+                setValues({ ...values, title: '', slug: '', mtitle: '', mdesc: '', error: '', status: '', featured: '', scrol: '', success: `A new blog titled "${title}" is created` });
                 setBody('');
                 initCategories('');
                 initTags('');
@@ -293,7 +296,37 @@ const CreateBlog = ({ router }) => {
                                                     </div>
                                                     </form>
                                                 </div>
-                                                
+                                                <hr/>
+                                                <h5>Select Status</h5>
+                                                <div className="form-group">
+                                                    <select value={status} onChange={handleChange('status')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="published" selected>Published</option>
+                                                        <option value="published">Published</option>
+                                                        <option value="draft">Draft</option>
+                                                    </select>
+                                                </div>
+
+                                                <hr />
+                                                <h5>Make Fetured Post</h5>
+                                                <div className="form-group">
+                                                    <select value={featured} onChange={handleChange('featured')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <hr />
+                                                <h5>Scrolling Post</h5>
+                                                <div className="form-group">
+                                                    <select value={scrol} onChange={handleChange('scrol')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+
 
                                                 <div>
                                                         <h5>Categories</h5>

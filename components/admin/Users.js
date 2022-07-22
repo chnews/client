@@ -1,7 +1,76 @@
 import React from 'react'
+import {useState, useEffect} from 'react'
 import { API } from '../../config';
+import {getCookie} from '../../actions/auth';
+import {getProfile, create} from '../../actions/user';
 
 const Users = ({ users }) => {
+
+    const [image, setImage] = useState(null);
+    const [values, setValues] = useState({
+        username: '',
+        name: '',
+        email: '',
+        about: '',
+        password: '',
+        role: '',
+        error: false,
+        success: false,
+        loading: false,
+        photo: '',
+        userData: ''
+    });
+
+    const token = getCookie('token');
+    const { username, name, email, about, password, role, error, success, loading, photo, userData } = values;
+
+    
+    const handleChange = name => e => {
+        // console.log(e.target.value);
+        
+        const value = name === 'photo' ? e.target.files[0] : e.target.value;
+        let userFormData = new FormData();
+        userFormData.set(name, value);
+        setValues({ ...values, [name]: value, userData: userFormData, error: false, success: false });
+        
+        
+        const file = e.target.files[0];
+        const fileReader = new FileReader();
+        fileReader.onload = function(e){
+            
+            setImage(e.target.result);
+        }
+        fileReader.readAsDataURL(file);
+        
+    };
+
+  
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        setValues({ ...values, loading: true });
+        create(token, userData).then(data => {
+            if (data?.error) {
+                setValues({ ...values, error: data.error, success: false, loading: false });
+            } else {
+                createUser(data, () => {
+                    setValues({
+                        ...values,
+                        username: data?.username,
+                        name: data?.name,
+                        email: data?.email,
+                        about: data?.about,
+                        password: '',
+                        success: true,
+                        loading: false
+                    });
+                });
+            }
+        });
+    };
+    
+    
+    
     return (
 
 
@@ -30,28 +99,37 @@ const Users = ({ users }) => {
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                            <form>
+                                            <form onSubmit={handleSubmit}>
 
                                                 <div className="form-group">
                                                     <label className="text-muted">Username</label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" onChange={handleChange('username')} value={username}/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="text-muted">Name</label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" onChange={handleChange('name')} value={name}/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="text-muted">Email</label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" onChange={handleChange('email')} value={email}/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="text-muted">About</label>
-                                                    <textarea type="text" className="form-control" />
+                                                    <textarea type="text" className="form-control" onChange={handleChange('about')} value={about}/>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label className="text-muted">Password</label>
-                                                    <input type="password" className="form-control" />
+                                                    <input type="password" className="form-control" onChange={handleChange('password')} value={password}/>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label className="text-muted">Role</label>
+                                                <select onChange={handleChange('role')} value={role} class="form-select" aria-label="Default select example">
+                                                    <option className="text-muted" selected>Select</option>
+                                                    <option value="1">Admin</option>
+                                                    <option value="0">User</option>
+                                                </select>
                                                 </div>
 
 
@@ -62,18 +140,18 @@ const Users = ({ users }) => {
                                                             <label htmlFor="formFileSm" className="form-label">
                                                                 Image
                                                             </label>
-                                                            <input type="file" accept="image/*" className="form-control form-control-sm" id="formFileSm" />
+                                                            <input type="file" onChange={handleChange('photo')} accept="image/*" className="form-control form-control-sm" id="formFileSm" />
                                                         </div>
                                                     </div>
 
                                                     <div className='col-6'>
-                                                        {/* {image && <img src={image} style ={{width: '100px', height: '100px'}}/>} */}
+                                                        {image && <img src={image} style ={{width: '100px', height: '100px'}}/>}
                                                     </div>
                                                 </div>
 
                                                 <div>
                                                     <button type="submit" className="btn btn-primary">
-                                                        Submit
+                                                        Save User
                                                     </button>
                                                 </div>
 

@@ -14,7 +14,7 @@ const ScrollbarEng = () => {
     const [lastNews, setLastNews] = useState([]);
 
     useEffect(() => {
-        fetch(`${API}/eposts`)
+        fetch(`${API}/escroll`)
         .then((res)=>{
            return res.json()
         })
@@ -36,27 +36,36 @@ const ScrollbarEng = () => {
                         <div className="text-white fw-bold" >Headlines</div>
                     </div>
                 </div>
-            
+                {/* <div className="col-11 bg-danger">
+                <marquee className="text-white fw-bold pt-1">
+                    {lastNews && lastNews.slice(0, 5).map((last) =>
+                            <Link href={`/eblogs/${last?.slug}`}>
+                               <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{last?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </Link>
+                    )}
+                </marquee>  
+                
+                </div> */}
 
                 <div className="col-11 bg-danger">
                     <div className="bg-danger py-1">
                     <marquee className="text-white fw-bold ">
-                    <Link href={`/blogs/${lastNews[0]?.slug}`}>
+                    <Link href={`/eblogs/${lastNews[0]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[0]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
                     <Link href={`/blogs/${lastNews[1]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[1]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
-                    <Link href={`/blogs/${lastNews[2]?.slug}`}>
+                    <Link href={`/eblogs/${lastNews[2]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[2]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
-                    <Link href={`/blogs/${lastNews[3]?.slug}`}>
+                    <Link href={`/eblogs/${lastNews[3]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[3]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
-                    <Link href={`/blogs/${lastNews[4]?.slug}`}>
+                    <Link href={`/eblogs/${lastNews[4]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[4]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
-                    <Link href={`/blogs/${lastNews[5]?.slug}`}>
+                    <Link href={`/eblogs/${lastNews[5]?.slug}`}>
                         <span style={{cursor: "pointer"}}><SquareIcon fontSize='small'/>&nbsp;{lastNews[5]?.title}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </Link>
                        
@@ -67,7 +76,7 @@ const ScrollbarEng = () => {
          
             </div>
 
-
+          
         
       </>
   );

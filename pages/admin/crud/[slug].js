@@ -10,13 +10,9 @@ const Blog = () => {
 
         <Layout>
             <Admin>
-                <div className='container-fluid mt-5'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <BlogUpdate />
-                        </div>
-                    </div>
-                </div>
+                
+                <BlogUpdate />
+                    
              </Admin>
         </Layout>
       

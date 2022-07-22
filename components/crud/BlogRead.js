@@ -47,13 +47,13 @@ const BlogRead = ({ username }) => {
         if (isAuth() && isAuth().role === 0) {
             return (
                 <Link href={`/user/crud/${blog.slug}`}>
-                     <a href="#" className="btn btn-success btn-sm" data-original-title="Edit Post" data-container="body">Edit</a>
+                     <a className="" data-original-title="Edit Post" data-container="body">Edit</a>
                 </Link>
             );
         } else if (isAuth() && isAuth().role === 1) {
             return (
                 <Link href={`/admin/crud/${blog.slug}`}>
-                     <a href="#" className="btn btn-success btn-sm" data-original-title="Edit Post" data-container="body">Edit</a>
+                     <a className="" data-original-title="Edit Post" data-container="body">Edit</a>
                 </Link>
             );
         }
@@ -148,7 +148,8 @@ const BlogRead = ({ username }) => {
                                                         <th>Categories</th>
                                                         <th>Post by</th>
                                                         <th>Status</th>
-                                                        <th class="text-center">Actions</th>
+                                                        <th>Featured</th>
+                                                        <th>Scrolling</th>
 
                                                     </tr>
                                                 </thead>
@@ -156,20 +157,27 @@ const BlogRead = ({ username }) => {
                                                     {blogs && blogs?.map((blog, i) =>
                                                         <tr>
                                                             <td scope="row">{i + 1}</td>
-                                                            <td>{blog.title}</td>
-                                                            <td>{moment(blog.updatedAt).fromNow()}</td>
-                                                            <td>{blog.categories.name}</td>
-                                                            <td>{blog.postedBy.name}</td>
-                                                            <td>{blog.postedBy.name}</td>
                                                             <td>
+                                                                {blog.title}<br/>
+                                                                {showUpdateButton(blog)} &nbsp;&nbsp;
+                                                                <a onClick={() => deleteConfirm(blog.slug)} className="" style={{cursor: "pointer"}} data-original-title="Remove" data-container="body">Delete</a>
+                                                            </td>
+                                                            <td>{moment(blog.updatedAt).fromNow()}</td>
+                                                            <td>
+                                                                {blog.categories && blog.categories.map((categories) => <small>{categories.name + ', '}</small> )}
+                                                                
+                                                            </td>
+                                                            <td>{blog.postedBy.name}</td>
+                                                            {blog.status === "published" ? <td><div class="label label-table label-success">Published</div></td> : <td><div class="label label-table label-primary">Draft</div></td>}
+                                                            {blog.featured === "yes" ? <td><div class="label label-table label-success">Yes</div></td> : <td><div class="label label-table label-primary">No</div></td>}
+                                                            {blog.scrol === "yes" ? <td><div class="label label-table label-success">Yes</div></td> : <td><div class="label label-table label-primary">No</div></td>}
+                                                            
+                                                            {/* <td>
                                                                 <div class="btn-groups">
-                                                                    {/* <a href="#" class="btn btn-icon demo-pli-gear icon-lg add-tooltip" data-original-title="Settings" data-container="body"></a>
-                                                                    <a href="#" class="btn btn-icon demo-pli-file-text-image icon-lg add-tooltip" data-original-title="View post" data-container="body"></a>
-                                                                    */}
                                                                    {showUpdateButton(blog)}
                                                                     <button onClick={() => deleteConfirm(blog.slug)} className="btn btn-danger btn-sm" data-original-title="Remove" data-container="body">Delete</button>
                                                                 </div>
-                                                            </td>
+                                                            </td> */}
                                                         </tr>
                                                     )}
 

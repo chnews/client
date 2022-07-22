@@ -7,42 +7,42 @@ import axios from 'axios';
 
 const Belowpostads = () => {
 
-    const [image, setImage] = useState("");
-    const [name, setName] = useState("");
-    const [linkto, setLinkto] = useState("");
-    const token = getCookie('token');
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [linkto, setLinkto] = useState("");
+  const token = getCookie('token');
 
-    const handleChange = (e) => {
-        console.log(e.target.files)
-        setImage(e.target.files[0])
-    }
+  const handleChange = (e) => {
+    console.log(e.target.files)
+    setImage(e.target.files[0])
+  }
 
-    const handleNameChange = (e) => {
-        setName(e.target.value)
-        console.log(e.target.value)
-    }
+  const handleNameChange = (e) => {
+    setName(e.target.value)
+    console.log(e.target.value)
+  }
 
-    const handleLinkChange = (e) => {
-        setLinkto(e.target.value)
-        console.log(e.target.value)
-    }
+  const handleLinkChange = (e) => {
+    setLinkto(e.target.value)
+    console.log(e.target.value)
+  }
 
-  
 
-    const BelowpostadsApi = () => {
-      const url = `${API}/below-post-ads`;
-      const formData = new FormData();
-      formData.append("ads", image)
-      formData.append('name', name)
-      formData.append('url', linkto)
-      axios.post(url, formData, { headers: {"Authorization" : `Bearer ${token}`} })
-      .then((res)=>{
-          console.log(res)
+
+  const BelowpostadsApi = () => {
+    const url = `${API}/below-post-ads`;
+    const formData = new FormData();
+    formData.append("ads", image)
+    formData.append('name', name)
+    formData.append('url', linkto)
+    axios.post(url, formData, { headers: { "Authorization": `Bearer ${token}` } })
+      .then((res) => {
+        console.log(res)
       })
   }
 
 
-  
+
 
 
 
@@ -51,86 +51,65 @@ const Belowpostads = () => {
 
   return (
     <>
-    
-     
+        <div className="page-wrapper">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-6 col-xlg-6 col-md-6">
+                <div className="card">
+                  <div className="card-body">
+                    <p className="text-bold text-uppercase">
+                      Below single post Banner
+                    </p>
+                    <hr />
+
+                    <div className="form-group">
+                      <label className="">Title</label>
+                      <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange} />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="">Link URL</label>
+                      <input type="text" className="form-control" name="url" value={linkto} onChange={handleLinkChange} />
+                    </div>
+
+                    <div className='row'>
+                      <div className='col-12'>
+                        <div className="mb-3">
+                          <label htmlFor="formFileSm" className="form-label">
+                            Image
+                          </label>
+                          <input type="file" name="image" onChange={handleChange} accept="image/*" className="form-control form-control-sm" id="formFileSm" />
+                        </div>
+                      </div>
+
+                      <div className='col-6'>
+                        {/* {image && <img src={image} style ={{width: '100px', height: '100px'}}/>} */}
+                      </div>
+                    </div>
+
+                    <div>
+                      <button type="submit" className="btn btn-primary" onClick={BelowpostadsApi}>
+                        Submit
+                      </button>
+                    </div>
 
 
-{/*       
-        <input type="text" name="name" value={name} onChange={handleNameChange}/>
-        <input type="text" name="url" value={linkto} onChange={handleLinkChange}/>
-        <input type="file" name="image" onChange={handleChange}/>
-        <input type="submit" className='mt-5 float-end' onClick={homeRightAdsApi}/>
-      
-     */}
-        <div className='row '>
-    <div className='col-12 bg-light'>
 
-    
-    <div className="panel-body">
-   
-      <h4 className="text-main text-bold text-uppercase text-center">
-        Below post Banner
-      </h4>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6 col-xlg-6 col-md-6">
 
-      <div className="form-group">
-        <label className=""><h5>Title</h5></label>
-        <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange}/>
-    </div>
+              </div>
 
-    <div className="form-group">
-        <label className=""><h5>URL</h5></label>
-        <input type="text" className="form-control" name="url" value={linkto} onChange={handleLinkChange} />
-    </div>
-      <div className="dropzone-container mb-3">
-       
-          <div className="dz-default dz-message">
-            {/* <div className="dz-icon">
-              <i className="demo-pli-upload-to-cloud icon-5x" />
-            </div> */}
-            {/* <div>
-              <span className="dz-text">Drop files to upload</span>
-              <p className="text-sm text-muted">
-                or click to pick manually
-              </p>
-            </div> */}
-          </div>
-          <div className="fallback">
-          <small className="text-muted">Upload Logo Here</small>
-                <br />
-                <label className="btn btn-outline-info">
-                    Upload image
-                    <input type="file"  name="image" onChange={handleChange} accept="image/*" hidden/>
-                </label>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-6 col-sm-offset-6 toolbar-right text-right">
-            <button className="btn btn-primary" type='submit' onClick={BelowpostadsApi}>Save</button>
             </div>
+          </div>
         </div>
-       
-      </div>
-      
-      <hr />
-    
-      
-    </div>
-  </div>
 
- 
-
-   
-
-    <div>
         
-         
-        
-    </div>
+      </>
 
-</div>
 
-    
-    </>
   )
 }
 

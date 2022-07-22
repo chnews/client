@@ -27,10 +27,16 @@ const EblogUpdate = ({ router }) => {
         success: '',
         formData: typeof window !== 'undefined' && new FormData(),
         title: '',
+        slug: '',
+        mtitle: '',
+        mdesc: '',
+        status: '',
+        featured: '',
+        scrol: '',
         body: ''
     });
 
-    const { error, success, formData, title } = values;
+    const { error, success, formData, title, slug, mtitle, mdesc, status, featured, scrol  } = values;
     const token = getCookie('token');
 
     useEffect(() => {
@@ -46,7 +52,7 @@ const EblogUpdate = ({ router }) => {
                 if (data?.error) {
                     console.log(data.error);
                 } else {
-                    setValues({ ...values, title: data.title });
+                    setValues({ ...values, title: data.title, slug: data.slug, mtitle: data.mtitle, mdesc: data.mdesc, status: data.status });
                     setBody(data.body);
                     setCategoriesArray(data.categories);
                     setTagsArray(data.tags);
@@ -197,10 +203,10 @@ const EblogUpdate = ({ router }) => {
                 setValues({ ...values, title: '', success: `Blog titled "${data.title}" is successfully updated` });
                 if (isAuth() && isAuth().role === 1) {
                     // Router.replace(`/admin/crud/${router.query.slug}`);
-                    Router.replace(`/admin`);
+                    Router.replace(`/admin/crud/eblog/eblogs`);
                 } else if (isAuth() && isAuth().role === 0) {
                     // Router.replace(`/user/crud/${router.query.slug}`);
-                    Router.replace(`/user`);
+                    Router.replace(`/user/crud/eblog/eblogs`);
                 }
             }
         });
@@ -250,13 +256,17 @@ const EblogUpdate = ({ router }) => {
 
     return (
        <>
-        <div className="container-fluid bg-white mt-3 pb-2">
+
+<>
+        <>
+ 
+ <div className="container-fluid bg-white pb-2">
       <div className="row">
         <div className="col-md-12 ">
             <div className="page-breadcrumb">
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                  <h4 className="page-title">Update Blog</h4>
+                  <h4 className="page-title">Add Blog</h4>
                 </div>
               </div>
               {/* /.col-lg-12 */}
@@ -265,49 +275,181 @@ const EblogUpdate = ({ router }) => {
         </div>
       </div>
     </div>
-    
-        <div className="container-fluid" style={{marginTop: "40px"}}>
-            <div className="row">
-                <div className="col-md-8">
-                    {updateBlogForm()}
 
-                    <div className="pt-3">
+    <>
+                    <div className="">
                         {showSuccess()}
                         {showError()}
-                    </div>
-                </div>
-                
-                <div className="col-md-4">
-              
-                    <div>
-                        <div className="form-group pb-2">
-                            <h5>Featured image</h5>
-                            <hr />
-                            {body && (
-                        <img src={`${API}/eblog/photo/${router.query.slug}`} alt={title} style={{ width: '100%' }} />
-                    )}
-                            <small className="text-muted">Max size: 1mb</small>
-                            <br />
-                            <label className="btn btn-outline-info">
-                                Update featured image
-                                <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
-                            </label>
+                    </div>        
+    <form onSubmit={editBlog}>
+                    <div className="page-wrapper">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-8 col-xlg-7 col-md-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                           
+
+                                            <div className="form-group">
+                                                <label className=""><h5>News Title</h5></label>
+                                                <input type="text" className="form-control" value={title} onChange={handleChange('title')} />
+                                            </div>
+                                            
+                                            <div className="form-group">
+                                                <h5 className='mt-4'>Full News</h5>
+                                                <ReactQuill
+                                                    modules={QuillModules}
+                                                    formats={QuillFormats}
+                                                    value={body}
+                                                    placeholder=""
+                                                    onChange={handleBody}
+                                                    style={{height: '600px', background: 'white'}}
+
+                                                />
+                                                
+                                            </div>
+
+                                            <div style={{marginTop: "80px"}}>
+                                                <div className="form-group ">
+                                                    <label className="">Custom Link</label>
+                                                    <input type="text" className="form-control" value={slug} onChange={handleChange('slug')}/>
+                                                </div>
+
+                                                <div className="form-group ">
+                                                    <label className="">Meta Title</label>
+                                                    <input type="text" className="form-control" value={mtitle} onChange={handleChange('mtitle')}/>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label className="">Meta Description</label>
+                                                    <textarea type="text" className="form-control" value={mdesc} onChange={handleChange('mdesc')}/>
+                                                </div>
+                                            </div>
+
+
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-4 col-xlg-3 col-md-12">
+                                
+                                    <div className="card">
+                                        <div className="card-body">
+                                        <div className="row">
+                                            <div className="col-sm-12 col-sm-offset-6 toolbar-right text-right">
+                                            {/* <button className="btn btn-default">Preview</button>
+                                            <button className="btn btn-default">Draft</button> */}
+                                            <button className="btn btn-primary" type='submit'>Update &amp; Publish</button>
+                                            </div>
+                                        </div>
+                                        <hr/>
+
+                                        <div className="fixed-fluid">
+                                            <div className="fixed-sm-300 pull-sm-right">
+                                            <div className="panel">
+                                                <div className="panel-body">
+                                                <p className="text-main text-center text-bold text-uppercase">
+                                                    Featured Image
+                                                </p>
+                                                
+                                                {/*Dropzonejs*/}
+                                                {/*===================================================*/}
+                                                <div className="dropzone-container mb-3">
+                                                    <form id="demo-dropzone" action="#">
+                                                    <div className="dz-default dz-message">
+                                                        <div className="dz-icon">
+                                                        <i className="demo-pli-upload-to-cloud icon-5x" />
+                                                        </div>
+                                                        <div>
+                                                        {body && (
+                                                            <img src={`${API}/eblog/photo/${router.query.slug}`} alt={title} style={{ width: '100%' }} />
+                                                        )}
+                                         </div>
+                                                    </div>
+                                                    <div className="fallback text-center">
+                                                    {/* <small className="text-muted">Max size: 1mb</small> */}
+                                                            <br />
+                                                            <label className="btn btn-outline-info">
+                                                                Upload featured image
+                                                                <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
+                                                            </label>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                <hr />
+                                                <h5>Select Status</h5>
+                                              
+                                                <div className="form-group">
+                                                    <select value={status} onChange={handleChange('status')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="published" selected>Published</option>
+                                                        <option value="published">Published</option>
+                                                        <option value="draft">Draft</option>
+                                                    </select>
+                                                </div>
+
+                                                <hr />
+                                                <h5>Make Fetured Post</h5>
+                                                <div className="form-group">
+                                                    <select value={featured} onChange={handleChange('featured')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <hr />
+                                                <h5>Scrolling Post</h5>
+                                                <div className="form-group">
+                                                    <select value={scrol} onChange={handleChange('scrol')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div>
+                                                
+                                                        <h5>Categories</h5>
+                                                        <hr />
+
+                                                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showCategories()}</ul>
+                                                    </div>
+                                                <div>
+                                                
+                                                        <h5>Tags</h5>
+                                                        <hr />
+                                                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showTags()}</ul>
+                                                    </div>
+                                                <hr />
+                                                
+                                                
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                        </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <h5>Categories</h5>
-                        <hr />
-
-                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showCategories()}</ul>
-                    </div>
-                    <div>
-                        <h5>Tags</h5>
-                        <hr />
-                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showTags()}</ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </form>
+                </>
+    
+              
+        
+        </>
+       
+        </>
+     
+    
+     
         </>
     );
 };

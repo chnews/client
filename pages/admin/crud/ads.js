@@ -3,6 +3,13 @@ import Layout from '../../../components/Layout';
 import Admin from '../../../components/auth/Admin';
 import Ads from '../../../components/crud/Ads'
 import StyleLinks from '../../../components/StyleLinks';
+import Topbanner from '../../../components/crud/ads/Topbanner';
+import HomeRightAds from '../../../components/crud/ads/HomeRightAds';
+import Homemiddlebigads from '../../../components/crud/ads/Homemiddlebigads';
+import Homemiddlefirst from '../../../components/crud/ads/Homemiddlefirst';
+import Homemiddlesec from '../../../components/crud/ads/Homemiddlesec';
+import Belowpostads from '../../../components/crud/ads/Belowpostads';
+
 
 
 const AdminIndex = () => {
@@ -13,16 +20,15 @@ const AdminIndex = () => {
     
     <Layout>
       <Admin>
-        <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-md-12'>
-                    <Ads />
-                </div>
-            </div>
-            </div>
-        
+        <Topbanner/>
+        <HomeRightAds/>
+        <Homemiddlebigads/>
+        <Homemiddlefirst />
+        <Homemiddlesec/>
+        <Belowpostads/>
       </Admin>
     </Layout>
+    <StyleLinks/>
     </>
 
   )

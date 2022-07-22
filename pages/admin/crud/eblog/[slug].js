@@ -1,7 +1,7 @@
 import Layout from '../../../../components/Layout';
 import Admin from '../../../../components/auth/Admin';
 import EblogUpdate from '../../../../components/english-view/crud/EblogUpdate';
-import StyleLinks from '../../../../components/StyleLinks';
+import StyleLinks from '../../../../components/english-view/StyleLinks';
 
 const Blog = () => {
     return (
@@ -10,13 +10,9 @@ const Blog = () => {
 
         <Layout>
             <Admin>
-                <div className='container-fluid mt-5'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <EblogUpdate />
-                        </div>
-                    </div>
-                </div>
+                
+               <EblogUpdate />
+                     
              </Admin>
         </Layout>
       

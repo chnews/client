@@ -59,9 +59,9 @@ const Sidebar = () => {
 
          
 
-          <MenuItem icon={<MdOutlinePermMedia />}><Link href="#">Media</Link></MenuItem>
+          {/* <MenuItem icon={<MdOutlinePermMedia />}><Link href="#">Media</Link></MenuItem> */}
           
-          <MenuItem icon={<RiGalleryLine />}><Link href="#">Gallery</Link></MenuItem>
+          <MenuItem icon={<RiGalleryLine />}><Link href="/admin/gallery">Gallery</Link></MenuItem>
           
           <SubMenu icon={<BsFileEarmarkPostFill />} title="Posts">
             <MenuItem><Link href="/admin/crud/blog">Add Post </Link></MenuItem>

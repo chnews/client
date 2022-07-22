@@ -1,22 +1,23 @@
 import React from 'react'
+import Link from 'next/link'
 import {API} from '../../config'
+import Gallery from '../../components/admin/Gallery'
+import StyleLinks from '../../components/StyleLinks'
 
 const gallery = ({images}) => {
 
-    console.log(images)
-
-    
+  
   return (
   <>
-    {images?.map((image) => 
-        <div><img source={{uri: image.photo}} /></div>
-    )}
+ 
+  <Gallery images={images}/>
+  <StyleLinks/>
   </>
   )
 }
 
 export const getServerSideProps = async () => {
-    const photos = await fetch(`${API}/blog/images`);
+    const photos = await fetch(`${API}/posts`);
     const images = await photos.json();
     return {
         props: {

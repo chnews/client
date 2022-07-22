@@ -1,41 +1,13 @@
-import Frontpage from '../components/frontend/Frontpage';
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect} from 'react';
-import renderHTML from 'react-render-html';
 import styled from 'styled-components';
-import styles from '../styles/Frontpage.module.css';
 import { withRouter } from 'next/router';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../config';
-import HomeRightAds from '../components/frontend/HomeRightAds';
-import HomeLongAds from '../components/frontend/HomeLongAds';
-import HomeSmallFirstAds from '../components/frontend/HomeSmallFirstAds';
-import HomeSmallSecAds from '../components/frontend/HomeSmallSecAds';
-import Poll from '../components/poll/Poll';
-import { stepButtonClasses } from '@mui/material';
-import Allnav from '../components/Allnav';
-import Footer from '../components/Footer';
-import AllnavEng from '../components/english-view/AllnavEng';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import FrontTest from '../components/frontend/FrontTest';
-import America from '../components/AllFront/America';
-import Navbar from '../components/frontend/Navbar';
 import BanglaView from '../components/AllViews/BanglaView';
 import EnglishView from '../components/AllViews/EnglishView';
-import NavbarEng from '../components/english-view/NavbarEng';
-import TopnavEng from '../components/english-view/TopnavEng';
-import Topnav from '../components/frontend/Topnav';
 import { useSelector } from 'react-redux';
 
 
-const Nheading = styled.p`
-
-    font-weight: 600;
-    font-size: 25px;
-
-`;
 
 const Index = ({  last,
   america,
@@ -176,7 +148,7 @@ const view = useSelector((state) => state);
 
   return ( 
     <>
-   
+   {head()}
     {
       view === "bangla" ? banglaVersion() : englishVersion()
     }

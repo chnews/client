@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['82.180.161.124'],
+    domains: ['127.0.0.1'],
   },
   publicRuntimeConfig:{
     

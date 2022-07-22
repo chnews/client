@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
 import { getCookie, isAuth } from '../../actions/auth';
 import { getCategories } from '../../actions/category';
+import { getSubCategories } from '../../actions/subcategory';
 import { getTags } from '../../actions/tag';
 import { createBlog } from '../../actions/blog';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -28,10 +29,12 @@ const CreateBlog = ({ router }) => {
     const [image, setImage] = useState(null);
 
     const [categories, setCategories] = useState([]);
+    const [subcategories, setSubCategories] = useState([]);
     const [tags, setTags] = useState([]);
 
     const [checked, setChecked] = useState([]); // categories
     const [checkedTag, setCheckedTag] = useState([]); // tags
+    const [checkedSub, setCheckedSub] = useState([]); // sub category
 
     const [body, setBody] = useState(blogFromLS());
     const [values, setValues] = useState({
@@ -43,15 +46,19 @@ const CreateBlog = ({ router }) => {
         slug: '',
         mtitle: '',
         mdesc: '',
+        status: '',
+        featured: '',
+        scrol: '',
         hidePublishButton: false
     });
 
-    const { error, sizeError, success, formData, title, slug, mtitle, mdesc, hidePublishButton } = values;
+    const { error, sizeError, success, formData, title, slug, mtitle, mdesc, status, featured, scrol, hidePublishButton } = values;
     const token = getCookie('token');
 
     useEffect(() => {
         setValues({ ...values, formData: new FormData() });
         initCategories();
+        initSubCategories();
         initTags();
     }, [router]);
 
@@ -61,6 +68,16 @@ const CreateBlog = ({ router }) => {
                 setValues({ ...values, error: data.error });
             } else {
                 setCategories(data);
+            }
+        });
+    };
+
+    const initSubCategories = () => {
+        getSubCategories().then(data => {
+            if (data?.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setSubCategories(data);
             }
         });
     };
@@ -82,9 +99,10 @@ const CreateBlog = ({ router }) => {
             if (data?.error) {
                setValues({ ...values, error: data.error });
             } else {
-                setValues({ ...values, title: '', slug: '', mtitle: '', mdesc: '', error: '', success: `A new blog titled "${title}" is created` });
+                setValues({ ...values, title: '', slug: '', mtitle: '', mdesc: '', status: '', featured: '', scrol: '', error: '', success: `A new blog titled "${title}" is created` });
                 setBody('');
                 initCategories('');
+                initSubCategories('');
                 initTags('');
                 setImage('');
             }
@@ -150,6 +168,22 @@ const CreateBlog = ({ router }) => {
         formData.set('tags', all);
     };
 
+    const handleSubToggle = s => () => {
+        setValues({ ...values, error: '' });
+        // return the first index or -1
+        const clickedSub = checked.indexOf(s);
+        const all = [...checkedSub];
+
+        if (clickedSub === -1) {
+            all.push(s);
+        } else {
+            all.splice(clickedSub, 1);
+        }
+        console.log(all);
+        setCheckedSub(all);
+        formData.set('subcategories', all);
+    };
+
     const showCategories = () => {
         return (
             categories &&
@@ -157,6 +191,18 @@ const CreateBlog = ({ router }) => {
                 <li key={i} className="list-unstyled">
                     <input onChange={handleToggle(c._id)} type="checkbox" className="mr-2" />
                     <label className="form-check-label">&nbsp;&nbsp;{c.name}</label>
+                </li>
+            ))
+        );
+    };
+
+    const showSubCategories = () => {
+        return (
+            subcategories &&
+            subcategories.map((s, i) => (
+                <li key={i} className="list-unstyled">
+                    <input onChange={handleSubToggle(s._id)} type="checkbox" className="mr-2" />
+                    <label className="form-check-label">&nbsp;&nbsp;{s.name}</label>
                 </li>
             ))
         );
@@ -174,7 +220,19 @@ const CreateBlog = ({ router }) => {
         );
     };
 
+    const showSuccess = () => (
+        <div className="alert alert-success" style={{ display: success ? '' : 'none' }}>
+            {success}
+        </div>
+    );
 
+    const showError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    );
+
+   
   
 
     return (
@@ -197,7 +255,10 @@ const CreateBlog = ({ router }) => {
     </div>
 
     <>
-                   
+                    <div className="">
+                        {showSuccess()}
+                        {showError()}
+                    </div>        
     <form onSubmit={publishBlog}>
                     <div className="page-wrapper">
                         <div className="container-fluid">
@@ -294,18 +355,54 @@ const CreateBlog = ({ router }) => {
                                                     </div>
                                                     </form>
                                                 </div>
-                                                
+                                                <hr />
+                                                <h5>Select Status</h5>
+                                                <div className="form-group">
+                                                    <select value={status} onChange={handleChange('status')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="published" selected>Published</option>
+                                                        <option value="published">Published</option>
+                                                        <option value="draft">Draft</option>
+                                                    </select>
+                                                </div>
+
+                                                <hr />
+                                                <h5>Make Fetured Post</h5>
+                                                <div className="form-group">
+                                                    <select value={featured} onChange={handleChange('featured')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <hr />
+                                                <h5>Scrolling Post</h5>
+                                                <div className="form-group">
+                                                    <select value={scrol} onChange={handleChange('scrol')} class="form-select" aria-label="Default select example">
+                                                        <option className="text-muted" value="no" >No</option>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
 
                                                 <div>
+                                                
                                                         <h5>Categories</h5>
                                                         <hr />
 
                                                         <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showCategories()}</ul>
                                                     </div>
-                                                <div>
+                                                    <div>
                                                         <h5>Tags</h5>
                                                         <hr />
                                                         <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showTags()}</ul>
+                                                    </div>
+
+                                                    <div>
+                                                        <h5>Sub Category</h5>
+                                                        <hr />
+                                                        <ul style={{ maxHeight: '200px', overflowY: 'scroll' }}>{showSubCategories()}</ul>
                                                     </div>
                                                 <hr />
                                                 
