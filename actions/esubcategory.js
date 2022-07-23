@@ -3,7 +3,7 @@ import { API } from '../config';
 import { handleResponse } from './auth';
 
 export const create = (category, token) => {
-    return fetch(`${API}/subcategory`, {
+    return fetch(`${API}/esubcategory`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -20,7 +20,7 @@ export const create = (category, token) => {
 };
 
 export const getSubCategories = () => {
-    return fetch(`${API}/subcategories`, {
+    return fetch(`${API}/esubcategories`, {
         method: 'GET'
     })
         .then(response => {
@@ -30,7 +30,7 @@ export const getSubCategories = () => {
 };
 
 export const singleSubCategory = slug => {
-    return fetch(`${API}/subcategory/${slug}`, {
+    return fetch(`${API}/esubcategory/${slug}`, {
         method: 'GET'
     })
         .then(response => {
@@ -40,7 +40,7 @@ export const singleSubCategory = slug => {
 };
 
 export const removeSubCategory = (slug, token) => {
-    return fetch(`${API}/subcategory/${slug}`, {
+    return fetch(`${API}/esubcategory/${slug}`, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',

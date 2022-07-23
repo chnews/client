@@ -4,9 +4,10 @@ import Ecategory from '../../../../components/english-view/crud/Ecategory';
 import Header from '../../../../components/Header';
 import {API} from '../../../../config';
 import StyleLinks from '../../../../components/english-view/StyleLinks';
+import Esubcategory from '../../../../components/english-view/crud/Esubcategory';
 
 
-const ecategory = () => {
+const esubcategory = () => {
 
    
     return (
@@ -16,7 +17,7 @@ const ecategory = () => {
         <Layout>
             <Admin>
                 
-                <Ecategory/>
+                <Esubcategory/>
                 <StyleLinks/>
                       
             </Admin>
@@ -36,4 +37,4 @@ const ecategory = () => {
 //     }
 // }
 
-export default ecategory;
+export default esubcategory;

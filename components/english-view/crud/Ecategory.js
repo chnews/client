@@ -75,7 +75,17 @@ const Ecategory = () => {
             } else {
                 setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
             }
-        });
+        }).then(() => {
+            setValues({ 
+                ...values, 
+                error: false, 
+                success: false, 
+                name: '', 
+                show: '', 
+                removed: !removed, 
+                reload: !reload
+            });
+        });;
        
     };
 
@@ -142,7 +152,7 @@ const Ecategory = () => {
                                 <div className="page-breadcrumb">
                                     <div className="row align-items-center">
                                         <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                            <h4 className="page-title">Category</h4>
+                                            <h4 className="page-title">English Category</h4>
                                         </div>
                                     </div>
                                     {/* /.col-lg-12 */}
@@ -155,6 +165,16 @@ const Ecategory = () => {
                     <div className="page-wrapper">
                         <div className="container-fluid">
                             <div className="row">
+                            <div className="col-lg-12 col-xlg-12 col-md-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <Link href="/admin/crud/eblog/esubcategory">
+                                                <a className='btn btn-primary float-end'>Add English Subcategory</a>
+                                            </Link>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">

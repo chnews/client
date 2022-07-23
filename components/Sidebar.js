@@ -54,6 +54,7 @@ const Sidebar = () => {
           </MenuItem>
          
           <MenuItem icon={<BiCategory/>}><Link href="/admin/crud/category-tag">Category</Link></MenuItem>
+          <MenuItem icon={<BiCategory/>}><Link href="/admin/crud/subcategory">Subcategory</Link></MenuItem>
           <MenuItem icon={<BiCategory/>}><Link href="/admin/crud/tags">Tag</Link></MenuItem>
             
 
@@ -87,6 +88,7 @@ const Sidebar = () => {
               <MenuItem><Link href="/admin/crud/eblog/eblogs">All Posts</Link></MenuItem>
             </SubMenu>
             <MenuItem><Link href="/admin/crud/eblog/ecategory">Category</Link></MenuItem>
+            <MenuItem><Link href="/admin/crud/eblog/esubcategory">Subcategory</Link></MenuItem>
             <SubMenu title="Pages">
               <MenuItem><Link href="/admin/page/about">About</Link></MenuItem>
               <MenuItem><Link href="/admin/page/contact">Contact</Link></MenuItem>

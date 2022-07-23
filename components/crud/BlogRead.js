@@ -160,7 +160,8 @@ const BlogRead = ({ username }) => {
                                                             <td>
                                                                 {blog.title}<br/>
                                                                 {showUpdateButton(blog)} &nbsp;&nbsp;
-                                                                <a onClick={() => deleteConfirm(blog.slug)} className="" style={{cursor: "pointer"}} data-original-title="Remove" data-container="body">Delete</a>
+                                                                <a onClick={() => deleteConfirm(blog.slug)} className="" style={{cursor: "pointer"}} data-original-title="Remove" data-container="body">Delete</a>&nbsp;&nbsp;
+                                                                <Link href={`/blogs/${blog.slug}`}><a target="_blank"  className="" style={{cursor: "pointer"}} >View</a></Link>
                                                             </td>
                                                             <td>{moment(blog.updatedAt).fromNow()}</td>
                                                             <td>

@@ -185,61 +185,61 @@ const [  letestnews,  amr,  politic,  sport,  banglades,  econom,  worldnew,  mu
 elatestnews, eamr,  epolitic,  esport,  ebanglades,  eeconom,  eworldnew,  emuktomo,  especia,  etechnolog,  eeducatio,  ehealt,  elifestyl, eartli, ereligio, etrave, ereciep, eentertainmen, egaller, evide,
  ] = await Promise.all([
     fetch(`${API}/latest`),
-    fetch(`${API}/onlycat?cat=6220fc0a36c00b3d8bf08af5`),
+    fetch(`${API}/onlycat?cat=62dc039e67fc10476854c192`),
     
-    // api for politics cateries
-    fetch(`${API}/onlycat?cat=6220fbda36c00b3d8bf08ae9`),
+    // api for politics categories
+    fetch(`${API}/onlycat?cat=62dc05cd8e9c47f21a1499b8`),
     // api for sports categories
-    fetch(`${API}/onlycat?cat=6220fc3f36c00b3d8bf08b11`),
+    fetch(`${API}/onlycat?cat=62dc0d678e9c47f21a1499d5`), //not set
   // api for bangladesh categories
-  fetch(`${API}/onlycat?cat=6220fc2036c00b3d8bf08b05`),
+  fetch(`${API}/onlycat?cat=62dc043a67fc10476854c19f`),
 
   // api for economy categories
- fetch(`${API}/onlycat?cat=6220fc3936c00b3d8bf08b0d`),
+ fetch(`${API}/onlycat?cat=62dc05cd8e9c47f21a1499b8`),
 
   // api for worldnews categories
-  fetch(`${API}/onlycat?cat=6220fc2836c00b3d8bf08b09`),
+  fetch(`${API}/onlycat?cat=62dc05bb8e9c47f21a1499b7`),
  
 
   // api for Muktomot categories
-  fetch(`${API}/onlycat?cat=6232b65a66acd2c41a454ae0`),
+  fetch(`${API}/onlycat?cat=62dc13f28e9c47f21a1499ec`),
   
 
 
   // api for SpecialNews categories
-  fetch(`${API}/onlycat?cat=6232c15e66acd2c41a454beb`),
+  fetch(`${API}/onlycat?cat=62dc15928e9c47f21a1499f3`),
   
 
   // api for Technology categories
-  fetch(`${API}/onlycat?cat=6232f00466acd2c41a455087`),
+  fetch(`${API}/onlycat?cat=62dc0d678e9c47f21a1499d5`), //not set
   
 
   // api for Education categories
-  fetch(`${API}/onlycat?cat=6232efc666acd2c41a455077`),
+  fetch(`${API}/onlycat?cat=62dc14ee8e9c47f21a1499ef`),
   
 
   // api for Health categories
-  fetch(`${API}/onlycat?cat=6232efd066acd2c41a45507b`),
+  fetch(`${API}/onlycat?cat=62dc15298e9c47f21a1499f1`),
 
 
   // api for Lifestyle categories
-  fetch(`${API}/onlycat?cat=6232efd866acd2c41a45507f`),
+  fetch(`${API}/onlycat?cat=62dc0d678e9c47f21a1499d5`), //not set
 
 
   // api for Art & Literature categories
-  fetch(`${API}/onlycat?cat=6232eff766acd2c41a455083`),
+  fetch(`${API}/onlycat?cat=62dc150b8e9c47f21a1499f0`),
  
 
   // api for religion categories
-  fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`),
+  fetch(`${API}/onlycat?cat=62dc13178e9c47f21a1499e8`),
   
 
   // api for travel categories
-  fetch(`${API}/onlycat?cat=6232f01c66acd2c41a45508f`),
+  fetch(`${API}/onlycat?cat=62dc15298e9c47f21a1499f1`), //not set
   
 
   // api for reciepe categories
-  fetch(`${API}/onlycat?cat=6232f01266acd2c41a45508b`),
+  fetch(`${API}/onlycat?cat=62dc143f8e9c47f21a1499ed`),
   
 
   // api for entertainment categories
@@ -247,11 +247,11 @@ elatestnews, eamr,  epolitic,  esport,  ebanglades,  eeconom,  eworldnew,  emukt
  
 
   // api for gallery categories
-  fetch(`${API}/onlycat?cat=6232f04b66acd2c41a45509b`),
+  fetch(`${API}/onlycat?cat=62dc15298e9c47f21a1499f1`), //not set
   
 
   // api for videos categories
-  fetch(`${API}/onlycat?cat=6232f03e66acd2c41a455097`),
+  fetch(`${API}/onlycat?cat=62dc0d678e9c47f21a1499d5`), //not set
 
 
   //*********************************english apis **************************************************************

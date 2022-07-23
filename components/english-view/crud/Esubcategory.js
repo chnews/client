@@ -1,36 +1,47 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import { getCookie } from '../../actions/auth';
-import { create, getCategories, removeCategory } from '../../actions/category';
+import { getCookie } from '../../../actions/auth';
+import {API} from '../../../config';
+import { create, getSubCategories, removeSubCategory } from '../../../actions/esubcategory';
 
-const Category = () => {
+const Esubcategory = () => {
+    const [categories, setCategories] = useState([]);
     const [values, setValues] = useState({
         name: '',
         show: '',
         error: false,
         success: false,
-        categories: [],
+        subcategories: [],
+        ecategory: '',
         removed: false,
-        reload: true
+        reload: false
     });
 
-    const { name, show, error, success, categories, removed, reload } = values;
+    const { name, show, error, success, ecategory, subcategories, removed, reload } = values;
     const token = getCookie('token');
 
     useEffect(() => {
-        loadCategories();
+        loadSubCategories();
     }, [reload]);
 
-    const loadCategories = () => {
-        getCategories().then(data => {
-            if (data.error) {
+    const loadSubCategories = () => {
+        getSubCategories().then(data => {
+            if (data?.error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, categories: data });
+                setValues({ ...values, subcategories: data });
             }
         });
     };
+
+    useEffect(() => {
+            fetch(`${API}/ecategories`)
+            .then(response => response.json())
+            .then(data => {
+                setCategories(data);
+            }).catch(err => console.log(err));
+    }, []);
 
     // const showCategories = () => {
     //     return categories?.map((c, i) => {
@@ -50,17 +61,17 @@ const Category = () => {
     const deleteConfirm = slug => {
         let answer = window.confirm('Are you sure you want to delete this category?');
         if (answer) {
-            deleteCategory(slug);
+            deleteSubCategory(slug);
         }
     };
 
-    const deleteCategory = slug => {
+    const deleteSubCategory = slug => {
         // console.log('delete', slug);
-        removeCategory(slug, token).then(data => {
+        removeSubCategory(slug, token).then(data => {
             if (error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
+                setValues({ ...values, error: false, success: false, name: '', show: '', categories: '', removed: !removed, reload: !reload });
             }
         });
     };
@@ -68,18 +79,28 @@ const Category = () => {
     const clickSubmit = e => {
         e.preventDefault();
         // console.log('create category', name);
-        create({ name, show }, token).then(data => {
+        create({ name, show, ecategory }, token).then(data => {
             if (data) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
+                setValues({ ...values, error: false, success: false, name: '', show: '', ecategory: '', removed: !removed, reload: !reload });
+                
             }
         }).then(() => {
             setValues({ 
-                ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload
+                ...values, 
+                error: false, 
+                success: false, 
+                name: '', 
+                show: '', 
+                ecategory: '', 
+                removed: !removed, 
+                reload: !reload
             });
         });
-       
+
+        
+
     };
 
     const handleChange = e => {
@@ -88,6 +109,10 @@ const Category = () => {
 
     const handleChangeShow = e => {
         setValues({ ...values, show: e.target.value, error: false, success: false, removed: '' });
+    };
+
+    const handleChangeCategory = e => {
+        setValues({ ...values, ecategory: e.target.value, error: false, success: false, removed: '' });
     };
 
     // const showSuccess = () => {
@@ -145,7 +170,7 @@ const Category = () => {
                                 <div className="page-breadcrumb">
                                     <div className="row align-items-center">
                                         <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                            <h4 className="page-title">Category</h4>
+                                            <h4 className="page-title">English SubCategory</h4>
                                         </div>
                                     </div>
                                     {/* /.col-lg-12 */}
@@ -158,17 +183,6 @@ const Category = () => {
                     <div className="page-wrapper">
                         <div className="container-fluid">
                             <div className="row">
-                            <div className="col-lg-12 col-xlg-12 col-md-12">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <Link href="/admin/crud/subcategory">
-                                                <a className='btn btn-primary float-end'>Add Subcategory</a>
-                                            </Link>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
@@ -186,6 +200,14 @@ const Category = () => {
                                                     <option className="text-muted" selected>Select Status</option>
                                                     <option value="true">Show</option>
                                                     <option value="false">Hide</option>
+                                                </select>
+                                                </div>
+
+                                                <div className="form-group">
+                                                <select onChange={handleChangeCategory} value={ecategory} class="form-select" aria-label="Default select example">
+                                                    <option className="text-muted" selected>Select Category</option>
+                                                    {categories?.map((c, i) =>  <option value={c._id}>{c.name}</option>)}
+                                                    
                                                 </select>
                                                 </div>
 
@@ -208,17 +230,22 @@ const Category = () => {
                                                     <tr>
                                                         <th scope="col">SL</th>
                                                         <th scope="col">Name</th>
+                                                        <th scope="col">Category</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Action</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {categories && categories?.map((data, i) =>
+                                                    {subcategories && subcategories?.map((data, i) =>
                                                         <tr>
                                                             <th scope="row">{i + 1}</th>
                                                            
                                                             <td>{data.name}</td>
+                                                            <td>
+                                                            {data.ecategory?.map((categories) => <small>{categories.name + ', '}</small> )}
+                                                            </td>
+                                                            
                                                             <td>
                                                                 {
                                                                     data.show && data.show == 'true' ? <span className="badge badge-success">Active</span> : <span className="badge badge-danger">Inactive</span>
@@ -244,4 +271,4 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default Esubcategory;
