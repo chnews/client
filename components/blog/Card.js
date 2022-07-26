@@ -1,9 +1,23 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import { API } from '../../config';
+import Pagination from '../Pagination';
 
 const Card = ({ blog }) => {
+
+
+    const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+      };
+
+   
+    
+    
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
             <Link key={i} href={`/categories/${c.slug}`}>
@@ -20,6 +34,7 @@ const Card = ({ blog }) => {
 
     return (
         <>
+                                   
 
                     <div className="container border border-secondary">
                         <div className='row'>

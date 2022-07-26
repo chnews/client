@@ -2,34 +2,35 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { getCookie, isAuth } from '../../actions/auth';
-import { list, removeBlog, allposts } from '../../actions/blog';
+import { list, removeBlog } from '../../actions/blog';
+import {API} from '../../config';
 import Sidebar from '../Sidebar';
 import moment from 'moment';
 import { paginate } from "../../actions/paginate";
 import Pagination from '../Pagination';
+import axios from 'axios';
 
-const BlogRead = ({ username }) => {
+const AllPage = ({ username }) => {
     
-    const pageSize = 10;
-    const [currentPage, setCurrentPage] = useState(1);
+    // const pageSize = 10;
+    // const [currentPage, setCurrentPage] = useState(1);
 
 
-    const [blogs, setBlogs] = useState([]);
+    const [pages, setPages] = useState([]);
     const [message, setMessage] = useState('');
     const token = getCookie('token');
 
     useEffect(() => {
-        loadBlogs();
+        loadPages();
     }, []);
 
-    const loadBlogs = () => {
-        allposts().then(data => {
-            if (data?.error) {
-                console.log(data.error);
-            } else {
-                setBlogs(data);
-            }
-        });
+    const loadPages = () => {
+        const url = `${API}/get-page`;
+        axios.get(url)
+        .then((res)=>{
+          console.log(res)
+          setPages(res.data);
+        })
     };
 
     const deleteBlog = slug => {
@@ -67,15 +68,15 @@ const BlogRead = ({ username }) => {
     };
 
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-      };
+    // const handlePageChange = (page) => {
+    //     setCurrentPage(page);
+    //   };
       
-      const handleDelete = (post) =>{
-        setPosts(posts.filter(p => p.id !== post.id ))
-      }
+    //   const handleDelete = (post) =>{
+    //     setPosts(posts.filter(p => p.id !== post.id ))
+    //   }
     
-      const paginatePosts = paginate(blogs, currentPage, pageSize);
+    //   const paginatePosts = paginate(blogs, currentPage, pageSize);
 
     const showAllBlogs = () => {
         return blogs?.map((blog, i) => {
@@ -157,59 +158,61 @@ const BlogRead = ({ username }) => {
                                 <div className="col-lg-12 col-xlg-12 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                        
+                                        {/* <Pagination
+                                            items={blogs.length}
+                                            pageSize={pageSize}
+                                            currentPage={currentPage}
+                                            onPageChange={handlePageChange}
+                                        /> */}
                                             <table className="table">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">SL</th>
-                                                        <th>Post Title</th>
-                                                        <th>Creation Date</th>
-                                                        <th>Categories</th>
-                                                        <th>Post by</th>
-                                                        <th>Status</th>
-                                                        <th>Featured</th>
-                                                        <th>Scrolling</th>
+                                                        <th>Page Title</th>
+                                                        <th>Menu</th>
+                                                        {/* <th>Action</th> */}
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {paginatePosts && paginatePosts?.map((blog, i) =>
+                                                    {pages && pages?.map((blog, i) =>
                                                         <tr>
-                                                            <td scope="row">{blog.id}</td>
+                                                            <td scope="row">{i + 1}</td>
                                                             <td>
                                                                 {blog.title}<br/>
-                                                                {showUpdateButton(blog)} &nbsp;&nbsp;
-                                                                <a onClick={() => deleteConfirm(blog.slug)} className="" style={{cursor: "pointer"}} data-original-title="Remove" data-container="body">Delete</a>&nbsp;&nbsp;
-                                                                <Link href={`/blogs/${blog.slug}`}><a target="_blank"  className="" style={{cursor: "pointer"}} >View</a></Link>
-                                                            </td>
-                                                            <td>{moment(blog.updatedAt).fromNow()}</td>
+                                                             </td>
                                                             <td>
+                                                                
+                                                            {blog.footermenu === "true" ? <small>Footer Menu</small> : null}<br/>
+                                                            {blog.mainmenu === "true" ? <small>Main Menu</small>  : null}<br/>
+                                                            {blog.topmenu === "true" ? <small>Top Menu</small>  : null}
+                                                            </td>
+                                                            {/* <td>
                                                                 {blog.categories && blog.categories.map((categories) => <small>{categories.name + ', '}</small> )}
                                                                 
-                                                            </td>
-                                                            <td>{blog.postedBy.name}</td>
-                                                            {blog.status === "published" ? <td><div class="label label-table label-success">Published</div></td> : <td><div class="label label-table label-primary">Draft</div></td>}
-                                                            {blog.featured === "yes" ? <td><div class="label label-table label-success">Yes</div></td> : <td><div class="label label-table label-primary">No</div></td>}
+                                                            </td> */}
+                                                            {/* <td>{blog.postedBy.name}</td> */}
+                                                            {/* {blog.footermail == "published" ? <td><div class="label label-table label-success">Published</div></td> : <td><div class="label label-table label-primary">Draft</div></td>} */}
+                                                            {/* {blog.featured === "yes" ? <td><div class="label label-table label-success">Yes</div></td> : <td><div class="label label-table label-primary">No</div></td>}
                                                             {blog.scrol === "yes" ? <td><div class="label label-table label-success">Yes</div></td> : <td><div class="label label-table label-primary">No</div></td>}
-                                                            
+                                                             */}
                                                             {/* <td>
                                                                 <div class="btn-groups">
                                                                    {showUpdateButton(blog)}
                                                                     <button onClick={() => deleteConfirm(blog.slug)} className="btn btn-danger btn-sm" data-original-title="Remove" data-container="body">Delete</button>
                                                                 </div>
                                                             </td> */}
+                                                            {/* <td>
+                                                                   {showUpdateButton(blog)} &nbsp;&nbsp;
+                                                                <a onClick={() => deleteConfirm(blog.slug)} className="" style={{cursor: "pointer"}} data-original-title="Remove" data-container="body">Delete</a>&nbsp;&nbsp;
+                                                                <Link href={`/blogs/${blog.slug}`}><a target="_blank"  className="" style={{cursor: "pointer"}} >View</a></Link>
+                                                            
+                                                            </td> */}
                                                         </tr>
                                                     )}
 
                                                 </tbody>
-                                               
                                             </table>
-                                            <Pagination
-                                                    items={blogs.length}
-                                                    pageSize={pageSize}
-                                                    currentPage={currentPage}
-                                                    onPageChange={handlePageChange}
-                                                />
                                         </div>
                                     </div>
                                 </div>
@@ -235,4 +238,4 @@ const BlogRead = ({ username }) => {
     );
 };
 
-export default BlogRead;
+export default AllPage;

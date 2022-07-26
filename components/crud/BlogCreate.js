@@ -261,7 +261,7 @@ const CreateBlog = ({ router, images }) => {
             <Modal.Body scrollable>
             <div className='row'>
             
-            {images?.map((image) => 
+            {/* {images?.map((image) => 
                                               
             <div className='col-md-2 mb-2 text-center' key={image._id}>
             
@@ -275,7 +275,7 @@ const CreateBlog = ({ router, images }) => {
             </div>
             
         
-            )}
+            )} */}
             </div>
             </Modal.Body>
             <Modal.Footer>
@@ -407,13 +407,13 @@ const CreateBlog = ({ router, images }) => {
                                                                 Upload image
                                                                 <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
                                                             </label>
-                                                            &nbsp;&nbsp;
+                                                            {/* &nbsp;&nbsp;
                                                             <label className="btn btn-outline-info">
                                                             
                                                             Select from Gallery
                                                           
                                                                 <input hidden onClick={() => setModalShow(true)}/>
-                                                            </label>
+                                                            </label> */}
 
                                                             <>
                                                             

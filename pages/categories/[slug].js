@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -10,17 +10,27 @@ import Card from '../../components/blog/Card';
 import Postsidebar from '../../components/Postsidebar';
 import Allnav from '../../components/Allnav';
 import Footer from '../../components/Footer';
+import { paginate } from '../../actions/paginate';
+import Pagination from '../../components/Pagination';
 
 const Category = ({ category, blogs, query }) => {
+    const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const paginatePosts = paginate(blogs, currentPage, pageSize);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+      };
+
     const head = () => {
         <Head>
             <title>
-                {category.name} | {APP_NAME}
+                {category?.name} | {APP_NAME}
             </title>
-            <meta name="description" content={`Letest news on ${category.name}`} />
+            <meta name="description" content={`Letest news on ${category?.name}`} />
             <link rel="canonical" href={`${DOMAIN}/categories/${query.slug}`} />
-            <meta property="og:title" content={`${category.name}| ${APP_NAME}`} />
-            <meta property="og:description" content={`News on ${category.name}`} />
+            <meta property="og:title" content={`${category?.name}| ${APP_NAME}`} />
+            <meta property="og:description" content={`News on ${category?.name}`} />
             <meta property="og:type" content="webiste" />
             <meta property="og:url" content={`${DOMAIN}/categories/${query.slug}`} />
             <meta property="og:site_name" content={`${APP_NAME}`} />
@@ -38,6 +48,7 @@ const Category = ({ category, blogs, query }) => {
             {/* <Allnav/> */}
             <Layout>
                 <main>
+               
                     <div className="container mt-4">
                         
                        
@@ -45,17 +56,23 @@ const Category = ({ category, blogs, query }) => {
                             <div className="col-md-8 col-lg-8">
                               
                                 <div className='mb-1' style={{borderLeft: '1px solid #000', borderBottom: '1px solid #000', borderRight: '1px solid #000'}}>
-                                <h6 className="font-weight-bold" style={{fontSize: "22px", marginLeft: "5px"}}>{category.name}</h6>
+                                <h6 className="font-weight-bold" style={{fontSize: "22px", marginLeft: "5px", fontWeight: "700"}}>{category?.name}</h6>
                                 </div>
                                 
-                                {blogs.map((b, i) => (
+                                {paginatePosts?.map((b, i) => (
                                     <div>
-                                        <Card key={i} blog={b} />
+                                        <Card key={i} blog={b} handlePageChange={handlePageChange}/>
                                     </div>
                                 ))}
                                 
-                         
+                                <Pagination
+                                items={blogs.length}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
+                            />
                             </div>
+                            
                             <div className='col-lg-4 col-md-4'><Postsidebar/></div>
                             </div>
                       

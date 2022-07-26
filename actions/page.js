@@ -3,22 +3,16 @@ import { API } from '../config';
 import queryString from 'query-string';
 import { isAuth, handleResponse } from './auth';
 
-export const createBlog = (blog, token) => {
-    let createBlogEndpoint;
+export const createPage = (page, token) => {
+  
 
-    if (isAuth() && isAuth().role === 1) {
-        createBlogEndpoint = `${API}/blog`;
-    } else if (isAuth() && isAuth().role === 0) {
-        createBlogEndpoint = `${API}/user/blog`;
-    }
-
-    return fetch(`${createBlogEndpoint}`, {
+    return fetch(`${API}/add-page`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: blog
+        body: page
     })
         .then(response => {
             handleResponse(response);
@@ -101,18 +95,6 @@ export const list = username => {
     }
 
     return fetch(`${listBlogsEndpoint}`, {
-        method: 'GET'
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
-export const allposts = ()=> {
- 
-
-    return fetch(`${API}/allposts`, {
         method: 'GET'
     })
         .then(response => {

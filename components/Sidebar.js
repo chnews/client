@@ -71,6 +71,8 @@ const Sidebar = () => {
 
           <SubMenu icon={<MdOutlineContactPage />} title="Pages">
             <MenuItem><Link href="/admin/page/about">About</Link></MenuItem>
+            <MenuItem><Link href="/admin/page/addpage">Add Page</Link></MenuItem>
+            <MenuItem><Link href="/admin/page/allpage">All Pages</Link></MenuItem>
             <MenuItem><Link href="/admin/page/contact">Contact</Link></MenuItem>
             <MenuItem><Link href="/admin/page/editor">Editor</Link></MenuItem>
             <MenuItem><Link href="/admin/page/advertisement">Advertisement</Link></MenuItem>
