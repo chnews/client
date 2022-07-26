@@ -7,8 +7,9 @@ import Sidebar from '../../../components/Sidebar';
 import StyleLinks from '../../../components/StyleLinks';
 import SigninStyle from '../../../components/SigninStyle';
 import Header from '../../../components/Header';
+import {API} from '../../../config';
 
-const Blog = () => {
+const Blog = ({images}) => {
 
     
     return (
@@ -21,7 +22,7 @@ const Blog = () => {
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col-12'>
-                            <BlogCreate />
+                            <BlogCreate images = {images}/>
                         </div>
                     </div>
                 </div>
@@ -36,5 +37,16 @@ const Blog = () => {
         
     );
 };
+
+
+export const getServerSideProps = async () => {
+    const photos = await fetch(`${API}/posts`);
+    const images = await photos.json();
+    return {
+        props: {
+        images
+        }
+    }
+}
 
 export default Blog;

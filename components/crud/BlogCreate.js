@@ -1,5 +1,9 @@
 import Link from 'next/link';
+import React from 'react';
 import { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import {API} from '../../config';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
@@ -12,8 +16,9 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import '../../node_modules/react-quill/dist/quill.snow.css';
 import { QuillModules, QuillFormats } from '../../helpers/quill';
 import Sidebar from '../Sidebar';
+import Gallery from '../../components/admin/Gallery';
 
-const CreateBlog = ({ router }) => {
+const CreateBlog = ({ router, images }) => {
     const blogFromLS = () => {
         if (typeof window === 'undefined') {
             return false;
@@ -25,6 +30,9 @@ const CreateBlog = ({ router }) => {
             return false;
         }
     };
+
+   
+    const [modalShow, setModalShow] = React.useState(false);
 
     const [image, setImage] = useState(null);
 
@@ -61,6 +69,8 @@ const CreateBlog = ({ router }) => {
         initSubCategories();
         initTags();
     }, [router]);
+
+   
 
     const initCategories = () => {
         getCategories().then(data => {
@@ -232,11 +242,56 @@ const CreateBlog = ({ router }) => {
         </div>
     );
 
+    function MyVerticallyCenteredModal(props) {
+        return (
+          <Modal
+            {...props}
+            size="xl"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            style={{height: '80%'}}
+            
+            
+          >
+            <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Gallery
+        </Modal.Title>
+      </Modal.Header>
+            <Modal.Body scrollable>
+            <div className='row'>
+            
+            {images?.map((image) => 
+                                              
+            <div className='col-md-2 mb-2 text-center' key={image._id}>
+            
+                <img 
+                src = {`${API}/blog/photo/${image.slug}`}
+                onChange={handleChange('photo')}
+                width = '100%' 
+                height = '110px' 
+                />
+            
+            </div>
+            
+        
+            )}
+            </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        );
+      }
+
    
   
 
     return (
         <>
+
+        
  
  <div className="container-fluid bg-white mt-3 pb-2">
       <div className="row">
@@ -349,10 +404,29 @@ const CreateBlog = ({ router }) => {
                                                     {/* <small className="text-muted">Max size: 1mb</small> */}
                                                             <br />
                                                             <label className="btn btn-outline-info">
-                                                                Upload featured image
+                                                                Upload image
                                                                 <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
                                                             </label>
+                                                            &nbsp;&nbsp;
+                                                            <label className="btn btn-outline-info">
+                                                            
+                                                            Select from Gallery
+                                                          
+                                                                <input hidden onClick={() => setModalShow(true)}/>
+                                                            </label>
+
+                                                            <>
+                                                            
+
+                                                            <MyVerticallyCenteredModal
+                                                                show={modalShow}
+                                                                onHide={() => setModalShow(false)}
+                                                            />
+                                                            </>
+                                                             
                                                     </div>
+
+                                                  
                                                     </form>
                                                 </div>
                                                 <hr />
@@ -423,6 +497,9 @@ const CreateBlog = ({ router }) => {
                     </div>
                     </form>
                 </>
+
+
+                
     
               
         

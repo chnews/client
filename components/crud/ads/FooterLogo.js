@@ -48,12 +48,7 @@ const Footerlogo = () => {
     <>
     
 
-                    <div className="page-wrapper">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                    <div className="card">
-                                        <div className="card-body">
+                   
                                           <p className="text-bold text-uppercase">
                                             Footer Logo
                                           </p>
@@ -86,17 +81,6 @@ const Footerlogo = () => {
                                                 </div>
 
 
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                    
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                 </>
   )
 }

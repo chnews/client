@@ -2,15 +2,15 @@ import fetch from 'isomorphic-fetch';
 import { API } from '../config';
 import { handleResponse } from './auth';
 
-export const create = (category, token) => {
-    return fetch(`${API}/category`, {
+export const create = (tag, token) => {
+    return fetch(`${API}/etag`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(category)
+        body: JSON.stringify(tag)
     })
         .then(response => {
             handleResponse(response);
@@ -19,8 +19,8 @@ export const create = (category, token) => {
         .catch(err => console.log(err));
 };
 
-export const getCategories = () => {
-    return fetch(`${API}/categories`, {
+export const getTags = () => {
+    return fetch(`${API}/etags`, {
         method: 'GET'
     })
         .then(response => {
@@ -29,8 +29,8 @@ export const getCategories = () => {
         .catch(err => console.log(err));
 };
 
-export const singleCategory = slug => {
-    return fetch(`${API}/category/${slug}`, {
+export const singleTag = slug => {
+    return fetch(`${API}/etag/${slug}`, {
         method: 'GET'
     })
         .then(response => {
@@ -39,35 +39,9 @@ export const singleCategory = slug => {
         .catch(err => console.log(err));
 };
 
-export const singleCategory2 = slug => {
-    return fetch(`${API}/ucategory/${slug}`, {
-        method: 'GET'
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
-export const removeCategory = (slug, token) => {
-    return fetch(`${API}/category/${slug}`, {
+export const removeTag = (slug, token) => {
+    return fetch(`${API}/etag/${slug}`, {
         method: 'DELETE',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        }
-    })
-        .then(response => {
-            handleResponse(response);
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
-export const updateCategory = (slug, token) => {
-    return fetch(`${API}/update/${slug}`, {
-        method: 'PATCH',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',

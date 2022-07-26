@@ -1,68 +1,88 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import {API} from '../../../config';
 import Router from 'next/router';
-import { getCookie } from '../../../actions/auth';
-import { create, getCategories, removeCategory } from '../../../actions/ecategory';
-import StyleLinks from '../../StyleLinks';
+import {API} from '../../config';
+import { getCookie } from '../../actions/auth';
+import { create, getCategories, removeCategory, updateCategory } from '../../actions/category';
 import axios from 'axios';
 
-const Ecategory = () => {
-    const [values, setValues] = useState({
-        name: '',
-        show: '',
-        slug: '',
-        isUpdating: '',
+const Category = () => {
+    const [name, setName] = useState("");
+    const [slug, setSlug] = useState("");
+    const [show, setShow] = useState("");
+    const [category, setCat] = useState({
         error: false,
         success: false,
         categories: [],
         removed: false,
-        reload: false
+        reload: true
     });
+    const [isUpdating, setUpdating] = useState("");
+    
 
-    const { name, show, slug,isUpdating, error, success, categories, removed, reload } = values;
+    const { error, success, categories, removed, reload } = category;
     const token = getCookie('token');
 
 
-    const addUpdateCat = (e) => {
+    // useEffect(() => {
+    //     axios.get(`${API}/get-cat`)
+    //       .then((res) => setCat(res.data))
+    //       .catch((err) => console.log(err));
+    //   }, [])
+
+
+      const addUpdateCat = (e) => {
         e.preventDefault();
 
         if (isUpdating === "") {
-          axios.post(`${API}/save-ecat`, { name, slug, show })
+          axios.post(`${API}/save-cat`, { name, slug, show })
             .then((res) => {
               console.log(res.data);
-              setValues({ ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload });
+                setName("");
+                setSlug("");
+                setShow("");
+                setCat({ error: false, success: false, removed: !removed, reload: !reload });
             }).catch((err) => console.log(err));
           
         }else{
-          axios.post(`${API}/update-ecat`, { _id: isUpdating, name, slug, show })
+          axios.post(`${API}/update-cat`, { _id: isUpdating, name, slug, show })
             .then((res) => {
               console.log(res.data);
-                setValues({ ...values, error: false, success: false, isUpdating:'', name: '', show: '', slug: '', removed: !removed, reload: !reload });
+                setName("");
+                setSlug("");
+                setShow("");
+                setUpdating("");
+                setCat({ error: false, success: false, removed: !removed, reload: !reload });
             })
             .catch((err) => console.log(err));
         }
       }
 
-      const updateCat = (_id, name, slug, show) => {
-       
-        setValues({ isUpdating:_id, name: name, slug: slug, show: show});
 
+      const updateCat = (_id, name, slug, show) => {
+        setUpdating(_id);
+        setName(name);
+        setSlug(slug);
+        setShow(show);
       }
 
     useEffect(() => {
         loadCategories();
+        // getAllCat();
+       
     }, [reload]);
 
     const loadCategories = () => {
         getCategories().then(data => {
-            if (data?.error) {
+            if (data.error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, categories: data });
+                setCat({ ...category, categories: data });
             }
         });
     };
+
+   
 
     // const showCategories = () => {
     //     return categories?.map((c, i) => {
@@ -92,45 +112,121 @@ const Ecategory = () => {
             if (error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
+                setCat({ error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload });
             }
         });
     };
 
-    const clickSubmit = e => {
-        e.preventDefault();
-        // console.log('create category', name);
-        create({ name, show }, token).then(data => {
-            if (data) {
-                setValues({ ...values, error: data.error, success: false });
-            } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
-            }
-        }).then(() => {
-            setValues({ 
-                ...values, 
-                error: false, 
-                success: false, 
-                name: '', 
-                show: '', 
-                removed: !removed, 
-                reload: !reload
-            });
-        });
+    // const upCategory = slug => {
+    //     e.preventDefault();
+    //     // console.log('delete', slug);
+    //     updateCategory(slug, token).then(data => {
+    //         if (error) {
+    //             console.log(data.error);
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload });
+    //         }
+    //     });
+    // };
+
+    // const editCategory = e => {
+    //     e.preventDefault();
+    //     // console.log('create category', name);
+    //     updateCategory( slug , token).then(data => {
+    //         if (data) {
+    //             setValues({ ...values, error: data.error, success: false });
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug:'', removed: !removed, reload: !reload });
+    //         }
+    //     }).then(() => {
+    //         setValues({ 
+    //             ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload
+    //         });
+    //     });
        
-    };
+    // };
 
-    const handleChange = e => {
-        setValues({ ...values, name: e.target.value, error: false, success: false, removed: '' });
-    };
+    // const clickSubmit = e => {
+    //     e.preventDefault();
+    //     // console.log('create category', name);
+    //     create({ name, show }, token).then(data => {
+    //         if (data) {
+    //             setValues({ ...values, error: data.error, success: false });
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug:'', removed: !removed, reload: !reload });
+    //         }
+    //     }).then(() => {
+    //         setValues({ 
+    //             ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload
+    //         });
+    //     });
+       
+    // };
 
-    const handleChangeShow = e => {
-        setValues({ ...values, show: e.target.value, error: false, success: false, removed: '' });
-    };
+    // const handleChange = e => {
+    //     setValues({ ...values, name: e.target.value, error: false, success: false, removed: '' });
+    // };
 
-    const handleChangeSlug = e => {
-        setValues({ ...values, slug: e.target.value, error: false, success: false, removed: '' });
-    };
+    // const handleChangeShow = e => {
+    //     setValues({ ...values, show: e.target.value, error: false, success: false, removed: '' });
+    // };
+
+    // const handleChangeSlug = e => {
+    //     setValues({ ...values, slug: e.target.value, error: false, success: false, removed: '' });
+    // };
+
+
+    // function selectCat(name, show) {
+       
+    //     setValues({ ...values, name: name, show: show});
+    //     axios.put(`${API}/update`, { name: name, show: show, id: id }, { headers: { Authorization: `Bearer ${token}` } })
+    
+    
+    //      console.log();
+    // }
+
+    
+
+//     function updateUser(e)
+//   {
+//     e.preventDefault();
+//     let item={name, show};
+//     console.warn("item",item)
+//     fetch(`http://localhost:5000/update/${_id}`, {
+//       method: 'PUT',
+//       headers:{
+//         'Accept':'application/json',
+//         'Content-Type':'application/json'
+//       },
+//       body:JSON.stringify(item)
+//     }).then((result) => {
+//       result.json().then((resp) => {
+//         console.warn(resp)
+//       })
+//     })
+//   }
+
+// const updateTest = (id) => {
+//         let name = prompt("Enter new name");
+//         axios.put(`${API}/update`, { name: name, show: show, id: id }, { headers: { Authorization: `Bearer ${token}` } })
+//      console.log(id);
+// }
+
+
+
+
+    // function getAllCat() {
+    //     fetch(`${API}/allcat2`).then((result) => {
+    //       result.json().then((resp) => {
+    //         // console.warn(resp)
+    //         setValues({ name: resp[0].name, show: resp[0].show });
+    //         // setName(resp[0].name)
+    //         // setMobile(resp[0].mobile)
+    //         // setEmail(resp[0].email)
+    //         // setUserId(resp[0].id)
+    //       })
+    //     })
+    //   }
 
     // const showSuccess = () => {
     //     if (success) {
@@ -187,7 +283,7 @@ const Ecategory = () => {
                                 <div className="page-breadcrumb">
                                     <div className="row align-items-center">
                                         <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                            <h4 className="page-title">English Category</h4>
+                                            <h4 className="page-title">Category</h4>
                                         </div>
                                     </div>
                                     {/* /.col-lg-12 */}
@@ -203,13 +299,14 @@ const Ecategory = () => {
                             <div className="col-lg-12 col-xlg-12 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                            <Link href="/admin/crud/eblog/esubcategory">
-                                                <a className='btn btn-primary float-end'>Add English Subcategory</a>
+                                            <Link href="/admin/crud/subcategory">
+                                                <a className='btn btn-primary float-end'>Add Subcategory</a>
                                             </Link>
                                             
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
@@ -218,17 +315,18 @@ const Ecategory = () => {
                                                 
                                                 <div className="form-group">
                                                     <label className="text-muted">Name</label>
-                                                    <input type="text" className="form-control" onChange={handleChange} value={name} required />
+                                                    <input type="text" className="form-control" onChange={(e) => setName(e.target.value)} value={name} required />
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label className="text-muted">Slug</label>
-                                                    <input type="text" className="form-control" onChange={handleChangeSlug} value={slug} required />
+                                                    <input type="text" className="form-control" onChange={(e) => setSlug(e.target.value)} value={slug} required />
                                                 </div>
 
+                                              
                                                 
                                                 <div className="form-group">
-                                                <select onChange={handleChangeShow} value={show} class="form-select" aria-label="Default select example">
+                                                <select onChange={(e) => setShow(e.target.value)} value={show} class="form-select" aria-label="Default select example">
                                                     <option className="text-muted" selected>Select Status</option>
                                                     <option value="true">Show</option>
                                                     <option value="false">Hide</option>
@@ -236,15 +334,20 @@ const Ecategory = () => {
                                                 </div>
 
                                                 <div>
-                                                <button type="submit" className="btn btn-primary">
+                                                    
+                                                    <button type="submit" className="btn btn-primary">
                                                     {isUpdating ? "Update" : "Submit"}
                                                     </button>
+                                                   
+                                                    
                                                 </div>
 
 
                                             </form>
                                         </div>
                                     </div>
+
+                                    
                                 </div>
                                 <div className="col-lg-8 col-xlg-9 col-md-12">
                                     <div className="card">
@@ -260,6 +363,7 @@ const Ecategory = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                              
                                                     {categories && categories?.map((data, i) =>
                                                         <tr>
                                                             <th scope="row">{i + 1}</th>
@@ -270,13 +374,17 @@ const Ecategory = () => {
                                                                     data.show && data.show == 'true' ? <span className="badge badge-success">Active</span> : <span className="badge badge-danger">Inactive</span>
                                                                 }
                                                             </td>
+                                                            
                                                             <td>
-                                                            <button className='btn btn-success btn-sm' onClick={() => updateCat(data._id, data.name, data.slug, data.show)} >
+                                                                <button className='btn btn-danger btn-sm' key={i} onClick={() => deleteConfirm(data.slug)}>Delete</button>
+                                                                <Link href="/admin/crud/catupdate">
+                                                                <button className='btn btn-success btn-sm' onClick={() => updateCat(data._id, data.name, data.slug, data.show)} >
                                                                     Edit
-                                                                </button></td>
+                                                                </button>
+                                                                </Link>
+                                                            </td>
                                                         </tr>
                                                     )}
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -291,4 +399,4 @@ const Ecategory = () => {
     );
 };
 
-export default Ecategory;
+export default Category;

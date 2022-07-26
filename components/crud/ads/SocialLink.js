@@ -69,26 +69,11 @@ const SocialLink = () => {
   return (
     <>
     
-        {/* <h1 className='mt-5'>Logo Upload</h1>
-        <input type="text" name="name" value={name} onChange={handleNameChange}/>
-        <input type="file" name="image" onChange={handleChange}/>
-        {/* <input type="submit" className='mt-5 float-end' onClick={logoApi}/> 
-        <button type="submit" className='mt-5 float-end' onClick={logoApi}>Logo Submit</button> */}
      
-
-    
-     <>
-            <div>
-                <>
+            
                     
 
-                    <div className="page-wrapper">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                    <div className="card">
-                                    
-                                        <div className="card-body">
+                   
                                         <p className="text-bold text-uppercase">
                                           Social Links
                                         </p>
@@ -124,20 +109,7 @@ const SocialLink = () => {
                                                 </div>
 
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                   
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </>
-            </div>
-        </>
-
+       
 
 
 

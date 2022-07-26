@@ -5,6 +5,9 @@ import { getCookie } from '../../actions/auth';
 import {API} from '../../config';
 import { create, getSubCategories, removeSubCategory } from '../../actions/subcategory';
 import { getCategories } from '../../actions/category';
+import axios from 'axios';
+
+
 
 const Subcategory = () => {
     const [categories, setCategories] = useState([]);
@@ -15,12 +18,40 @@ const Subcategory = () => {
         success: false,
         subcategories: [],
         category: '',
+        isUpdating: '',
         removed: false,
         reload: false
     });
 
-    const { name, show, error, success, category, subcategories, removed, reload } = values;
+    const { name, show, error, success, category, isUpdating, subcategories, removed, reload } = values;
     const token = getCookie('token');
+
+    const addUpdateCat = (e) => {
+        e.preventDefault();
+
+        if (isUpdating === "") {
+          axios.post(`${API}/save-scat`, { name, show, category })
+            .then((res) => {
+              console.log(res.data);
+              setValues({ ...values, error: false, success: false, name: '', show: '', category: '', removed: !removed, reload: !reload });
+            }).catch((err) => console.log(err));
+          
+        }else{
+          axios.post(`${API}/update-scat`, { _id: isUpdating, name, show, category })
+            .then((res) => {
+              console.log(res.data);
+                setValues({ ...values, error: false, success: false, isUpdating:'', name: '', show: '', category: '', removed: !removed, reload: !reload });
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+
+      const updateCat = (_id, name, show) => {
+       
+        setValues({ isUpdating:_id, name: name, show: show});
+
+      }
+
 
     useEffect(() => {
         loadSubCategories();
@@ -178,7 +209,7 @@ const Subcategory = () => {
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                            <form onSubmit={clickSubmit}>
+                                            <form onSubmit={addUpdateCat}>
 
                                                 
                                                 <div className="form-group">
@@ -205,7 +236,7 @@ const Subcategory = () => {
 
                                                 <div>
                                                     <button type="submit" className="btn btn-primary">
-                                                        Submit
+                                                        {isUpdating ? "Update" : "Submit"}
                                                     </button>
                                                 </div>
 
@@ -245,6 +276,9 @@ const Subcategory = () => {
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-danger btn-sm' key={i} onClick={() => deleteConfirm(data.slug)}>Delete</button>
+                                                                <button className='btn btn-success btn-sm' onClick={() => updateCat(data._id, data.name, data.show)} >
+                                                                    Edit
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     )}

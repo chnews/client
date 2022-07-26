@@ -1,25 +1,75 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
+import {API} from '../../config';
 import { getCookie } from '../../actions/auth';
-import { create, getCategories, removeCategory } from '../../actions/category';
+import { create, getCategories, removeCategory, updateCategory } from '../../actions/category';
+import axios from 'axios';
 
 const Category = () => {
-    const [values, setValues] = useState({
-        name: '',
-        show: '',
+    const [name, setName] = useState("");
+    const [slug, setSlug] = useState("");
+    const [show, setShow] = useState("");
+    const [category, setCat] = useState({
         error: false,
         success: false,
         categories: [],
         removed: false,
         reload: true
     });
+    const [isUpdating, setUpdating] = useState("");
+    
 
-    const { name, show, error, success, categories, removed, reload } = values;
+    const { error, success, categories, removed, reload } = category;
     const token = getCookie('token');
+
+
+    // useEffect(() => {
+    //     axios.get(`${API}/get-cat`)
+    //       .then((res) => setCat(res.data))
+    //       .catch((err) => console.log(err));
+    //   }, [])
+
+
+      const addUpdateCat = (e) => {
+        e.preventDefault();
+
+        if (isUpdating === "") {
+          axios.post(`${API}/save-cat`, { name, slug, show })
+            .then((res) => {
+              console.log(res.data);
+                setName("");
+                setSlug("");
+                setShow("");
+                setCat({ error: false, success: false, removed: !removed, reload: !reload });
+            }).catch((err) => console.log(err));
+          
+        }else{
+          axios.post(`${API}/update-cat`, { _id: isUpdating, name, slug, show })
+            .then((res) => {
+              console.log(res.data);
+                setName("");
+                setSlug("");
+                setShow("");
+                setUpdating("");
+                setCat({ error: false, success: false, removed: !removed, reload: !reload });
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+
+
+      const updateCat = (_id, name, slug, show) => {
+        setUpdating(_id);
+        setName(name);
+        setSlug(slug);
+        setShow(show);
+      }
 
     useEffect(() => {
         loadCategories();
+        // getAllCat();
+       
     }, [reload]);
 
     const loadCategories = () => {
@@ -27,10 +77,12 @@ const Category = () => {
             if (data.error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, categories: data });
+                setCat({ ...category, categories: data });
             }
         });
     };
+
+   
 
     // const showCategories = () => {
     //     return categories?.map((c, i) => {
@@ -60,35 +112,121 @@ const Category = () => {
             if (error) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
+                setCat({ error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload });
             }
         });
     };
 
-    const clickSubmit = e => {
-        e.preventDefault();
-        // console.log('create category', name);
-        create({ name, show }, token).then(data => {
-            if (data) {
-                setValues({ ...values, error: data.error, success: false });
-            } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload });
-            }
-        }).then(() => {
-            setValues({ 
-                ...values, error: false, success: false, name: '', show: '', removed: !removed, reload: !reload
-            });
-        });
+    // const upCategory = slug => {
+    //     e.preventDefault();
+    //     // console.log('delete', slug);
+    //     updateCategory(slug, token).then(data => {
+    //         if (error) {
+    //             console.log(data.error);
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload });
+    //         }
+    //     });
+    // };
+
+    // const editCategory = e => {
+    //     e.preventDefault();
+    //     // console.log('create category', name);
+    //     updateCategory( slug , token).then(data => {
+    //         if (data) {
+    //             setValues({ ...values, error: data.error, success: false });
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug:'', removed: !removed, reload: !reload });
+    //         }
+    //     }).then(() => {
+    //         setValues({ 
+    //             ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload
+    //         });
+    //     });
        
-    };
+    // };
 
-    const handleChange = e => {
-        setValues({ ...values, name: e.target.value, error: false, success: false, removed: '' });
-    };
+    // const clickSubmit = e => {
+    //     e.preventDefault();
+    //     // console.log('create category', name);
+    //     create({ name, show }, token).then(data => {
+    //         if (data) {
+    //             setValues({ ...values, error: data.error, success: false });
+    //         } else {
+    //             setValues({ ...values, error: false, success: false, name: '', show: '', slug:'', removed: !removed, reload: !reload });
+    //         }
+    //     }).then(() => {
+    //         setValues({ 
+    //             ...values, error: false, success: false, name: '', show: '', slug: '', removed: !removed, reload: !reload
+    //         });
+    //     });
+       
+    // };
 
-    const handleChangeShow = e => {
-        setValues({ ...values, show: e.target.value, error: false, success: false, removed: '' });
-    };
+    // const handleChange = e => {
+    //     setValues({ ...values, name: e.target.value, error: false, success: false, removed: '' });
+    // };
+
+    // const handleChangeShow = e => {
+    //     setValues({ ...values, show: e.target.value, error: false, success: false, removed: '' });
+    // };
+
+    // const handleChangeSlug = e => {
+    //     setValues({ ...values, slug: e.target.value, error: false, success: false, removed: '' });
+    // };
+
+
+    // function selectCat(name, show) {
+       
+    //     setValues({ ...values, name: name, show: show});
+    //     axios.put(`${API}/update`, { name: name, show: show, id: id }, { headers: { Authorization: `Bearer ${token}` } })
+    
+    
+    //      console.log();
+    // }
+
+    
+
+//     function updateUser(e)
+//   {
+//     e.preventDefault();
+//     let item={name, show};
+//     console.warn("item",item)
+//     fetch(`http://localhost:5000/update/${_id}`, {
+//       method: 'PUT',
+//       headers:{
+//         'Accept':'application/json',
+//         'Content-Type':'application/json'
+//       },
+//       body:JSON.stringify(item)
+//     }).then((result) => {
+//       result.json().then((resp) => {
+//         console.warn(resp)
+//       })
+//     })
+//   }
+
+// const updateTest = (id) => {
+//         let name = prompt("Enter new name");
+//         axios.put(`${API}/update`, { name: name, show: show, id: id }, { headers: { Authorization: `Bearer ${token}` } })
+//      console.log(id);
+// }
+
+
+
+
+    // function getAllCat() {
+    //     fetch(`${API}/allcat2`).then((result) => {
+    //       result.json().then((resp) => {
+    //         // console.warn(resp)
+    //         setValues({ name: resp[0].name, show: resp[0].show });
+    //         // setName(resp[0].name)
+    //         // setMobile(resp[0].mobile)
+    //         // setEmail(resp[0].email)
+    //         // setUserId(resp[0].id)
+    //       })
+    //     })
+    //   }
 
     // const showSuccess = () => {
     //     if (success) {
@@ -172,17 +310,23 @@ const Category = () => {
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                            <form onSubmit={clickSubmit}>
+                                            <form onSubmit={addUpdateCat}>
 
                                                 
                                                 <div className="form-group">
                                                     <label className="text-muted">Name</label>
-                                                    <input type="text" className="form-control" onChange={handleChange} value={name} required />
+                                                    <input type="text" className="form-control" onChange={(e) => setName(e.target.value)} value={name} required />
                                                 </div>
 
+                                                <div className="form-group">
+                                                    <label className="text-muted">Slug</label>
+                                                    <input type="text" className="form-control" onChange={(e) => setSlug(e.target.value)} value={slug} required />
+                                                </div>
+
+                                              
                                                 
                                                 <div className="form-group">
-                                                <select onChange={handleChangeShow} value={show} class="form-select" aria-label="Default select example">
+                                                <select onChange={(e) => setShow(e.target.value)} value={show} class="form-select" aria-label="Default select example">
                                                     <option className="text-muted" selected>Select Status</option>
                                                     <option value="true">Show</option>
                                                     <option value="false">Hide</option>
@@ -190,15 +334,20 @@ const Category = () => {
                                                 </div>
 
                                                 <div>
+                                                    
                                                     <button type="submit" className="btn btn-primary">
-                                                        Submit
+                                                    {isUpdating ? "Update" : "Submit"}
                                                     </button>
+                                                   
+                                                    
                                                 </div>
 
 
                                             </form>
                                         </div>
                                     </div>
+
+                                    
                                 </div>
                                 <div className="col-lg-8 col-xlg-9 col-md-12">
                                     <div className="card">
@@ -214,6 +363,7 @@ const Category = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                              
                                                     {categories && categories?.map((data, i) =>
                                                         <tr>
                                                             <th scope="row">{i + 1}</th>
@@ -224,12 +374,17 @@ const Category = () => {
                                                                     data.show && data.show == 'true' ? <span className="badge badge-success">Active</span> : <span className="badge badge-danger">Inactive</span>
                                                                 }
                                                             </td>
+                                                            
                                                             <td>
-                                                                <button className='btn btn-danger btn-sm' key={i} onClick={() => deleteConfirm(data.slug)}>Delete</button>
+                                                                {/* <button className='btn btn-danger btn-sm' key={i} onClick={() => deleteConfirm(data.slug)}>Delete</button> */}
+                                                                
+                                                                <button className='btn btn-success btn-sm' onClick={() => updateCat(data._id, data.name, data.slug, data.show)} >
+                                                                    Edit
+                                                                </button>
+                                                                
                                                             </td>
                                                         </tr>
                                                     )}
-
                                                 </tbody>
                                             </table>
                                         </div>

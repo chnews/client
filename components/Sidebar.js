@@ -89,6 +89,7 @@ const Sidebar = () => {
             </SubMenu>
             <MenuItem><Link href="/admin/crud/eblog/ecategory">Category</Link></MenuItem>
             <MenuItem><Link href="/admin/crud/eblog/esubcategory">Subcategory</Link></MenuItem>
+            <MenuItem><Link href="/admin/crud/eblog/etags">Tags</Link></MenuItem>
             <SubMenu title="Pages">
               <MenuItem><Link href="/admin/page/about">About</Link></MenuItem>
               <MenuItem><Link href="/admin/page/contact">Contact</Link></MenuItem>

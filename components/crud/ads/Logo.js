@@ -37,28 +37,7 @@ const Logo = () => {
 
   return (
     <>
-                    <div className="container-fluid bg-white pb-2">
-                        <div className="row">
-                            <div className="col-md-12 ">
-                                <div className="page-breadcrumb">
-                                    <div className="row align-items-center">
-                                        <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                            <h4 className="page-title">Setting</h4>
-                                        </div>
-                                    </div>
-                                    {/* /.col-lg-12 */}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="page-wrapper">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                    <div className="card">
-                                        <div className="card-body">
+                   
                                           <p className="text-bold text-uppercase">
                                             Logo
                                           </p>
@@ -91,17 +70,7 @@ const Logo = () => {
                                                 </div>
 
 
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-xlg-6 col-md-6">
-                                    
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                                       
                 </>
        
   )

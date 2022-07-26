@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import { getCookie } from '../../actions/auth';
-import { create, getTags, removeTag } from '../../actions/tag';
+import { getCookie } from '../../../actions/auth';
+import { create, getTags, removeTag } from '../../../actions/etag';
 
-const Tag = () => {
+const Etag = () => {
     const [values, setValues] = useState({
         name: '',
         error: false,
@@ -59,7 +59,7 @@ const Tag = () => {
             if (data) {
                 console.log(data.error);
             } else {
-                setValues({ ...values, error: false, success: false, name: '', removed: true, reload: !reload });
+                setValues({ ...values, error: false, success: false, name: '', removed: !removed, reload: !reload });
             }
         }).then(() => {
             setValues({ ...values, error: false, success: false, name: '', removed: true, reload: !reload });
@@ -122,8 +122,7 @@ const Tag = () => {
 
     return (
         <>
-
-<>
+        <>
                     <div className="container-fluid bg-white pb-2">
                         <div className="row">
                             <div className="col-md-12 ">
@@ -206,9 +205,15 @@ const Tag = () => {
                         </div>
                     </div>
                 </>
-        
+       
+            
+            
+            <div onMouseMove={mouseMoveHandler}>
+                {/* {newTagFom()} */}
+                {/* {showTags()} */}
+            </div>
         </>
     );
 };
 
-export default Tag;
+export default Etag;

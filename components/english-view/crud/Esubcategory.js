@@ -4,6 +4,9 @@ import Router from 'next/router';
 import { getCookie } from '../../../actions/auth';
 import {API} from '../../../config';
 import { create, getSubCategories, removeSubCategory } from '../../../actions/esubcategory';
+import axios from 'axios';
+
+
 
 const Esubcategory = () => {
     const [categories, setCategories] = useState([]);
@@ -13,13 +16,41 @@ const Esubcategory = () => {
         error: false,
         success: false,
         subcategories: [],
-        ecategory: '',
+        category: '',
+        isUpdating: '',
         removed: false,
         reload: false
     });
 
-    const { name, show, error, success, ecategory, subcategories, removed, reload } = values;
+    const { name, show, error, success, category, isUpdating, subcategories, removed, reload } = values;
     const token = getCookie('token');
+
+    const addUpdateCat = (e) => {
+        e.preventDefault();
+
+        if (isUpdating === "") {
+          axios.post(`${API}/save-escat`, { name, show, category })
+            .then((res) => {
+              console.log(res.data);
+              setValues({ ...values, error: false, success: false, name: '', show: '', category: '', removed: !removed, reload: !reload });
+            }).catch((err) => console.log(err));
+          
+        }else{
+          axios.post(`${API}/update-escat`, { _id: isUpdating, name, show, category })
+            .then((res) => {
+              console.log(res.data);
+                setValues({ ...values, error: false, success: false, isUpdating:'', name: '', show: '', category: '', removed: !removed, reload: !reload });
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+
+      const updateCat = (_id, name, show) => {
+       
+        setValues({ isUpdating:_id, name: name, show: show});
+
+      }
+
 
     useEffect(() => {
         loadSubCategories();
@@ -79,25 +110,16 @@ const Esubcategory = () => {
     const clickSubmit = e => {
         e.preventDefault();
         // console.log('create category', name);
-        create({ name, show, ecategory }, token).then(data => {
+        create({ name, show, category }, token).then(data => {
             if (data) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
-                setValues({ ...values, error: false, success: false, name: '', show: '', ecategory: '', removed: !removed, reload: !reload });
-                
+                setValues({ ...values, error: false, success: false, name: '', show: '', category: '', removed: !removed, reload: !reload });
+               
             }
         }).then(() => {
-            setValues({ 
-                ...values, 
-                error: false, 
-                success: false, 
-                name: '', 
-                show: '', 
-                ecategory: '', 
-                removed: !removed, 
-                reload: !reload
-            });
-        });
+            setValues({ ...values, error: false, success: false, name: '', show: '', category: '', removed: !removed, reload: !reload });
+        });;
 
         
 
@@ -112,7 +134,7 @@ const Esubcategory = () => {
     };
 
     const handleChangeCategory = e => {
-        setValues({ ...values, ecategory: e.target.value, error: false, success: false, removed: '' });
+        setValues({ ...values, category: e.target.value, error: false, success: false, removed: '' });
     };
 
     // const showSuccess = () => {
@@ -170,7 +192,7 @@ const Esubcategory = () => {
                                 <div className="page-breadcrumb">
                                     <div className="row align-items-center">
                                         <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                            <h4 className="page-title">English SubCategory</h4>
+                                            <h4 className="page-title">Sub Category</h4>
                                         </div>
                                     </div>
                                     {/* /.col-lg-12 */}
@@ -186,7 +208,7 @@ const Esubcategory = () => {
                                 <div className="col-lg-4 col-xlg-3 col-md-12">
                                     <div className="card">
                                         <div className="card-body">
-                                            <form onSubmit={clickSubmit}>
+                                            <form onSubmit={addUpdateCat}>
 
                                                 
                                                 <div className="form-group">
@@ -204,7 +226,7 @@ const Esubcategory = () => {
                                                 </div>
 
                                                 <div className="form-group">
-                                                <select onChange={handleChangeCategory} value={ecategory} class="form-select" aria-label="Default select example">
+                                                <select onChange={handleChangeCategory} value={category} class="form-select" aria-label="Default select example">
                                                     <option className="text-muted" selected>Select Category</option>
                                                     {categories?.map((c, i) =>  <option value={c._id}>{c.name}</option>)}
                                                     
@@ -213,7 +235,7 @@ const Esubcategory = () => {
 
                                                 <div>
                                                     <button type="submit" className="btn btn-primary">
-                                                        Submit
+                                                        {isUpdating ? "Update" : "Submit"}
                                                     </button>
                                                 </div>
 
@@ -253,6 +275,9 @@ const Esubcategory = () => {
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-danger btn-sm' key={i} onClick={() => deleteConfirm(data.slug)}>Delete</button>
+                                                                <button className='btn btn-success btn-sm' onClick={() => updateCat(data._id, data.name, data.show)} >
+                                                                    Edit
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     )}
@@ -272,3 +297,4 @@ const Esubcategory = () => {
 };
 
 export default Esubcategory;
+
