@@ -50,11 +50,19 @@ const AllLogo = () => {
                                 </div>
 
                                 <div className="col-lg-6 col-xlg-6 col-md-6">
+                                    
+                                </div>
+
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
                                     <div className="card">
                                         <div className="card-body">
                                             <Footerlogo/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div className="col-lg-6 col-xlg-6 col-md-6">
+                                    
                                 </div>
 
                                 <div className="col-lg-6 col-xlg-6 col-md-6">
@@ -64,6 +72,7 @@ const AllLogo = () => {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div className="col-lg-6 col-xlg-6 col-md-6">
                                     
                                 </div>

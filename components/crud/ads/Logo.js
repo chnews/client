@@ -1,5 +1,5 @@
 import { LineAxisOutlined } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { getCookie, isAuth } from '../../../actions/auth';
 import { API } from '../../../config';
 import axios from 'axios';
@@ -10,6 +10,12 @@ const Logo = () => {
     const [name, setName] = useState("");
     const [linkto, setLinkto] = useState("");
     const token = getCookie('token');
+
+    const ref = useRef();
+    const reset = () => {
+        ref.current.value = "";
+      }
+    
 
     const handleChange = (e) => {
         console.log(e.target.files)
@@ -22,7 +28,8 @@ const Logo = () => {
     }
     
 
-    const logoApi = () => {
+    const logoApi = (e) => {
+        e.preventDefault();
         const url = `${API}/logo`;
         const formData = new FormData();
         formData.append("logo", image)
@@ -43,18 +50,18 @@ const Logo = () => {
                                           </p>
                                           <hr/>
 
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label className="">Logo Title</label>
                                                     <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange}/>
-                                                </div>
-
+                                                </div> */}
+<form onSubmit={logoApi}>
                                                 <div className='row'>
                                                     <div className='col-12'>
                                                         <div className="mb-3">
                                                             <label htmlFor="formFileSm" className="form-label">
                                                                Logo Image
                                                             </label>
-                                                            <input type="file"  name="image" onChange={handleChange} accept="image/*" className="form-control form-control-sm" id="formFileSm"/>
+                                                            <input type="file"  name="image" ref={ref} onChange={handleChange} accept="image/*" className="form-control form-control-sm" id="formFileSm"/>
                                                         </div>
                                                     </div>
 
@@ -64,11 +71,11 @@ const Logo = () => {
                                                 </div>
 
                                                 <div>
-                                                    <button type="submit" className="btn btn-primary" onClick={logoApi}>
+                                                    <button type="submit" className="btn btn-primary" onClick={reset}>
                                                         Submit
                                                     </button>
                                                 </div>
-
+                                                </form>
 
                                        
                 </>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import {FaArrowAltCircleUp} from 'react-icons/fa';
 
 
 
@@ -21,6 +22,7 @@ const Footer = () => {
     const [data, setData] = useState([]);
     const [link, setLink] = useState([]);
     const [add, setAdd] = useState([]);
+    const [address, setAddress] = useState([]);
 
     useEffect(() => {
         let url = `${API}/get-footer-logo`;
@@ -36,6 +38,12 @@ const Footer = () => {
     useEffect(() => {
         axios.get(`${API}/get-social`)
         .then((res) => {setLink(res.data)})
+        .catch((err) => {console.log(err)});
+    }, [])
+
+    useEffect(() => {
+        axios.get(`${API}/address/get`)
+        .then((res) => {setAddress(res.data)})
         .catch((err) => {console.log(err)});
     }, [])
 
@@ -62,11 +70,33 @@ const Footer = () => {
         //     console.log(links)
         // });
     // })
-
+    
+let iimmg = "news3.png";
   return (
       <>
-       
-        <div className='container-fluid bg-light' style={{height: '300px', position: 'relative', minHeight: '300px'}}>
+       <span className='fixed'
+       style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        zIndex: "9999",
+        cursor: 'pointer'
+       }}
+       onClick={() => window.scrollTo(0, 0)}
+       >
+        
+        <FaArrowAltCircleUp size={30}/>
+        
+        </span>
+        <div className='container-fluid bg-light' 
+            style={{
+                height: '300px', 
+                position: 'relative', 
+                minHeight: '300px', 
+                backgroundImage: `url(${iimmg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '100% 100%',
+            }}>
             <div className='row text-center'>
                 <div className='col-lg-12 mt-5'>
                     {/* comment */}
@@ -102,16 +132,16 @@ const Footer = () => {
                     <div className='col-lg-3'>
                         <Link href="/">
                             <a>
-                            <img src={data} height="100" width="200" style={{cursor: "pointer"}}/>
+                            <img src={data && data ? data : null} height="100" width="200" style={{cursor: "pointer"}}/>
                             </a>
                         </Link>   
                     </div>
                     <div className='col-lg-6 mt-4'>
                         <p style={{fontSize: '20px'}}>
                             
-                        {add.map((singleData) => {
+                        {address?.map((singleData) => {
                             return (<>
-                                {singleData.name}             
+                                {singleData.address}             
                                 </> 
                             )
                         })}
@@ -133,11 +163,28 @@ const Footer = () => {
                         })}
                     
                     </div>
-                       
+                    
+                 
                         
-                </div>    
+                </div>   
+              
+                <div className='row mt-4'>
+                <hr/>
+                            <div className='col-6'>
+                            <p className='float-start'>@ Copyright all right reserved <span className='bold font-weight-bold'>CHALAMANNEWYORK.COM</span></p>
+                            </div>
+                            <div className='col-6'>
+                            <p className='float-end'>Created and Developed by Techshore Bangldesh</p>
+                            </div>
+                        </div> 
             </div>    
         </div>
+
+        
+
+                    
+                      
+                  
       </>
     
   )

@@ -68,6 +68,8 @@ const Footerlogo = () => {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-lg-6 col-xlg-6 col-md-6">
+                                   
+
                                     <div className="card">
                                         <div className="card-body">
                                           <p className="text-bold text-uppercase">
@@ -75,16 +77,16 @@ const Footerlogo = () => {
                                           </p>
                                           <hr/>
 
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label className="">Title</label>
                                                     <input type="text" className="form-control" name="name" value={name} onChange={handleNameChange}/>
-                                                </div>
+                                                </div> */}
 
                                                 <div className='row'>
                                                     <div className='col-12'>
                                                         <div className="mb-3">
                                                             <label htmlFor="formFileSm" className="form-label">
-                                                               Footer Logo Image
+                                                               Footer Logo Imagekhjghj
                                                             </label>
                                                             <input type="file"  name="image" onChange={handleChange} accept="image/*" className="form-control form-control-sm" id="formFileSm"/>
                                                         </div>
@@ -104,6 +106,8 @@ const Footerlogo = () => {
 
                                             
                                         </div>
+
+                                        
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-xlg-6 col-md-6">

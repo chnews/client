@@ -12,6 +12,28 @@ import Postsidebar from '../../components/Postsidebar';
 import axios from 'axios';
 import SingleSmallAds from '../../components/frontend/BelowPostAds';
 import PostSidebar from '../../components/english-view/PostSidebar';
+import { AiOutlineClockCircle, AiOutlinePrinter } from 'react-icons/ai';
+import {
+    FacebookShareButton,
+    LinkedinShareButton,
+    PinterestShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+  } from "react-share";
+  
+
+  import {
+    FacebookIcon,
+    FacebookMessengerIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    RedditIcon,
+    TumblrIcon,
+    TwitterIcon,
+    WhatsappIcon,
+  } from "react-share";
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -129,6 +151,25 @@ const SingleBlog = ({ blog, query }) => {
                                         
                                             <div className="col-md-12 lead">
                                                 {renderHTML(blog.body)}
+
+                                                <div className='mt-4'>
+                                              <h6 className='text-primary mt-1'>Share this post...</h6>
+                                                <FacebookShareButton children={<FacebookIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <LinkedinShareButton children={<LinkedinIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <PinterestShareButton children={<PinterestIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <RedditShareButton children={<RedditIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <TumblrShareButton children={<TumblrIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <TwitterShareButton children={<TwitterIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <WhatsappShareButton children={<WhatsappIcon size={32} round={true} />} url={`${API}/eblog/${blog.slug}`}/> &nbsp;&nbsp;&nbsp;
+                                                <button className='btn btn-light' 
+                                                // onclick={
+                                                //     useRef(() => {window.print()}, [])
+                                                // }
+                                                >
+                                                   Print <AiOutlinePrinter/>
+                                                </button>
+                                                
+                                              </div>
                                             </div>
                                        
                                             <div className='col-lg-12'>

@@ -61,26 +61,26 @@ const AllLogo = () => {
         <input type="file" name="image" onChange={handleChange}/>
         <input type="submit" className='mt-5 float-end' onClick={logoApi}/> */}
      
-<div className='row mt-5'>
-  <div className='col-4'>
+
+ 
     <Logo/>
-  </div>
+  
 
 
-  <div className='col-4'>
+ 
     <Footerlogo/>
-  </div>
 
-  <div className='col-4'>
+
+  
     <SocialLink/>
-  </div>
+
 
   
 
   
 
   
-</div>
+
 
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { singleBlog, listRelated } from '../../actions/blog';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
@@ -11,6 +11,28 @@ import SmallCard from '../../components/blog/SmallCard';
 import Postsidebar from '../../components/Postsidebar';
 import axios from 'axios';
 import SingleSmallAds from '../../components/frontend/BelowPostAds';
+import { AiOutlineClockCircle, AiOutlinePrinter } from 'react-icons/ai';
+import {
+    FacebookShareButton,
+    LinkedinShareButton,
+    PinterestShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+  } from "react-share";
+  
+
+  import {
+    FacebookIcon,
+    FacebookMessengerIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    RedditIcon,
+    TumblrIcon,
+    TwitterIcon,
+    WhatsappIcon,
+  } from "react-share";
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -82,6 +104,16 @@ const SingleBlog = ({ blog, query }) => {
     }, [])
 
 
+    const monthNames = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন","জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বার", "ডিসেম্বর"];
+    const days = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+    
+    let today = new Date();
+    let date =''+''+ monthNames[(today.getMonth())] +' '+ today.getDate()+','+' '+today.getFullYear();
+    let dayName = days[today.getDay()];
+
+    
+
+
     return (
         <React.Fragment>
 
@@ -104,17 +136,22 @@ const SingleBlog = ({ blog, query }) => {
                             <section>
                                 <div className="container-fluid">
                                     <div className='row '>
+                                        
                                         <div className='col-lg-8 border mt-3'>
-                                            <h3 className="display-2 pb-3 pt-3 font-weight-bold text-start">{blog.title}</h3>
-                                            <p className="lead mt-3 mark">
+                                            <h5 className="display-2 pb-1 pt-3 font-weight-bold text-start">{blog.title}</h5>
+                                            {/* <p className="lead mt-3 mark">
                                                 Written by{' '}
                                                 <Link href={`/profile/${blog.postedBy.username}`}>
                                                     <a>{blog.postedBy.username}</a>
                                                 </Link>{' '}
                                                 | Published {moment(blog.updatedAt).fromNow()}
+                                            </p> */}
+                                            <p className="mt-3">
+                                                <AiOutlineClockCircle /> {dayName}, {date}
+                                                
                                             </p>
 
-                                            <div className="row mt-2">
+                                            <div className="row my-5">
                                                 <img
                                                     src={`${API}/blog/photo/${blog.slug}`}
                                                     alt={blog.title}
@@ -128,9 +165,29 @@ const SingleBlog = ({ blog, query }) => {
                                         
                                             <div className="col-md-12 lead">
                                                 {renderHTML(blog.body)}
+                                                
+                                                
+                                              <div className='mt-4'>
+                                              <h6 className='text-primary mt-1'>শেয়ার করুন...</h6>
+                                                <FacebookShareButton children={<FacebookIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <LinkedinShareButton children={<LinkedinIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <PinterestShareButton children={<PinterestIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <RedditShareButton children={<RedditIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <TumblrShareButton children={<TumblrIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <TwitterShareButton children={<TwitterIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/>&nbsp;&nbsp;&nbsp;
+                                                <WhatsappShareButton children={<WhatsappIcon size={32} round={true} />} url={`${API}/blog/${blog.slug}`}/> &nbsp;&nbsp;&nbsp;
+                                                <button className='btn btn-light' 
+                                                // onclick={
+                                                //     useRef(() => {window.print()}, [])
+                                                // }
+                                                >
+                                                   Print <AiOutlinePrinter/>
+                                                </button>
+                                                
+                                              </div>
                                             </div>
                                        
-                                            <div className='col-lg-12'>
+                                            <div className='col-lg-12 mt-4'>
                                             <SingleSmallAds/>
                                                 
                                             </div>
@@ -142,10 +199,19 @@ const SingleBlog = ({ blog, query }) => {
                                                 <br />
                                             </div> */}
                                         </div>
+                                           
 
                                         <div className='col-lg-4'>
                                        <Postsidebar/>
                                         </div>
+{/* 
+                                            <div className='col-8 mt-5'>
+                                                <h4>Comment...</h4>
+                                                <label for="name"></label>
+                                                <input type="text" id="name" name="name" value="" className='form-group' placeholder='Write your name...'/>
+                                                <textarea className='form-group' style={{width: "100%"}}>Write something about this news...</textarea><br/>
+                                                <button className='btn btn-primary float-end'>Submit</button>
+                                            </div> */}
                                     </div>
 
 
@@ -158,7 +224,7 @@ const SingleBlog = ({ blog, query }) => {
                         
 
                         <div className="container">
-                            <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
+                            <h4 className="text-center pt-5 pb-5 h2">Related News</h4>
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
 
